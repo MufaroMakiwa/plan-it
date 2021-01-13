@@ -1,1 +1,20 @@
 /* Fill me in :) */
+.Skeleton-background {
+    background-image: url("../../public/LandingPageBackground.png");
+    background-size: cover;
+    height: 100vh;
+    text-align: center;
+}
+
+.Skeleton-login-logout {
+    height: 64px;
+    width: 192px;
+    justify-content: center;
+}
+
+.Skeleton-planit {
+    margin: 0;
+    padding-top: 40%;
+    margin-bottom: 1%;
+    font-size: 50px;
+}

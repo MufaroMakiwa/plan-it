@@ -20,9 +20,11 @@ class Skeleton extends Component {
 
   render() {
     return (
-      <>
+      <div className="Skeleton-background">
+        <h1 className="Skeleton-planit">Plan-It!</h1>
         {this.props.userId ? (
           <GoogleLogout
+            className="Skeleton-login-logout"
             clientId={GOOGLE_CLIENT_ID}
             buttonText="Logout"
             onLogoutSuccess={this.props.handleLogout}
@@ -30,14 +32,14 @@ class Skeleton extends Component {
           />
         ) : (
           <GoogleLogin
+            className="Skeleton-login-logout"
             clientId={GOOGLE_CLIENT_ID}
             buttonText="Login"
             onSuccess={this.props.handleLogin}
             onFailure={(err) => console.log(err)}
           />
         )}
-        <h1>This is gonna be my landing page</h1>
-      </>
+      </div>
     );
   }
 }
