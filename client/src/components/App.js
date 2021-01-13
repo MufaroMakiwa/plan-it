@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
+import { useHistory } from "react-router-dom";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
+import Home from "./pages/Home.js";
 
 import "../utilities.css";
 
@@ -36,12 +38,14 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
+      navigate('/home');
     });
   };
 
   handleLogout = () => {
     this.setState({ userId: undefined });
     post("/api/logout");
+    navigate('/');
   };
 
   render() {
@@ -50,6 +54,12 @@ class App extends Component {
         <Router>
           <Skeleton
             path="/"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <Home
+            path="/home"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
