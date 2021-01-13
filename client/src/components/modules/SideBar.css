@@ -1,10 +1,11 @@
 .SideBar-container {
   height: 100%;
-  width: 272px;
+  width: var(--sidebar_width);
   margin: 0px;
   padding: 0px;
   background-color: var(--background_color_secondary);
-  position: relative;
+  position: fixed;
+  overflow-x: hidden;
 }
 
 .SideBar-row {

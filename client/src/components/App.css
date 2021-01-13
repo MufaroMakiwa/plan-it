@@ -1,8 +1,11 @@
 .App-container {
   width: 100vw;
   height: 100vh;
-  background: var(--background_color_primary);
-  display: flex;
-  flex-direction: row;
   position: relative;
+}
+
+.App-main {
+  margin-left: var(--sidebar_width);
+  position: relative;
+  padding: 24px;
 }

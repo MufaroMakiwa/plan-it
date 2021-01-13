@@ -53,11 +53,13 @@ class App extends Component {
     return (
       <div className="App-container">
         <SideBar />
-        <Router>
-          <Current path="/"/>
-          <Challenges path="/challenges"/>
-          <NotFound default />
-        </Router>     
+        <div className="App-main">
+          <Router>
+            <Current path="/"/>
+            <NotFound default />
+          </Router>  
+        </div>
+           
         <AddTaskButton />
       </div>
     );

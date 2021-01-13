@@ -27,11 +27,26 @@
   --background_color_primary: #121212;
   --background_color_secondary: #4f4655;
   --color_on_secondary: #ada9b0;
+  --sidebar_width: 272px;
 
   --xs: 4px;
   --s: 8px;
   --m: 16px;
   --l: 24px;
+}
+
+/* * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+} */
+
+h1 {
+  margin-top: 0;
 }
 
 body {
@@ -42,6 +57,7 @@ body {
   font-weight: normal;
   font-size: 14px;
   color: white;
+  background-color: var(--background_color_primary);
 }
 
 form {
