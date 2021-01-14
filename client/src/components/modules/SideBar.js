@@ -77,29 +77,29 @@ class SideBar extends Component {
             )
           })} */}
 
-          <li key="Current" onClick={() =>this.updateSelected("/")}>
-            <Link to="/" className={"/" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="Current" onClick={() =>this.updateSelected("/CurrentGoals")}>
+            <Link to="/CurrentGoals" className={"/CurrentGoals" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
               <div>Current</div> 
             </Link>
           </li>
 
-          <li key="Challenges" onClick={() =>this.updateSelected("/challenges")}>
-            <Link to="/challenges" className={"/challenges" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="Challenges" onClick={() =>this.updateSelected("/Challenges")}>
+            <Link to="/Challenges" className={"/Challenges" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Challenges</div> 
               <span className="SideBar-notifications">2</span>
             </Link>
           </li>
 
-          <li key="Friends" onClick={() =>this.updateSelected("/friends")}>
-            <Link to="/friends" className={"/friends" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="Friends" onClick={() =>this.updateSelected("/Friends")}>
+            <Link to="/Friends" className={"/Friends" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
               <div>Friends</div> 
               <span className="SideBar-notifications">2</span>
             </Link>
           </li>
           
 
-          <li key="Completed" onClick={() =>this.updateSelected("/completed")}>
-            <Link to="/completed" className={"/completed" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="Completed" onClick={() =>this.updateSelected("/Completed")}>
+            <Link to="/Completed" className={"/Completed" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
               <div>Completed</div> 
             </Link>
           </li>
