@@ -1,20 +1,25 @@
 /* Fill me in :) */
 .Skeleton-background {
     background-image: url("../../public/LandingPageBackground.png");
-    background-size: cover;
+    background-size: 100vw;
+    background-color: #f8f8f8;
     height: 100vh;
     text-align: center;
+    background-repeat: no-repeat;
 }
 
 .Skeleton-login-logout {
     height: 64px;
     width: 192px;
     justify-content: center;
+    border-color: #FE6D73 !important;
+    border-width: 3px !important;
+    border-radius: 50px !important;
 }
 
 .Skeleton-planit {
     margin: 0;
-    padding-top: 40%;
+    padding-top: 36%;
     margin-bottom: 1%;
-    font-size: 50px;
+    font-size: 4vw;
 }
