@@ -3,6 +3,8 @@ import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
 import CurrentGoals from "./pages/CurrentGoals.js";
+import Friends from "./pages/Friends.js";
+
 
 import "../utilities.css";
 
@@ -61,6 +63,10 @@ class App extends Component {
             path="/CurrentGoals"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <Friends
+            path="/Friends"
             userId={this.state.userId}
           />
           <NotFound default />
