@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
-import CurrentChallenges from "./pages/CurrentGoals.js";
+import CurrentGoals from "./pages/CurrentGoals.js";
 
 import "../utilities.css";
 
@@ -57,7 +57,7 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
-          <CurrentChallenges
+          <CurrentGoals
             path="/CurrentGoals"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
