@@ -15,11 +15,7 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 16px;
-  margin: 24px 0 0 0;
-}
-
-.CurrentTask-container:first-of-type {
-  margin: 0 0 0 0;
+  margin: 24px;
 }
 
 .CurrentTask-progressButton {

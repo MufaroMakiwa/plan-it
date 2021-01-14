@@ -15,5 +15,4 @@
 .AddTaskButton-addButton:hover {
   background-color: var(--color_on_secondary);
   color: black;
-  mix-blend-mode: hard-light;
 }
