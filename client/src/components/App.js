@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Current from "./pages/Current.js";
+import Friends from "./pages/Friends.js";
 import Challenges from "./pages/Challenges.js";
 import SideBar from "./modules/SideBar.js";
 import AddTaskButton from "./modules/AddTaskButton.js";
@@ -56,6 +57,7 @@ class App extends Component {
         <div className="App-main">
           <Router>
             <Current path="/"/>
+            <Friends path="/friends"/>
             <NotFound default />
           </Router>  
         </div>
