@@ -24,6 +24,10 @@
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
   --white: #fff;
+  --background_color_primary: #121212;
+  --background_color_secondary: #4f4655;
+  --color_on_secondary: #ada9b0;
+  --sidebar_width: 272px;
 
   --xs: 4px;
   --s: 8px;
@@ -31,11 +35,29 @@
   --l: 24px;
 }
 
+/* * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+} */
+
+h1 {
+  margin-top: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  color: white;
+  background-color: var(--background_color_primary);
 }
 
 form {

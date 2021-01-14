@@ -1,0 +1,91 @@
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.CurrentTask-icon {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.CurrentTask-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+}
+
+.CurrentTask-progressButton {
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+  padding: 8px;
+  border-radius: 50%;
+  margin: 8px;
+  transform: scale(0.8);
+}
+
+.CurrentTask-progressButton:hover {
+  background-color: var(--color_on_secondary);
+  color: black;
+  mix-blend-mode: hard-light;
+}
+
+.CurrentTask-updateProgress {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.CurrentTask-details {
+  width: 50%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.CurrentTask-taskTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.CurrentTask-completedLabel {
+  margin-left: 8px;
+}
+
+.CurrentTask-subContainer {
+  margin-top: 8px;
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+}
+
+.CurrentTask-description {
+  font-weight: bold;
+  color: #fa5460;
+}
+
+.CurrentTask-progress {
+  width: 100%;
+  height: 16px;
+  border-radius: 15px;
+  border: 1px solid #fa5460;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.CurrentTask-progressFill {
+  height: 100%;
+  background-color: #fa5460;
+}

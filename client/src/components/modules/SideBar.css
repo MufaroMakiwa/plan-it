@@ -1,0 +1,156 @@
+.SideBar-container {
+  height: 100%;
+  width: var(--sidebar_width);
+  margin: 0px;
+  padding: 0px;
+  background-color: var(--background_color_secondary);
+  position: fixed;
+  overflow-x: hidden;
+}
+
+.SideBar-row {
+  position: relative;
+  width: auto;
+  height: 40px;
+  mix-blend-mode: hard-light;
+  background-color: #c4c4c4;
+  border-radius: 16px;
+  margin: 24px;
+  display: flex;
+  flex-direction: row;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.selected {
+  mix-blend-mode: normal;
+  background-color: white;
+}
+
+.SideBar-row:hover {
+  cursor: pointer;
+  mix-blend-mode: unset;
+  /* background-color: #e2e2e2; */
+}
+
+.SideBar-menus {
+  padding: 0;
+  height: auto;
+  list-style-type: none;
+}
+
+.SideBar-button {
+  margin: 16px 16px;
+  border: none;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 16px;
+  mix-blend-mode: hard-light;
+  background-color: #c4c4c4;
+  outline: none;
+}
+
+.SideBar-button:hover {
+  mix-blend-mode: normal;
+  background-color: white;
+}
+
+.SideBar-horizontalLine {
+  width: 100%;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.SideBar-signOutContainer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  mix-blend-mode: overlay;
+}
+
+.SideBar-nameContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.1);
+  mix-blend-mode: normal;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.SideBar-name {
+  font-family: Alfa Slab One;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 2.5em;
+  color: #000000;
+}
+
+.SideBar-username {
+  color: white;
+}
+
+.SideBar-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px;
+  padding: 8px;
+  flex-direction: column;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.SideBar-profile:visited,
+.SideBar-profile:hover,
+.SideBar-profile:active {
+  color: inherit;
+}
+
+.SideBar-profile:hover {
+  background: rgba(0, 0, 0, 0.1);
+  mix-blend-mode: normal;
+  cursor: pointer;
+}
+
+.SideBar-divider {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 16px 24px;
+  mix-blend-mode: overlay;
+}
+
+.SideBar-icons {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  flex-direction: column;
+}
+
+.SideBar-notifications {
+  position: absolute;
+  right: 8px;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #fa5460;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1em;
+}
+
+.SideBar-buttonLabel {
+  color: black;
+}

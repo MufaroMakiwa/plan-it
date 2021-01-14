@@ -1,0 +1,18 @@
+.AddTaskButton-addButton {
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  background-color: var(--background_color_secondary);
+  margin: 0 16px 16px 0;
+  border-radius: 50%;
+}
+
+.AddTaskButton-addButton:hover {
+  background-color: var(--color_on_secondary);
+  color: black;
+}
