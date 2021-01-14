@@ -1,0 +1,10 @@
+.App-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.App-main {
+  margin-left: var(--sidebar_width);
+  position: relative;
+}

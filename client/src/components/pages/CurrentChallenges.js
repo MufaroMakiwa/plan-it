@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
+import Current from "./Current.js";
+import Challenges from "./Challenges.js";
+import SideBar from "../modules/SideBar.js";
+import AddTaskButton from "../modules/AddTaskButton.js";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -7,7 +11,7 @@ import "./Skeleton.css";
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
-class Home extends Component {
+class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -20,7 +24,17 @@ class Home extends Component {
 
   render() {
     return (
-      <>
+      <div className="App-container">
+        <SideBar />
+        <div className="App-main">
+          <Router>
+            <Current path="/"/>
+            <NotFound default />
+          </Router>  
+        </div>
+           
+        <AddTaskButton />
+
         {this.props.userId ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID}
@@ -36,26 +50,9 @@ class Home extends Component {
             onFailure={(err) => console.log(err)}
           />
         )}
-        <h1>Good luck on your project!!!! :)</h1>
-        <h2> What we provide in this skeleton</h2>
-        <ul>
-          <li>Google Auth (Skeleton.js & auth.js)</li>
-          <li>Socket Infrastructure (client-socket.js & server-socket.js)</li>
-          <li>User Model (auth.js & user.js)</li>
-        </ul>
-        <h2> What you need to change</h2>
-        <ul>
-          <li>Change the font in utilities.css</li>
-          <li>Change the Frontend CLIENT_ID for Google Auth (Skeleton.js)</li>
-          <li>Change the Server CLIENT_ID for Google Auth (auth.js)</li>
-          <li>Change the Database SRV for Atlas (server.js)</li>
-          <li>Change the Database Name for MongoDB (server.js)</li>
-          <li>Add a favicon to your website at the path client/dist/favicon.ico</li>
-          <li>Update website title in client/dist/index.html</li>
-        </ul>
-      </>
+      </div>
     );
   }
 }
 
-export default Home;
+export default CurrentChallenges;

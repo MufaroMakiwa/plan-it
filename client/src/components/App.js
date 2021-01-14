@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Router, navigate } from "@reach/router";
-import { useHistory } from "react-router-dom";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Home from "./pages/Home.js";
+import CurrentChallenges from "./pages/CurrentChallenges.js";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
-
 import { get, post } from "../utilities";
+
 
 /**
  * Define the "App" component as a class.
@@ -38,7 +37,7 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
-      navigate('/home');
+      navigate('/CurrentChallenges');
     });
   };
 
@@ -58,8 +57,8 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
-          <Home
-            path="/home"
+          <CurrentChallenges
+            path="/CurrentChallenges"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
