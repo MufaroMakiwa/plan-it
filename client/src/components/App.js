@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
-import Current from "./pages/Current.js";
+import LandingPage from "./pages/LandingPage.js";
+import CurrentGoals from "./pages/CurrentGoals.js";
 import Friends from "./pages/Friends.js";
-import Challenges from "./pages/Challenges.js";
-import SideBar from "./modules/SideBar.js";
-import AddTaskButton from "./modules/AddTaskButton.js";
 
 import "../utilities.css";
-import "./App.css";
-
 
 import { socket } from "../client-socket.js";
 import { get, post } from "../utilities";
@@ -42,28 +38,39 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
+      navigate('/CurrentGoals');
     });
   };
 
   handleLogout = () => {
     this.setState({ userId: undefined });
     post("/api/logout");
+    navigate('/');
   };
 
   render() {
     return (
-      <div className="App-container">
-        <SideBar />
-        <div className="App-main">
-          <Router>
-            <Current path="/"/>
-            <Friends path="/friends"/>
-            <NotFound default />
-          </Router>  
-        </div>
-           
-        <AddTaskButton />
-      </div>
+      <>
+        <Router>
+          <LandingPage
+            path="/"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <CurrentGoals
+            path="/CurrentGoals"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <Friends
+            path="/Friends"
+            userId={this.state.userId}
+          />
+          <NotFound default />
+        </Router>
+      </>
     );
   }
 }
