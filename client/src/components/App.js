@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage.js";
 import CurrentGoals from "./pages/CurrentGoals.js";
 import Friends from "./pages/Friends.js";
 
+
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
