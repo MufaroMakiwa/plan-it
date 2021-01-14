@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
-import CurrentChallenges from "./pages/CurrentChallenges.js";
+import CurrentChallenges from "./pages/CurrentGoals.js";
 
 import "../utilities.css";
 
@@ -37,7 +37,7 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
-      navigate('/CurrentChallenges');
+      navigate('/CurrentGoals');
     });
   };
 
@@ -58,7 +58,7 @@ class App extends Component {
             userId={this.state.userId}
           />
           <CurrentChallenges
-            path="/CurrentChallenges"
+            path="/CurrentGoals"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}

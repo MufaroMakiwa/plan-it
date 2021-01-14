@@ -5,12 +5,12 @@ import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 
 import "../../utilities.css";
-import "./CurrentChallenges.css";
+import "./CurrentGoals.css";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
-class CurrentChallenges extends Component {
+class CurrentGoals extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -23,9 +23,9 @@ class CurrentChallenges extends Component {
 
   render() {
     return (
-      <div className="CurrentChallenges-container">
+      <div className="CurrentGoals-container">
         <SideBar />
-        <div className="CurrentChallenges-main">
+        <div className="CurrentGoals-main">
             <Current/>
         </div>
            
@@ -35,7 +35,7 @@ class CurrentChallenges extends Component {
   }
 }
 
-export default CurrentChallenges;
+export default CurrentGoals;
 
 /*
 {this.props.userId ? (
