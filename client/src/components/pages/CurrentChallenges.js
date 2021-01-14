@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Current from "./Current.js";
-import Challenges from "./Challenges.js";
 import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 
 import "../../utilities.css";
-import "./Skeleton.css";
+import "./CurrentChallenges.css";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
@@ -24,18 +23,22 @@ class CurrentChallenges extends Component {
 
   render() {
     return (
-      <div className="App-container">
+      <div className="CurrentChallenges-container">
         <SideBar />
-        <div className="App-main">
-          <Router>
-            <Current path="/"/>
-            <NotFound default />
-          </Router>  
+        <div className="CurrentChallenges-main">
+            <Current/>
         </div>
            
         <AddTaskButton />
+      </div>
+    );
+  }
+}
 
-        {this.props.userId ? (
+export default CurrentChallenges;
+
+/*
+{this.props.userId ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID}
             buttonText="Logout"
@@ -50,9 +53,4 @@ class CurrentChallenges extends Component {
             onFailure={(err) => console.log(err)}
           />
         )}
-      </div>
-    );
-  }
-}
-
-export default CurrentChallenges;
+*/

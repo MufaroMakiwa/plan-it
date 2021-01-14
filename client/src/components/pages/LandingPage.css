@@ -1,5 +1,5 @@
 /* Fill me in :) */
-.Skeleton-background {
+.LandingPage-background {
     background-image: url("../../public/LandingPageBackground.png");
     background-size: 100vw;
     background-color: #f8f8f8;
@@ -8,7 +8,7 @@
     background-repeat: no-repeat;
 }
 
-.Skeleton-login-logout {
+.LandingPage-login-logout {
     height: 64px;
     width: 192px;
     justify-content: center;
@@ -17,9 +17,10 @@
     border-radius: 50px !important;
 }
 
-.Skeleton-planit {
+.LandingPage-title-text {
     margin: 0;
     padding-top: 36%;
     margin-bottom: 1%;
     font-size: 4vw;
+    color: #000318;
 }
