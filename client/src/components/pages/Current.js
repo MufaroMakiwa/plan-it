@@ -99,21 +99,21 @@ class Current extends Component {
     }
 
     return ( 
-        <div className="page-container">
-          <SideBar link="/current"/>
-          <div className="page_main">
-            {tasksList}
-          </div>
-
-          <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
-
-          <AddTaskDialog 
-            isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-            closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
-
-          </AddTaskDialog>
-  
+      <div className="page-container">
+        <SideBar link="/current"/>
+        <div className="page_main">
+          {tasksList}
         </div>
+
+        <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
+
+        <AddTaskDialog 
+          isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
+
+        </AddTaskDialog>
+
+      </div>
     );
   }
 }

@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import React, { Component } from 'react';
 import "./AddTaskDialog.css";
 import "../../utilities.css";
+import { ViewDaySharp } from '@material-ui/icons';
 
 
 class AddTaskDialog extends Component {
@@ -29,7 +30,7 @@ class AddTaskDialog extends Component {
     }
 
     if (this.state.duration.trim().length === 0) {
-      form.elements["taskDurationLayout"].classList.add("AddTaskDialog-durationLayoutError");
+      form.elements["taskDuration"].classList.add("AddTaskDialog-inputError");
       invalid = true;
     }
     (!invalid && this.props.closeAddTaskDialog());
@@ -56,8 +57,8 @@ class AddTaskDialog extends Component {
     const value =  target.value.trim();
 
     // remove error when user starts typing
-    if (target.classList.contains("AddTaskDialog-durationLayoutError") && value.length) {
-      target.classList.remove("AddTaskDialog-durationLayoutError")
+    if (target.classList.contains("AddTaskDialog-inputError") && value.length) {
+      target.classList.remove("AddTaskDialog-inputError")
     }
     
     this.setState({

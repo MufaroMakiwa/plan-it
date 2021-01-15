@@ -5,6 +5,8 @@ import LandingPage from "./pages/LandingPage.js";
 import Friends from "./pages/Friends.js";
 import Current from "./pages/Current.js";
 import Challenges from "./pages/Challenges.js";
+import Completed from "./pages/Completed.js";
+import Profile from "./pages/Profile.js";
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
@@ -64,12 +66,6 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}/>
 
-          {/* <CurrentGoals
-            path="/CurrentGoals"
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            userId={this.state.userId}/> */}
-
           <Friends
             path="/friends"
             handleLogin={this.handleLogin}
@@ -82,6 +78,17 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}/>
 
+          <Completed
+            path="/completed"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          <Profile
+            path="/profile"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
           
           <NotFound default />
         </Router>

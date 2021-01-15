@@ -24,7 +24,7 @@ div.MuiDialogContent-root:first-child {
 }
 
 /* Remove padding top on the TASK label */
-.AddTaskDialog-formLabel {
+.u-AddTaskDialog-formLabel {
   padding-top: 0;
 }
 
@@ -50,19 +50,22 @@ div.MuiDialogContent-root:first-child {
 }
 
 .AddTaskDialog-durationInputLayout {
-  display: block;
+  display: flex;
   flex-direction: column;
+  justify-self: start;
 }
 
-.AddTaskDialog-durationInput {
-  display: inline-block;
-  align-self: start;
+.AddTaskDialog-durationContent {
+  display: flex;
+  flex-direction: row;
+  justify-self: start;
 }
 
 .AddTaskDialog-durationLabel {
-  display: inline-block;
   text-align: start;
   margin-left: 8px;
+  padding: 8px;
+  min-height: calc(0.9em + (0.8em * 2) + 0.6em);
 }
 
 .AddTaskDialog-input:focus {
@@ -80,7 +83,7 @@ div.MuiDialogContent-root:first-child {
 }
 
 .AddTaskDialog-errorMessage {
-  padding: 4px 0;
+  padding: 2px 0;
   color: #d50000;
   font-size: 0.9em;
   visibility: hidden;
@@ -93,22 +96,6 @@ div.MuiDialogContent-root:first-child {
 .AddTaskDialog-inputError::placeholder {
   color: #ffbfbf;
 }
-
-/* .AddTaskDialog-durationLayoutError {
-}
-
-.AddTaskDialog-durationError {
-}
-
-.AddTaskDialog-durationLayoutError + .AddTaskDialog-errorMessage {
-  visibility: visible;
-}
-
-.AddTaskDialog-durationLayoutError > .AddTaskDialog-durationError {
-  color: #d50000;
-  background-color: #fff8f8;
-  border-color: #d50000;
-} */
 
 .AddTaskDialog-radioContainer {
   display: flex;
