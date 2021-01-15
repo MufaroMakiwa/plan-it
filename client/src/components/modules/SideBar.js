@@ -1,6 +1,5 @@
-import { Link } from '@reach/router';
 import React, { Component } from 'react';
-import { sideBarMenus } from "./SideBarMenus.js";
+import { navigate } from "@reach/router";
 import "./SideBar.css";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -11,29 +10,12 @@ class SideBar extends Component {
   }
 
 
-  componentDidMount() {
-    this.setState ({
-      selected: window.location.pathname
-    })
-  }
-
-
-  componentDidUpdate() {
-    window.onpopstate = (e) => {
-      this.updateSelected(window.location.pathname)
-    }
-  }
-
-
-  updateSelected = (link) => {
-    if (link === this.state.selected) {
+  handleSubmit = (link) => {
+    if (link === this.props.link) {
       console.log("Clicked the same tab");
       return;
     }
-    this.setState({
-      selected: link
-    })
-    console.log(link);
+    navigate(link);
   }
 
 
@@ -41,67 +23,45 @@ class SideBar extends Component {
     return ( 
       <div className="SideBar-container">
 
-        <Link to="/" className="SideBar-nameContainer" onClick={() =>this.updateSelected("/")} >
-          <div className="SideBar-nameContainer">
-            <p className="SideBar-name">PLAN_IT</p>
-          </div>
-        </Link>
+        <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
+          <p className="SideBar-name">PLAN_IT</p>
+        </div>      
 
-        <Link to="/profile" onClick={() =>this.updateSelected("/profile")}  className="SideBar-profile">
+        <div to="/profile" onClick={() =>this.handleSubmit("/profile")}  className="SideBar-profile">
           <div>          
             <AccountCircleIcon style={{fontSize: 100}} />
             <p className="SideBar-username">Mufaro Makiwa</p>   
           </div>
-        </Link>
-
-        {/* <div className="SideBar-profile">
-          <div className="SideBar-icons">
-            <AccountCircleIcon style={{fontSize: 100}} />
-            <span className="SideBar-notifications">2</span>     
-            <p className="SideBar-username">Mufaro Makiwa</p>   
-          </div>
-    
-        </div> */}
+        </div>
         
         <hr className="SideBar-divider"></hr>
 
         <ul className="SideBar-menus">
-          {/* {sideBarMenus.map((val, key) => {
-            return (
-              <li key={key} onClick={() =>this.updateSelected(val.link)}>
-                <Link to={ val.link } className={val.link === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
-                  <div>{val.title}</div>
-                  <span className="SideBar-notifications">2</span> 
-                </Link>
-              </li>
-            )
-          })} */}
-
-          <li key="Current" onClick={() =>this.updateSelected("/CurrentGoals")}>
-            <Link to="/CurrentGoals" className={"/CurrentGoals" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
-              <div>Current</div> 
-            </Link>
+          <li key="current" onClick={() =>this.handleSubmit("/current")}>
+            <div className={"/current" === this.props.link ? "SideBar-row selected" : "SideBar-row"}>
+              Current
+            </div>          
           </li>
 
-          <li key="Challenges" onClick={() =>this.updateSelected("/Challenges")}>
-            <Link to="/Challenges" className={"/Challenges" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="challenges" onClick={() =>this.handleSubmit("/challenges")}>
+            <div className={"/challenges" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Challenges</div> 
               <span className="SideBar-notifications">2</span>
-            </Link>
+            </div>
           </li>
 
-          <li key="Friends" onClick={() =>this.updateSelected("/Friends")}>
-            <Link to="/Friends" className={"/Friends" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
-              <div>Friends</div> 
+          <li key="friends" onClick={() =>this.handleSubmit("/friends")}>
+            <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
+              <div className="SideBar-buttonLabel">Friends</div> 
               <span className="SideBar-notifications">2</span>
-            </Link>
+            </div>
           </li>
           
 
-          <li key="Completed" onClick={() =>this.updateSelected("/Completed")}>
-            <Link to="/Completed" className={"/Completed" === window.location.pathname ? "SideBar-row selected" : "SideBar-row"} >
+          <li key="completed" onClick={() =>this.handleSubmit("/completed")}>
+            <div to="/completed" className={"/completed" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div>Completed</div> 
-            </Link>
+            </div>
           </li>
 
         </ul> 

@@ -81,10 +81,15 @@
   align-items: center;
   justify-content: center;
   height: 60px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.15);
   mix-blend-mode: normal;
   box-sizing: border-box;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.SideBar-nameContainer:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .SideBar-name {

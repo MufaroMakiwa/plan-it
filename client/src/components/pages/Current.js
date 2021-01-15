@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import "./Current.css"
 import CurrentTask from "../modules/CurrentTask.js";
+import SideBar from "../modules/SideBar.js";
+import "../../utilities.css";
+import AddTaskButton from "../modules/AddTaskButton.js";
+import AddTaskDialog from "../modules/AddTaskDialog.js";
+
 
 class Current extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isOpenAddTaskDialog: false,
+
       tasks: [
         {
           id: 0,
@@ -50,6 +57,10 @@ class Current extends Component {
     }
   }
 
+  setOpenAddTaskDialog = (bool) => {
+    this.setState({ isOpenAddTaskDialog: bool })
+  }
+
   incrementProgress = (id) => {
     const tasks = this.state.tasks.map(task => {
       task.completed = (task.id === id && task.completed < task.duration) ? task.completed + 1 : task.completed;
@@ -88,8 +99,20 @@ class Current extends Component {
     }
 
     return ( 
-        <div className="Current-container">
-          {tasksList}
+        <div className="page-container">
+          <SideBar link="/current"/>
+          <div className="page_main">
+            {tasksList}
+          </div>
+
+          <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
+
+          <AddTaskDialog 
+            isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+            closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
+
+          </AddTaskDialog>
+  
         </div>
     );
   }

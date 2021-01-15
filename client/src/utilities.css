@@ -110,3 +110,13 @@ form {
 .u-link:hover {
   color: var(--primary--dim);
 }
+
+.page_main {
+  margin-left: var(--sidebar_width);
+  position: relative;
+}
+
+.page-container {
+  overflow: hidden;
+  position: relative;
+}

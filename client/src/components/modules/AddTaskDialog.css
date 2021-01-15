@@ -1,0 +1,193 @@
+.AddTaskDialog-container {
+  background-color: var(--color_on_secondary);
+  padding: 24px;
+}
+
+div.MuiDialogContent-root {
+  padding: 0;
+  margin: 0;
+}
+
+div.MuiDialogContent-root:first-child {
+  padding: 0;
+}
+
+.AddTaskDialog-container * {
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.AddTaskDialog-formLabel {
+  font-weight: bold;
+  font-size: 1.25em;
+  padding: 8px 0;
+}
+
+/* Remove padding top on the TASK label */
+.AddTaskDialog-formLabel {
+  padding-top: 0;
+}
+
+.AddTaskDialog-inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.AddTaskDialog-input {
+  -webkit-appearance: none;
+  padding: 8px;
+  outline: none;
+  border: 1px solid var(--background_color_secondary);
+  border-radius: 8px;
+  background: #ececec;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  min-height: calc(0.9em + (0.8em * 2) + 0.6em);
+}
+
+.AddTaskDialog-nameInput {
+  max-width: 100%;
+  width: 500px;
+}
+
+.AddTaskDialog-durationInputLayout {
+  display: block;
+  flex-direction: column;
+}
+
+.AddTaskDialog-durationInput {
+  display: inline-block;
+  align-self: start;
+}
+
+.AddTaskDialog-durationLabel {
+  display: inline-block;
+  text-align: start;
+  margin-left: 8px;
+}
+
+.AddTaskDialog-input:focus {
+  background: white;
+}
+
+.AddTaskDialog-input::placeholder {
+  color: #bbbbbb;
+}
+
+.AddTaskDialog-inputError {
+  color: #d50000;
+  background-color: #fff8f8;
+  border-color: #d50000;
+}
+
+.AddTaskDialog-errorMessage {
+  padding: 4px 0;
+  color: #d50000;
+  font-size: 0.9em;
+  visibility: hidden;
+}
+
+.AddTaskDialog-inputError + .AddTaskDialog-errorMessage {
+  visibility: visible;
+}
+
+.AddTaskDialog-inputError::placeholder {
+  color: #ffbfbf;
+}
+
+/* .AddTaskDialog-durationLayoutError {
+}
+
+.AddTaskDialog-durationError {
+}
+
+.AddTaskDialog-durationLayoutError + .AddTaskDialog-errorMessage {
+  visibility: visible;
+}
+
+.AddTaskDialog-durationLayoutError > .AddTaskDialog-durationError {
+  color: #d50000;
+  background-color: #fff8f8;
+  border-color: #d50000;
+} */
+
+.AddTaskDialog-radioContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.AddTaskDialog-label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.AddTaskDialog-radioName {
+  display: none;
+}
+
+.AddTaskDialog-radioButton {
+  width: 1.5em;
+  height: 1.5em;
+  border: 2px solid #c4c4c4;
+  border-radius: 50%;
+  margin-right: 10px;
+  box-sizing: border-box;
+  padding: 3px;
+}
+
+.AddTaskDialog-radioButton::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--background_color_secondary);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+
+.AddTaskDialog-radioName:checked + .AddTaskDialog-radioButton::after {
+  transform: scale(1);
+}
+
+.AddTaskDialog-buttonContainer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.AddTaskDialog-button {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 8px 0;
+  width: 50%;
+  border-radius: 16px;
+  cursor: pointer;
+  outline: none;
+}
+
+.AddTaskDialog-createTaskButton {
+  margin-right: 12px;
+  border: none;
+  background-color: var(--background_color_secondary);
+  color: white;
+}
+
+.AddTaskDialog-createTaskButton:hover {
+  mix-blend-mode: hard-light;
+}
+
+.AddTaskDialog-cancelButton:hover {
+  mix-blend-mode: multiply;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.AddTaskDialog-cancelButton {
+  margin-left: 12px;
+  border: 1px solid var(--background_color_secondary);
+  background-color: transparent;
+  color: var(--background_color_secondary);
+}

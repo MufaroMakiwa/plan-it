@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
-import CurrentGoals from "./pages/CurrentGoals.js";
 import Friends from "./pages/Friends.js";
-
-
+import Current from "./pages/Current.js";
+import Challenges from "./pages/Challenges.js";
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
@@ -39,7 +38,7 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
-      navigate('/CurrentGoals');
+      navigate('/current');
     });
   };
 
@@ -57,18 +56,33 @@ class App extends Component {
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
-          />
-          <CurrentGoals
+            userId={this.state.userId}/>
+
+          <Current
+            path="/current"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          {/* <CurrentGoals
             path="/CurrentGoals"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
-          />
+            userId={this.state.userId}/> */}
+
           <Friends
-            path="/Friends"
-            userId={this.state.userId}
-          />
+            path="/friends"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          <Challenges
+            path="/challenges"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          
           <NotFound default />
         </Router>
       </>
