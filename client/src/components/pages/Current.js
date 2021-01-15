@@ -67,7 +67,6 @@ class Current extends Component {
   }
 
   render() { 
-
     let tasksList = null;
     const hasTasks = this.state.tasks.length !== 0;
 
