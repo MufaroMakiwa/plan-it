@@ -21,7 +21,9 @@ class Friends extends Component {
   render() {
     return (
       <div className="page-container">
-        <SideBar link="/friends"/>
+        <SideBar 
+          link="/friends"
+          handleLogout={this.props.handleLogout}/>
         <div className="page_main">
           <CurrentFriends> </CurrentFriends>
           <FriendRequests> </FriendRequests>

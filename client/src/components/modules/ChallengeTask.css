@@ -13,6 +13,10 @@
   margin: 24px;
 }
 
+.ChallengeTask-divider {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .ChallengeTask-details {
   width: 50%;
   display: flex;
@@ -30,7 +34,7 @@
 }
 
 .ChallengeTask-subContainer {
-  margin-top: 16px;
+  margin-top: 8px;
   display: flex;
   width: 100%;
   flex-direction: row;

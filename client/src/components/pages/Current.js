@@ -20,7 +20,9 @@ class Current extends Component {
           created: "20/01/2021",
           duration: 20,
           frequency: "Daily",
-          completed: 10
+          completed: 10,
+          challengedBy: null,
+          points: 0
         },
 
         {
@@ -29,7 +31,9 @@ class Current extends Component {
           created: "01/06/2021",
           duration: 14,
           frequency: "Monthly",
-          completed: 2
+          completed: 2,
+          challengedBy: "Shreya Gupta",
+          points: 20
         },
 
         {
@@ -38,7 +42,9 @@ class Current extends Component {
           created: "16/01/2021",
           duration: 30,
           frequency: "Weekly",
-          completed: 20
+          completed: 20,
+          challengedBy: "Nisarg Dharia",
+          points: 100
         },
 
         {
@@ -47,7 +53,9 @@ class Current extends Component {
           created: "19/01/2021",
           duration: 21,
           frequency: "Daily",
-          completed: 12
+          completed: 12,
+          challengedBy: null,
+          points: 0
         },
 
         {
@@ -56,7 +64,9 @@ class Current extends Component {
           created: "01/01/2021",
           duration: 31,
           frequency: "Monthly",
-          completed: 12
+          completed: 12,
+          challengedBy: "Shreya Gupta",
+          points: 5
         }
       ]
     }
@@ -96,6 +106,8 @@ class Current extends Component {
           duration={taskObj.duration}
           frequency={taskObj.frequency}
           completed={taskObj.completed}
+          challengedBy={taskObj.challengedBy}
+          points={taskObj.points}
           onIncrement={() => this.incrementProgress(taskObj.id)}
           onDecrement={() => this.decrementProgress(taskObj.id)}
         />
@@ -106,7 +118,9 @@ class Current extends Component {
 
     return ( 
       <div className="page-container">
-        <SideBar link="/current"/>
+        <SideBar 
+          link="/current"
+          handleLogout={this.props.handleLogout}/>
         <div className="page_main">
           {tasksList}
         </div>

@@ -21,6 +21,7 @@ class CompletedTask extends Component {
     return (
       <div className="CompletedTask-container">
         <p className="CompletedTask-taskTitle">{this.props.name}</p>
+        <hr className="CompletedTask-divider"></hr>
 
         <div className="CompletedTask-subContainer">
     
@@ -35,10 +36,11 @@ class CompletedTask extends Component {
               <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.frequency)}` }</p>
             </div>
 
-            <div>
+            {(this.props.points !== null) && 
+            (<div>
               <p className="CompletedTask-description">Challenged by</p>
               <p>{this.props.challengedBy}</p>
-            </div>
+            </div>)}
 
           </div>
 
@@ -53,10 +55,11 @@ class CompletedTask extends Component {
               <p>{this.props.frequency}</p>
             </div>
 
-            <div>
+            {(this.props.points !== null) && 
+            (<div>
               <p className="CompletedTask-description">Points</p>
               <p>{this.props.points}</p>
-            </div>
+            </div>)}
           </div>
 
           <div className="CompletedTask-buttonContainer">

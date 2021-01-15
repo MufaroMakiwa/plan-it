@@ -26,10 +26,10 @@ class Completed extends Component {
         {
           id: 1,
           name: "Eat 20 Papa John's Hawaaian Pizza",
-          challengedBy: "Nisarg Dharia",
+          challengedBy: null,
           duration: 2,
           frequency: "Weekly",
-          points: 20,
+          points: null,
           created: "01/21/2021",
           completed: "01/02/2021"
         },
@@ -77,7 +77,9 @@ class Completed extends Component {
 
     return ( 
       <div className="page-container">
-        <SideBar link="/completed"/>
+        <SideBar 
+          link="/completed"
+          handleLogout={this.props.handleLogout}/>
         <div className="page_main">
           {completedList}
         </div>

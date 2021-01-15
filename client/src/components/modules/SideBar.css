@@ -47,9 +47,12 @@
 .SideBar-button {
   margin: 16px 16px;
   border: none;
+  box-shadow: none;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 8px !important;
   cursor: pointer;
+  color: black !important;
+  justify-content: center;
   padding: 10px 16px;
   mix-blend-mode: hard-light;
   background-color: #c4c4c4;

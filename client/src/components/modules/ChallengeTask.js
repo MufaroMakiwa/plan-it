@@ -21,6 +21,7 @@ class ChallengeTask extends Component {
     return (
       <div className="ChallengeTask-container">
         <p className="ChallengeTask-taskTitle">{this.props.name}</p>
+        <hr className="ChallengeTask-divider"></hr>
 
         <div className="ChallengeTask-subContainer">
     

@@ -3,8 +3,6 @@
   border-radius: 8px;
   padding: 16px;
   margin: 24px;
-  display: flex;
-  flex-direction: column;
 }
 
 .CompletedTask-details {
@@ -24,11 +22,15 @@
 }
 
 .CompletedTask-subContainer {
-  margin-top: 16px;
+  margin-top: 8px;
   display: flex;
   width: 100%;
   flex-direction: row;
   align-items: center;
+}
+
+.CompletedTask-divider {
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .CompletedTask-description {

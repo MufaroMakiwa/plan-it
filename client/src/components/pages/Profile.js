@@ -18,10 +18,12 @@ class Profile extends Component {
 
   render() { 
     return ( 
-      <div className="page-container">
-        <SideBar link="/profile"/>
+      <div className="page-container" >
+        <SideBar 
+          link="/profile"
+          handleLogout={this.props.handleLogout}/>
         <div className="page_main">
-          This is the profile page. We need to change the link to include the user id. This would have to updated on the sideBar link and in App.js under profile element
+          This is the profile page. We need to change the link to include the user id. This would have to be updated on the sideBar link and in App.js under profile element
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { navigate } from "@reach/router";
 import "./SideBar.css";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { GoogleLogout } from 'react-google-login';
+
+
+const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
 
 class SideBar extends Component {
@@ -68,9 +72,12 @@ class SideBar extends Component {
 
         <div className="SideBar-signOutContainer">
           <hr className="SideBar-horizontalLine" />
-          <button className="SideBar-button" onClick={() => alert("Handle me")}>
-            Sign out
-          </button>
+          <GoogleLogout 
+            className="SideBar-button" 
+            clientId={GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={this.props.handleLogout}
+            onFailure={(err) => console.log(err)}/>
         </div>
       
       </div>
