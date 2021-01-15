@@ -13,7 +13,9 @@ class AddTaskDialog extends Component {
       duration: "",
       frequency: "Daily",
     }
+    
   }
+
 
   handleSubmit = (event) => {
     
@@ -22,20 +24,34 @@ class AddTaskDialog extends Component {
     console.log(`Name: ${this.state.name}`);
     console.log(`Duration: ${this.state.duration}`);
     
-    const form = document.getElementById("AddTaskDialog-formID");
+    const taskName = document.getElementById("AddTaskDialog-taskName");
+    const taskDuration = document.getElementById("AddTaskDialog-taskDuration");
 
     if (this.state.name.trim().length < 3) {
-      form.elements["taskName"].classList.add("AddTaskDialog-inputError");
+      taskName.classList.add("AddTaskDialog-inputError");
       invalid = true;
     }
 
     if (this.state.duration.trim().length === 0) {
-      form.elements["taskDuration"].classList.add("AddTaskDialog-inputError");
+      taskDuration.classList.add("AddTaskDialog-inputError");
       invalid = true;
     }
-    (!invalid && this.props.closeAddTaskDialog());
+    console.log(`Found errors: ${invalid}`);
+
+    if (!invalid) {
+      this.props.closeAddTaskDialog();
+      this.resetState();
+    }
   }
 
+  // clear all the entries when the dilog is closed
+  resetState = () => {
+    this.setState({
+      name: "",
+      duration: "",
+      frequency: "Daily",
+    })
+  }
 
   handleNameChange = (event) => {
     const target = event.target;
@@ -67,12 +83,14 @@ class AddTaskDialog extends Component {
   }
 
   getFrequencyLabel = () => {
+    
     const labels = {
       Daily : "days",
       Weekly : "weeks",
       Monthly : "months"
     }
-    return labels[this.state.frequency]
+    return this.state !== null ? labels[this.state.frequency]: "days";
+     
   }
 
 
@@ -87,7 +105,7 @@ class AddTaskDialog extends Component {
     return ( 
       <Dialog open={this.props.isOpenAddTaskDialog}>
         <DialogContent>
-          <form method="dialog" className="AddTaskDialog-container" autoComplete="off" id="AddTaskDialog-formID">
+          <div method="dialog" className="AddTaskDialog-container" autoComplete="off" id="AddTaskDialog-formID">
             <div className="AddTaskDialog-inputContainer">           
               <label htmlFor="taskName" className="AddTaskDialog-formLabel u-AddTaskDialog-formLabel">Task</label>
               <input
@@ -96,6 +114,7 @@ class AddTaskDialog extends Component {
                 onChange={this.handleNameChange}
                 className="AddTaskDialog-nameInput AddTaskDialog-input"
                 name="taskName"
+                autoComplete="off"
                 id="AddTaskDialog-taskName">
               </input>
               <span className="AddTaskDialog-errorMessage">Please enter task name with at least 3 characters</span>
@@ -153,6 +172,7 @@ class AddTaskDialog extends Component {
                     placeholder="Enter duration"
                     onChange={this.handleDurationChange}
                     className="AddTaskDialog-input"
+                    autoComplete="off"
                     min="1"
                     id="AddTaskDialog-taskDuration"
                     name="taskDuration">
@@ -173,7 +193,7 @@ class AddTaskDialog extends Component {
                 Create task
               </button>
             </div> 
-          </form>
+          </div>
         
         </DialogContent>
 

@@ -18,6 +18,10 @@ class Friends extends Component {
     };
   }
 
+  setOpenAddTaskDialog = (bool) => {
+    this.setState({ isOpenAddTaskDialog: bool })
+  }
+
   render() {
     return (
       <div className="page-container">
