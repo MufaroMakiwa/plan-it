@@ -19,6 +19,7 @@ class Current extends Component {
           name: "Go for a swim",
           created: "20/01/2021",
           duration: 20,
+          frequency: "Daily",
           completed: 10
         },
 
@@ -27,6 +28,7 @@ class Current extends Component {
           name: "Eat 20 Papa John's Hawaaian Pizza",
           created: "01/06/2021",
           duration: 14,
+          frequency: "Monthly",
           completed: 2
         },
 
@@ -35,6 +37,7 @@ class Current extends Component {
           name: "Run 20 miles on the treadmill",
           created: "16/01/2021",
           duration: 30,
+          frequency: "Weekly",
           completed: 20
         },
 
@@ -43,6 +46,7 @@ class Current extends Component {
           name: "Read a novel",
           created: "19/01/2021",
           duration: 21,
+          frequency: "Daily",
           completed: 12
         },
 
@@ -51,6 +55,7 @@ class Current extends Component {
           name: "Practice soccer freestyle",
           created: "01/01/2021",
           duration: 31,
+          frequency: "Monthly",
           completed: 12
         }
       ]
@@ -89,6 +94,7 @@ class Current extends Component {
           name={taskObj.name}
           created={taskObj.created}
           duration={taskObj.duration}
+          frequency={taskObj.frequency}
           completed={taskObj.completed}
           onIncrement={() => this.incrementProgress(taskObj.id)}
           onDecrement={() => this.decrementProgress(taskObj.id)}

@@ -157,7 +157,7 @@ div.MuiDialogContent-root:first-child {
 }
 
 .AddTaskDialog-createTaskButton {
-  margin-right: 12px;
+  margin-left: 12px;
   border: none;
   background-color: var(--background_color_secondary);
   color: white;
@@ -173,7 +173,7 @@ div.MuiDialogContent-root:first-child {
 }
 
 .AddTaskDialog-cancelButton {
-  margin-left: 12px;
+  margin-right: 12px;
   border: 1px solid var(--background_color_secondary);
   background-color: transparent;
   color: var(--background_color_secondary);

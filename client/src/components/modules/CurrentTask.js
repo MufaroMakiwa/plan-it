@@ -14,7 +14,17 @@ class CurrentTask extends Component {
     return percentage + "%";
   }
 
+  getFrequencyLabel = (freq) => {
+    const labels = {
+      Daily : "days",
+      Weekly : "weeks",
+      Monthly : "months"
+    }
+    return labels[freq]
+  }
+
   render() { 
+    const frequencyLabel = this.getFrequencyLabel(this.props.frequency);
     return ( 
       <div className="CurrentTask-container">
         <p className="CurrentTask-taskTitle">{this.props.name}</p>
@@ -29,7 +39,7 @@ class CurrentTask extends Component {
 
             <div>
               <p className="CurrentTask-description">Duration</p>
-              <p>{`${this.props.duration} days`}</p>
+              <p>{`${this.props.duration} ${frequencyLabel}` }</p>
             </div>
           </section>
 
@@ -45,7 +55,7 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.props.completed} days completed`}</p>
+              <p>{`${this.props.completed} ${frequencyLabel} completed`}</p>
             </div>            
           </section>
         </div>

@@ -3,12 +3,43 @@ import SideBar from "../modules/SideBar.js";
 import "../../utilities.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
+import ChallengeTask from "../modules/ChallengeTask.js";
 
 class Challenges extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
+
+      challenges: [
+        {
+          id: 0,
+          name: "Go for a swim",
+          challengedBy: "Shreya Gupta",
+          duration: 20,
+          frequency: "Daily",
+          points: 10
+        },
+
+        {
+          id: 1,
+          name: "Eat 20 Papa John's Hawaaian Pizza",
+          challengedBy: "Nisarg Dharia",
+          duration: 2,
+          frequency: "Weekly",
+          points: 20
+        },
+
+        {
+          id: 2,
+          name: "Run 20 miles on the treadmill",
+          challengedBy: "Mufaro Makiwa",
+          duration: 12,
+          frequency: "Monthly",
+          points: 100
+        },
+
+      ]
     }
   }
 
@@ -17,11 +48,31 @@ class Challenges extends Component {
   }
 
   render() { 
+    let challengesList = null;
+    const hasChallenges = this.state.challenges.length !== 0;
+
+    if (hasChallenges) {
+      challengesList = this.state.challenges.map((challengeObj) => (
+        <ChallengeTask
+          key={`Challenge_${challengeObj.id}`}
+          _id={challengeObj.id}
+          name={challengeObj.name}
+          challengedBy={challengeObj.challengedBy}
+          duration={challengeObj.duration}
+          frequency={challengeObj.frequency}
+          points={challengeObj.points}
+        />
+      ));
+    } else {
+      challengesList = <div>No Tasks!</div>;
+    }
+
+
     return ( 
       <div className="page-container">
         <SideBar link="/challenges"/>
         <div className="page_main">
-          Challenges page
+          {challengesList}
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>

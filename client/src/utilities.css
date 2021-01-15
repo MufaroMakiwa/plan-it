@@ -64,6 +64,11 @@ form {
   flex-grow: 1;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .u-flex {
   display: flex;
 }

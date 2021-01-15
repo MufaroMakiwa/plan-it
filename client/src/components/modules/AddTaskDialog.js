@@ -165,12 +165,12 @@ class AddTaskDialog extends Component {
 
            
             <div className="AddTaskDialog-buttonContainer">
+            <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.props.closeAddTaskDialog}>
+                Cancel
+              </button>
+              
               <button className="AddTaskDialog-createTaskButton AddTaskDialog-button" onClick={this.handleSubmit}>
                 Create task
-              </button>
-
-              <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.props.closeAddTaskDialog}>
-                Cancel
               </button>
             </div> 
           </form>
