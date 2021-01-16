@@ -41,6 +41,13 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+router.post("/tasks", (req,res) => {
+
+});
+
+router.get("/tasks", (req,res) => {
+
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
@@ -49,3 +56,5 @@ router.all("*", (req, res) => {
 });
 
 module.exports = router;
+
+
