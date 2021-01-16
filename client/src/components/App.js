@@ -22,6 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      userName: undefined,
     };
   }
 
@@ -39,6 +40,7 @@ class App extends Component {
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
+      this.setState({ userName: user.name });
       post("/api/initsocket", { socketid: socket.id });
       navigate('/current');
     });
@@ -46,6 +48,7 @@ class App extends Component {
 
   handleLogout = () => {
     this.setState({ userId: undefined });
+    this.setState({ userName: undefined });
     post("/api/logout");
     navigate('/');
   };
@@ -58,36 +61,42 @@ class App extends Component {
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
 
           <Current
             path="/current"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
 
           <Friends
             path="/friends"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
 
           <Challenges
             path="/challenges"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
 
           <Completed
             path="/completed"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
 
           <Profile
             path="/profile"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
+            userName={this.state.userName}
             userId={this.state.userId}/>
           
           <NotFound default />

@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Task = require("./models/task");
 
 // import authentication library
 const auth = require("./auth");
@@ -41,8 +42,25 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
-router.post("/tasks", (req,res) => {
+router.post("/tasks/create", (req,res) => {
+  const newTask = new Task({
+    task_name: req.body.task_name,
+    userId: req.body.userId,
+    userName: req.body.userName,
+    created: req.body.created,
+    duration: req.body.duration,
+    frequency: req.body.frequency,
+    is_completed: false,
+    date_completed: undefined,
+    progess: 0,
+    is_challenge: req.body.is_challenge,
+    challenger: req.body.challenger
+  });
 
+  newTask.save().then((task) => {
+    res.send(task);
+    console.log(task);
+  });
 });
 
 router.get("/tasks", (req,res) => {

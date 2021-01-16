@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import "./AddTaskDialog.css";
 import "../../utilities.css";
 import { ViewDaySharp } from '@material-ui/icons';
-
+import {get, post} from '../../utilities.js';
 
 class AddTaskDialog extends Component {
   constructor(props) {
@@ -41,8 +41,26 @@ class AddTaskDialog extends Component {
     if (!invalid) {
       this.props.closeAddTaskDialog();
       this.resetState();
+      console.log(this.props.userId);
+      this.createNewTask();
     }
   }
+
+  createNewTask = () => {
+    post('/api/tasks/create', {
+      task_name: this.state.name,
+      userId: this.props.userId,
+      userName: this.props.userName,
+      created: "Jan 1st 2021",
+      duration: this.state.duration,
+      frequency: "Daily",
+      is_completed: false,
+      date_completed: null,
+      progess: 0,
+      is_challenge: false,
+      challenger: null
+    })
+  };
 
   // clear all the entries when the dilog is closed
   resetState = () => {
