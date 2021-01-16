@@ -64,6 +64,11 @@ form {
   flex-grow: 1;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .u-flex {
   display: flex;
 }
@@ -109,4 +114,14 @@ form {
 
 .u-link:hover {
   color: var(--primary--dim);
+}
+
+.page_main {
+  margin-left: var(--sidebar_width);
+  position: relative;
+}
+
+.page-container {
+  overflow: hidden;
+  position: relative;
 }

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Router, navigate } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
-import CurrentGoals from "./pages/CurrentGoals.js";
 import Friends from "./pages/Friends.js";
+import Current from "./pages/Current.js";
+import Challenges from "./pages/Challenges.js";
+import Completed from "./pages/Completed.js";
 import Profile from "./pages/Profile.js";
 
 import "../utilities.css";
-
 import { socket } from "../client-socket.js";
 import { get, post } from "../utilities";
 
@@ -39,7 +40,7 @@ class App extends Component {
     post("/api/login", { token: userToken }).then((user) => {
       this.setState({ userId: user._id });
       post("/api/initsocket", { socketid: socket.id });
-      navigate('/CurrentGoals');
+      navigate('/current');
     });
   };
 
@@ -57,22 +58,38 @@ class App extends Component {
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
-          />
-          <CurrentGoals
-            path="/CurrentGoals"
+            userId={this.state.userId}/>
+
+          <Current
+            path="/current"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
-          />
+            userId={this.state.userId}/>
+
           <Friends
-            path="/Friends"
-            userId={this.state.userId}
-          />
-          <Profile 
-            path="/Profile"
-            userId={this.state.userId}
-          />
+            path="/friends"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          <Challenges
+            path="/challenges"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          <Completed
+            path="/completed"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+
+          <Profile
+            path="/profile"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}/>
+          
           <NotFound default />
         </Router>
       </>

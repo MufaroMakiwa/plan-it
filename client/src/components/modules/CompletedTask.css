@@ -1,0 +1,77 @@
+.CompletedTask-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+}
+
+.CompletedTask-details {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.CompletedTask-taskTitle {
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+.CompletedTask-completedLabel {
+  margin-left: 8px;
+}
+
+.CompletedTask-subContainer {
+  margin-top: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.CompletedTask-divider {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.CompletedTask-description {
+  font-weight: bold;
+  color: #fa5460;
+}
+
+.CompletedTask-buttonContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border-left: 1px solid rgba(255, 255, 255, 0.2); */
+  padding-left: 16px;
+}
+
+.CompletedTask-details > * {
+  margin: 8px 0;
+}
+
+.CompletedTask-button {
+  padding: 8px 16px;
+  margin: 8px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.CompletedTask-acceptButton {
+  border: none;
+  background-color: #fa5460;
+  color: white;
+}
+
+.CompletedTask-declineButton {
+  border: 1px solid #fa5460;
+  background-color: transparent;
+  color: #fa5460;
+}
+
+.CompletedTask-acceptButton:hover {
+  background-color: var(--background_color_secondary);
+}
