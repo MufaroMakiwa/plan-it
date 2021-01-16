@@ -11,7 +11,6 @@ class LandingPage extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {};
   }
 
   componentDidMount() {

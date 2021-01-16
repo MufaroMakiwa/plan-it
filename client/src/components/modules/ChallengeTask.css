@@ -1,0 +1,87 @@
+.ChallengeTask-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+}
+
+.ChallengeTask-divider {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ChallengeTask-details {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.ChallengeTask-taskTitle {
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+.ChallengeTask-completedLabel {
+  margin-left: 8px;
+}
+
+.ChallengeTask-subContainer {
+  margin-top: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ChallengeTask-description {
+  font-weight: bold;
+  color: #fa5460;
+}
+
+.ChallengeTask-buttonContainer {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border-left: 1px solid rgba(255, 255, 255, 0.2); */
+  padding-left: 16px;
+}
+
+.ChallengeTask-button {
+  padding: 8px 16px;
+  margin: 8px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.ChallengeTask-acceptButton {
+  border: none;
+  background-color: #fa5460;
+  color: white;
+}
+
+.ChallengeTask-declineButton {
+  border: 1px solid #fa5460;
+  background-color: transparent;
+  color: #fa5460;
+}
+
+.ChallengeTask-acceptButton:hover {
+  background-color: var(--background_color_secondary);
+}
+
+.ChallengeTask-declineButton:hover {
+  /* border: 1px solid var(--background_color_secondary);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--background_color_secondary); */
+
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+}
+
+.ChallengeTask-details > * {
+  margin: 8px 0;
+}

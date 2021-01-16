@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import "./Current.css"
 import CurrentTask from "../modules/CurrentTask.js";
+import SideBar from "../modules/SideBar.js";
+import "../../utilities.css";
+import AddTaskButton from "../modules/AddTaskButton.js";
+import AddTaskDialog from "../modules/AddTaskDialog.js";
+
 
 class Current extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isOpenAddTaskDialog: false,
+
       tasks: [
         {
           id: 0,
           name: "Go for a swim",
           created: "20/01/2021",
           duration: 20,
-          completed: 10
+          frequency: "Daily",
+          completed: 10,
+          challengedBy: null,
+          points: 0
         },
 
         {
@@ -20,7 +30,10 @@ class Current extends Component {
           name: "Eat 20 Papa John's Hawaaian Pizza",
           created: "01/06/2021",
           duration: 14,
-          completed: 2
+          frequency: "Monthly",
+          completed: 2,
+          challengedBy: "Shreya Gupta",
+          points: 20
         },
 
         {
@@ -28,7 +41,10 @@ class Current extends Component {
           name: "Run 20 miles on the treadmill",
           created: "16/01/2021",
           duration: 30,
-          completed: 20
+          frequency: "Weekly",
+          completed: 20,
+          challengedBy: "Nisarg Dharia",
+          points: 100
         },
 
         {
@@ -36,7 +52,10 @@ class Current extends Component {
           name: "Read a novel",
           created: "19/01/2021",
           duration: 21,
-          completed: 12
+          frequency: "Daily",
+          completed: 12,
+          challengedBy: null,
+          points: 0
         },
 
         {
@@ -44,10 +63,17 @@ class Current extends Component {
           name: "Practice soccer freestyle",
           created: "01/01/2021",
           duration: 31,
-          completed: 12
+          frequency: "Monthly",
+          completed: 12,
+          challengedBy: "Shreya Gupta",
+          points: 5
         }
       ]
     }
+  }
+
+  setOpenAddTaskDialog = (bool) => {
+    this.setState({ isOpenAddTaskDialog: bool })
   }
 
   incrementProgress = (id) => {
@@ -67,7 +93,6 @@ class Current extends Component {
   }
 
   render() { 
-
     let tasksList = null;
     const hasTasks = this.state.tasks.length !== 0;
 
@@ -79,7 +104,10 @@ class Current extends Component {
           name={taskObj.name}
           created={taskObj.created}
           duration={taskObj.duration}
+          frequency={taskObj.frequency}
           completed={taskObj.completed}
+          challengedBy={taskObj.challengedBy}
+          points={taskObj.points}
           onIncrement={() => this.incrementProgress(taskObj.id)}
           onDecrement={() => this.decrementProgress(taskObj.id)}
         />
@@ -89,9 +117,23 @@ class Current extends Component {
     }
 
     return ( 
-        <div className="Current-container">
+      <div className="page-container">
+        <SideBar 
+          link="/current"
+          handleLogout={this.props.handleLogout}/>
+        <div className="page_main">
           {tasksList}
         </div>
+
+        <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
+
+        <AddTaskDialog 
+          isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
+
+        </AddTaskDialog>
+
+      </div>
     );
   }
 }

@@ -1,26 +1,27 @@
 /* Fill me in :) */
 .LandingPage-background {
-    background-image: url("../../public/LandingPageBackground.png");
-    background-size: 100vw;
-    background-color: #f8f8f8;
-    height: 100vh;
-    text-align: center;
-    background-repeat: no-repeat;
+  background-image: url("../../public/LandingPageBackground.png");
+  background-size: 100vw;
+  background-color: #f8f8f8;
+  height: 100vh;
+  text-align: center;
+  background-repeat: no-repeat;
 }
 
 .LandingPage-login-logout {
-    height: 64px;
-    width: 192px;
-    justify-content: center;
-    border-color: #FE6D73 !important;
-    border-width: 3px !important;
-    border-radius: 50px !important;
+  height: 64px;
+  width: 192px;
+  outline: none;
+  justify-content: center;
+  border-color: #fe6d73 !important;
+  border-width: 3px !important;
+  border-radius: 50px !important;
 }
 
 .LandingPage-title-text {
-    margin: 0;
-    padding-top: 36%;
-    margin-bottom: 1%;
-    font-size: 4vw;
-    color: #000318;
+  margin: 0;
+  padding-top: 36%;
+  margin-bottom: 1%;
+  font-size: 4vw;
+  color: #000318;
 }

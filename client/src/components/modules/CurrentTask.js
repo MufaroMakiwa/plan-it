@@ -14,14 +14,27 @@ class CurrentTask extends Component {
     return percentage + "%";
   }
 
+  getFrequencyLabel = (freq) => {
+    const labels = {
+      Daily : "days",
+      Weekly : "weeks",
+      Monthly : "months"
+    }
+    return labels[freq]
+  }
+
   render() { 
+    const frequencyLabel = this.getFrequencyLabel(this.props.frequency);
     return ( 
       <div className="CurrentTask-container">
         <p className="CurrentTask-taskTitle">{this.props.name}</p>
 
+        {(this.props.points !== 0) && (
+        <p className="CurrentTask-challengedBy">{`(Challenged by ${this.props.challengedBy})`}</p>)}
+        <hr className="CurrentTask-divider"></hr>
+
         <div className="CurrentTask-subContainer">
-    
-          <section className="CurrentTask-details">
+          <div className="CurrentTask-details">
             <div>
               <p className="CurrentTask-description">Created</p>
               <p>{this.props.created}</p>
@@ -29,11 +42,23 @@ class CurrentTask extends Component {
 
             <div>
               <p className="CurrentTask-description">Duration</p>
-              <p>{`${this.props.duration} days`}</p>
+              <p>{`${this.props.duration} ${frequencyLabel}` }</p>
             </div>
-          </section>
+          </div>
 
-          <section className="CurrentTask-updateProgress">
+          <div className="CurrentTask-details">
+            <div>
+              <p className="CurrentTask-description">Frequency</p>
+              <p>{this.props.frequency}</p>
+            </div>
+
+            <div>
+              <p className="CurrentTask-description">Points</p>
+              <p>{this.props.points}</p>
+            </div>
+          </div>
+
+          <div className="CurrentTask-updateProgress">
             <div>
               <div className="CurrentTask-progressButton" onClick={this.props.onIncrement}>
                 <AddIcon/>
@@ -45,9 +70,9 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.props.completed} days completed`}</p>
+              <p>{`${this.props.completed} ${frequencyLabel} completed`}</p>
             </div>            
-          </section>
+          </div>
         </div>
 
         <div className="CurrentTask-progress">
