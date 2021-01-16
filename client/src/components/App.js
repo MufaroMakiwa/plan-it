@@ -4,7 +4,7 @@ import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
 import CurrentGoals from "./pages/CurrentGoals.js";
 import Friends from "./pages/Friends.js";
-
+import Profile from "./pages/Profile.js";
 
 import "../utilities.css";
 
@@ -67,6 +67,10 @@ class App extends Component {
           />
           <Friends
             path="/Friends"
+            userId={this.state.userId}
+          />
+          <Profile 
+            path="/Profile"
             userId={this.state.userId}
           />
           <NotFound default />

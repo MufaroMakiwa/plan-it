@@ -1,0 +1,27 @@
+.Profile-Container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.Profile-Main {
+    margin-left: var(--sidebar_width);
+    position: relative;
+    padding: 30px;
+}
+
+.Profile-Header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Profile-Header-Name {
+    font-size: 4em;
+    color: #F8F8F8;
+}
+
+.Profile-Header-Stats {
+    font-size: 3em;
+    color: #F8F8F8;
+}

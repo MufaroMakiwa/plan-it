@@ -47,7 +47,7 @@ class SideBar extends Component {
           </div>
         </Link>
 
-        <Link to="/profile" onClick={() =>this.updateSelected("/profile")}  className="SideBar-profile">
+        <Link to="/Profile" onClick={() =>this.updateSelected("/Profile")}  className="SideBar-profile">
           <div>          
             <AccountCircleIcon style={{fontSize: 100}} />
             <p className="SideBar-username">Mufaro Makiwa</p>   
