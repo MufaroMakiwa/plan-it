@@ -24,7 +24,7 @@ class Challenges extends Component {
         {
           _id: 1,
           task_name: "Eat 20 Papa John's Hawaaian Pizza",
-          challengedBy: "Nisarg Dharia",
+          challenger: "Nisarg Dharia",
           duration: 2,
           frequency: "Weekly",
         },
@@ -32,11 +32,10 @@ class Challenges extends Component {
         {
           _id: 2,
           task_name: "Run 20 miles on the treadmill",
-          challengedBy: "Mufaro Makiwa",
+          challenger: "Mufaro Makiwa",
           duration: 12,
           frequency: "Monthly",
         },
-
       ]
     }
   }
@@ -47,6 +46,16 @@ class Challenges extends Component {
 
   addTask = (taskObj) => {
     navigate("/current");
+  }
+
+  accept = (_id) => {
+    alert("Handle me");
+  }
+
+
+  decline = (_id) => {
+    const challenges = this.state.challenges.filter(challenge => challenge._id !== _id);
+    this.setState({ challenges })
   }
 
   render() { 
@@ -62,6 +71,8 @@ class Challenges extends Component {
           challenger={challengeObj.challenger}
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
+          accept={() => this.accept(challengeObj._id)}
+          decline={() => this.decline(challengeObj._id)}
         />
       ));
     } else {

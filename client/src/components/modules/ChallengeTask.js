@@ -20,6 +20,14 @@ class ChallengeTask extends Component {
     }
   }
 
+  acceptChallenge = () => {
+    this.props.accept();
+  }
+
+  declineChallenge = () => {
+    // to handle api calls before excuting this
+    this.props.decline();
+  }
 
   render() { 
     return (
@@ -43,11 +51,15 @@ class ChallengeTask extends Component {
           </div>
 
           <div className="ChallengeTask-buttonContainer">
-            <button className="ChallengeTask-acceptButton ChallengeTask-button">
+            <button 
+              className="ChallengeTask-acceptButton ChallengeTask-button"
+              onClick={this.acceptChallenge}>
               ACCEPT
             </button>
 
-            <button className="ChallengeTask-declineButton ChallengeTask-button">
+            <button 
+              className="ChallengeTask-declineButton ChallengeTask-button"
+              onClick={this.declineChallenge}>
               DECLINE
             </button>
           </div>

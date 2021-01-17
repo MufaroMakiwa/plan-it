@@ -40,6 +40,7 @@ class Completed extends Component {
     navigate("/current");
   }
 
+
   sendChallengeNotification = () => {
     this.setState({displayToast: true})
     const timer = setTimeout(() => {
@@ -92,7 +93,6 @@ class Completed extends Component {
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
         </AddTaskDialog>
-
       </div>
     );
   }
