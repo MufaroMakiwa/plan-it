@@ -4,8 +4,11 @@ import "../../utilities.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import CompletedTask from "../modules/CompletedTask.js";
+import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
+
+import "./Completed.css";
 
 
 class Completed extends Component {
@@ -13,7 +16,8 @@ class Completed extends Component {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
-      completed: []
+      completed: [],
+      displayToast: false,
     }
   }
 
@@ -36,6 +40,17 @@ class Completed extends Component {
     navigate("/current");
   }
 
+  sendChallengeNotification = () => {
+    this.setState({displayToast: true})
+    const timer = setTimeout(() => {
+      console.log(this.state)
+      this.setState({
+        displayToast: false
+      })
+    }, 2000);
+    return () => clearTimeout(timer);
+  }
+
   render() { 
     let completedList = null;
     const hasChallenges = this.state.completed.length !== 0;
@@ -49,9 +64,9 @@ class Completed extends Component {
           challenger={completedObj.challenger}
           duration={completedObj.duration}
           frequency={completedObj.frequency}
-          points={completedObj.points}
           created={completedObj.created}
           date_completed={completedObj.date_completed}
+          sendChallengeNotification={this.sendChallengeNotification}
         />
       ));
     } else {
@@ -64,7 +79,8 @@ class Completed extends Component {
           link="/completed"
           handleLogout={this.props.handleLogout}/>
         <div className="page_main">
-          {completedList}
+          {completedList}   
+          <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}><Toast/></div>
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
@@ -75,7 +91,6 @@ class Completed extends Component {
           userName={this.props.userName}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
-
         </AddTaskDialog>
 
       </div>

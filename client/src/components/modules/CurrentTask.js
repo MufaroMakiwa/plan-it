@@ -62,7 +62,7 @@ class CurrentTask extends Component {
       const query = {
         _id: this.props._id,
         progress: new_progress,
-        is_completed: null,
+        is_completed: false,
         date_completed: null,
       }
       post("/api/tasks/update", query).then((taskOj) => {

@@ -78,7 +78,6 @@ class Current extends Component {
           frequency={taskObj.frequency}
           progress={taskObj.progress}
           challenger={taskObj.challenger}
-          points={taskObj.points}
           onIncrement={() => this.incrementProgress(taskObj._id)}
           onDecrement={() => this.decrementProgress(taskObj._id)}
           onDelete = {() => this.deleteTask(taskObj._id)}

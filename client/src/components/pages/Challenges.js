@@ -14,30 +14,27 @@ class Challenges extends Component {
 
       challenges: [
         {
-          id: 0,
-          name: "Go for a swim",
-          challengedBy: "Shreya Gupta",
+          _id: 0,
+          task_name: "Go for a swim",
+          challenger: "Shreya Gupta",
           duration: 20,
           frequency: "Daily",
-          points: 10
         },
 
         {
-          id: 1,
-          name: "Eat 20 Papa John's Hawaaian Pizza",
+          _id: 1,
+          task_name: "Eat 20 Papa John's Hawaaian Pizza",
           challengedBy: "Nisarg Dharia",
           duration: 2,
           frequency: "Weekly",
-          points: 20
         },
 
         {
-          id: 2,
-          name: "Run 20 miles on the treadmill",
+          _id: 2,
+          task_name: "Run 20 miles on the treadmill",
           challengedBy: "Mufaro Makiwa",
           duration: 12,
           frequency: "Monthly",
-          points: 100
         },
 
       ]
@@ -59,17 +56,16 @@ class Challenges extends Component {
     if (hasChallenges) {
       challengesList = this.state.challenges.map((challengeObj) => (
         <ChallengeTask
-          key={`Challenge_${challengeObj.id}`}
-          _id={challengeObj.id}
-          name={challengeObj.name}
-          challengedBy={challengeObj.challengedBy}
+          key={`Challenge_${challengeObj._id}`}
+          _id={challengeObj._id}
+          task_name={challengeObj.task_name}
+          challenger={challengeObj.challenger}
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
-          points={challengeObj.points}
         />
       ));
     } else {
-      challengesList = <div>No Tasks!</div>;
+      challengesList = <div></div>;
     }
 
 

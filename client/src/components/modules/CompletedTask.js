@@ -21,6 +21,11 @@ class CompletedTask extends Component {
   }
 
 
+  sendChallenge = () => {
+    this.props.sendChallengeNotification();
+  }
+
+
   render() { 
     return (
       <div className="CompletedTask-container">
@@ -58,7 +63,9 @@ class CompletedTask extends Component {
           </div>
 
           <div className="CompletedTask-buttonContainer">
-            <button className="CompletedTask-acceptButton CompletedTask-button">
+            <button 
+              className="CompletedTask-sendTaskButton CompletedTask-button"
+              onClick={this.sendChallenge}>
               CHALLENGE FRIENDS
             </button>
 

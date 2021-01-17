@@ -1,0 +1,19 @@
+.Toast-container {
+  padding: 16px;
+  display: flex;
+  width: 150px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.Toast-checkIcon {
+  color: green;
+}
+
+.Toast-label {
+  padding: 8px;
+  color: black;
+}
