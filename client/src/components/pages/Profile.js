@@ -6,10 +6,7 @@ import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import {post, get} from "../../utilities.js";
 import DemoConstellation from "../../public/DemoConstellation.png";
-<<<<<<< HEAD
-=======
 import { navigate } from "@reach/router";
->>>>>>> api_current
 
 import "../../utilities.css";
 import "./Profile.css";
@@ -30,13 +27,10 @@ class Profile extends Component {
     this.setState({ isOpenAddTaskDialog: bool })
   }
 
-<<<<<<< HEAD
-=======
   addTask = (taskObj) => {
     navigate("/current");
   }
 
->>>>>>> api_current
   componentDidMount() {
     get('/api/profile/fill', {
       userId: this.props.userId,
