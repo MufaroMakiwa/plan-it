@@ -1,27 +1,51 @@
 .Profile-Container {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
 .Profile-Main {
-    margin-left: var(--sidebar_width);
-    position: relative;
-    padding: 30px;
+  margin-left: var(--sidebar_width);
+  position: relative;
+  text-align: center;
 }
 
 .Profile-Header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 4vh;
 }
 
 .Profile-Header-Name {
-    font-size: 4em;
-    color: #F8F8F8;
+  font-size: 4vw;
+  color: #fa5460;
 }
 
 .Profile-Header-Stats {
-    font-size: 3em;
-    color: #F8F8F8;
+  font-size: 3vw;
+  color: #f8f8f8;
+}
+
+.Profile-Bottom {
+  display: flex;
+  justify-content: left;
+  padding-top: 4vh;
+  padding-bottom: 1vh;
+  width: 80%;
+  padding-left: 10%;
+}
+
+.Profile-Bottom-Container {
+  width: 50%;
+  text-align: left;
+}
+
+.Profile-Bottom-Stats {
+  font-size: 3vw;
+  color: #f8f8f8;
+}
+
+.Profile-Picture {
+  width: 80%;
 }

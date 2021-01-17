@@ -104,6 +104,12 @@ router.get("/tasks/completed", (req, res) => {
   })
 })
 
+router.get("/profile/fill", (req, res) => {
+  User.findById(req.query.userId).then((profile) => {
+    res.send(profile);
+  });
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
