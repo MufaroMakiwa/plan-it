@@ -22,6 +22,7 @@
 .CurrentTask-progressButton:hover {
   background-color: var(--color_on_secondary);
   color: black;
+  cursor: pointer;
   mix-blend-mode: hard-light;
 }
 
@@ -30,8 +31,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
-  left: 32px;
 }
 
 .CurrentTask-divider {
@@ -39,7 +38,7 @@
 }
 
 .CurrentTask-details {
-  width: 25%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -91,4 +90,21 @@
   font-style: italic;
   font-size: 0.9em;
   color: var(--color_on_secondary);
+}
+
+.CurrentTask-delete {
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  padding: 4px;
+  margin: 8px;
+}
+
+.CurrentTask-delete:hover {
+  color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }

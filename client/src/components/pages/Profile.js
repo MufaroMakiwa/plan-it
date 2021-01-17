@@ -4,6 +4,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
+import { navigate } from "@reach/router";
 
 import "../../utilities.css";
 import "./Profile.css";
@@ -22,6 +23,10 @@ class Profile extends Component {
 
   setOpenAddTaskDialog = (bool) => {
     this.setState({ isOpenAddTaskDialog: bool })
+  }
+
+  addTask = (taskObj) => {
+    navigate("/current");
   }
 
   render() { 
@@ -47,7 +52,10 @@ class Profile extends Component {
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
+          userId={this.props.userId}
+          userName={this.props.userName}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+          onSubmit={this.addTask}>
         </AddTaskDialog>
       </div>
     );

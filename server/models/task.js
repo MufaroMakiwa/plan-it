@@ -9,9 +9,10 @@ const TaskSchema = new mongoose.Schema({
   frequency: String,
   is_completed: Boolean,
   date_completed: String,
-  progess: Number,
+  progress: Number,
   is_challenge: Boolean,
-  challenger: String
+  challenger: String,
+  is_accepted: Boolean,
 });
 
 // compile model from schema

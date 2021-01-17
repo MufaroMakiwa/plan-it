@@ -4,6 +4,7 @@ import "../../utilities.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
+import { navigate } from '@reach/router';
 
 class Challenges extends Component {
   constructor(props) {
@@ -47,6 +48,10 @@ class Challenges extends Component {
     this.setState({ isOpenAddTaskDialog: bool })
   }
 
+  addTask = (taskObj) => {
+    navigate("/current");
+  }
+
   render() { 
     let challengesList = null;
     const hasChallenges = this.state.challenges.length !== 0;
@@ -81,7 +86,10 @@ class Challenges extends Component {
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
+          userId={this.props.userId}
+          userName={this.props.userName}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+          onSubmit={this.addTask}>
 
         </AddTaskDialog>
 
