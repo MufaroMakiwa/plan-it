@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount() {
     
     get("/api/whoami").then((user) => {
-      console.log("whoami called");
       if (user._id) {
 
         // they are registed in the database, and currently logged in.
