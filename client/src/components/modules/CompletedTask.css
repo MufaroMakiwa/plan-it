@@ -60,18 +60,12 @@
   outline: none;
 }
 
-.CompletedTask-acceptButton {
+.CompletedTask-sendTaskButton {
   border: none;
   background-color: #fa5460;
   color: white;
 }
 
-.CompletedTask-declineButton {
-  border: 1px solid #fa5460;
-  background-color: transparent;
-  color: #fa5460;
-}
-
-.CompletedTask-acceptButton:hover {
+.CompletedTask-sendTaskButton:hover {
   background-color: var(--background_color_secondary);
 }

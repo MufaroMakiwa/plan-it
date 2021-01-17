@@ -2,7 +2,6 @@ import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import React, { Component } from 'react';
 import "./AddTaskDialog.css";
 import "../../utilities.css";
-import { ViewDaySharp } from '@material-ui/icons';
 import {get, post} from '../../utilities.js';
 
 class AddTaskDialog extends Component {
@@ -12,17 +11,15 @@ class AddTaskDialog extends Component {
       name: "",
       duration: "",
       frequency: "Daily",
-    }
-    
+    } 
   }
 
 
+
+
   handleSubmit = (event) => {
-    
     // validate user input
     let invalid = null;
-    console.log(`Name: ${this.state.name}`);
-    console.log(`Duration: ${this.state.duration}`);
     
     const taskName = document.getElementById("AddTaskDialog-taskName");
     const taskDuration = document.getElementById("AddTaskDialog-taskDuration");
@@ -36,7 +33,6 @@ class AddTaskDialog extends Component {
       taskDuration.classList.add("AddTaskDialog-inputError");
       invalid = true;
     }
-    console.log(`Found errors: ${invalid}`);
 
     if (!invalid) {
       this.props.closeAddTaskDialog();
@@ -51,14 +47,18 @@ class AddTaskDialog extends Component {
       task_name: this.state.name,
       userId: this.props.userId,
       userName: this.props.userName,
-      created: "Jan 1st 2021",
+      created: this.getCurrentDate(),
       duration: this.state.duration,
-      frequency: "Daily",
+      frequency: this.state.frequency,
       is_completed: false,
       date_completed: null,
-      progess: 0,
+      progress: 0,
       is_challenge: false,
-      challenger: null
+      challenger: null,
+      is_accepted: null
+
+    }).then((taskObj) => {
+      this.props.onSubmit(taskObj)
     })
   };
 
@@ -101,7 +101,6 @@ class AddTaskDialog extends Component {
   }
 
   getFrequencyLabel = () => {
-    
     const labels = {
       Daily : "days",
       Weekly : "weeks",
@@ -118,6 +117,15 @@ class AddTaskDialog extends Component {
     });
   }
 
+
+  getCurrentDate = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+    return today;
+  }
 
   render() { 
     return ( 

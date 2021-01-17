@@ -6,7 +6,7 @@ import FriendRequests from "../modules/FriendRequests.js";
 import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
-
+import { navigate } from "@reach/router";
 
 
 class Friends extends Component {
@@ -20,6 +20,10 @@ class Friends extends Component {
 
   setOpenAddTaskDialog = (bool) => {
     this.setState({ isOpenAddTaskDialog: bool })
+  }
+
+  addTask = (taskObj) => {
+    navigate("/current");
   }
 
   render() {
@@ -37,8 +41,11 @@ class Friends extends Component {
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
-
+          userId={this.props.userId}
+          userName={this.props.userName}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+          onSubmit={this.addTask}>
+        
         </AddTaskDialog>
 
       </div>

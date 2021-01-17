@@ -4,53 +4,51 @@ import "../../utilities.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import CompletedTask from "../modules/CompletedTask.js";
+import Toast from "../modules/Toast.js";
+import { navigate } from "@reach/router";
+import {get , post} from "../../utilities.js";
+
+import "./Completed.css";
+
 
 class Completed extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
-
-      completed: [
-        {
-          id: 0,
-          name: "Go for a swim",
-          challengedBy: "Shreya Gupta",
-          duration: 20,
-          frequency: "Daily",
-          points: 10,
-          created: "01/21/2021",
-          completed: "01/02/2021"
-        },
-
-        {
-          id: 1,
-          name: "Eat 20 Papa John's Hawaaian Pizza",
-          challengedBy: null,
-          duration: 2,
-          frequency: "Weekly",
-          points: null,
-          created: "01/21/2021",
-          completed: "01/02/2021"
-        },
-
-        {
-          id: 2,
-          name: "Run 20 miles on the treadmill",
-          challengedBy: "Mufaro Makiwa",
-          duration: 12,
-          frequency: "Monthly",
-          points: 100,
-          created: "01/21/2021",
-          completed: "01/02/2021"
-        },
-
-      ]
+      completed: [],
+      displayToast: false,
     }
   }
 
   setOpenAddTaskDialog = (bool) => {
     this.setState({ isOpenAddTaskDialog: bool })
+  }
+
+  componentDidMount() {
+    console.log(this.props);
+    const query = {
+      userId: this.props.userId,
+      is_completed: true
+    }
+    get("/api/tasks/completed", query).then((completed) => {
+      this.setState({ completed: completed.reverse() })
+    })
+  }
+
+  addTask = (taskObj) => {
+    navigate("/current");
+  }
+
+  sendChallengeNotification = () => {
+    this.setState({displayToast: true})
+    const timer = setTimeout(() => {
+      console.log(this.state)
+      this.setState({
+        displayToast: false
+      })
+    }, 2000);
+    return () => clearTimeout(timer);
   }
 
   render() { 
@@ -60,19 +58,19 @@ class Completed extends Component {
     if (hasChallenges) {
       completedList = this.state.completed.map((completedObj) => (
         <CompletedTask
-          key={`Challenge_${completedObj.id}`}
-          _id={completedObj.id}
-          name={completedObj.name}
-          challengedBy={completedObj.challengedBy}
+          key={`Challenge_${completedObj._id}`}
+          _id={completedObj._id}
+          task_name={completedObj.task_name}
+          challenger={completedObj.challenger}
           duration={completedObj.duration}
           frequency={completedObj.frequency}
-          points={completedObj.points}
           created={completedObj.created}
-          completed={completedObj.completed}
+          date_completed={completedObj.date_completed}
+          sendChallengeNotification={this.sendChallengeNotification}
         />
       ));
     } else {
-      {completedList = <div>No Tasks!</div>;}
+      {completedList = <div></div>;}
     }
 
     return ( 
@@ -81,15 +79,18 @@ class Completed extends Component {
           link="/completed"
           handleLogout={this.props.handleLogout}/>
         <div className="page_main">
-          {completedList}
+          {completedList}   
+          <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}><Toast/></div>
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} >
-
+          userId={this.props.userId}
+          userName={this.props.userName}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+          onSubmit={this.addTask}>
         </AddTaskDialog>
 
       </div>

@@ -7,40 +7,32 @@ class ChallengeTask extends Component {
   }
 
 
-  getFrequencyLabel = (freq) => {
+  getFrequencyLabel = (value) => {
     const labels = {
-      Daily : "days",
-      Weekly : "weeks",
-      Monthly : "months"
+      Daily : "day",
+      Weekly : "week",
+      Monthly : "month"
     }
-    return labels[freq]
+    if (value === 1) {
+      return labels[this.props.frequency]
+    } else {
+      return labels[this.props.frequency] + "s";
+    }
   }
 
 
   render() { 
     return (
       <div className="ChallengeTask-container">
-        <p className="ChallengeTask-taskTitle">{this.props.name}</p>
+        <p className="ChallengeTask-taskTitle">{this.props.task_name}</p>
+        <p className="CurrentTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>
         <hr className="ChallengeTask-divider"></hr>
 
         <div className="ChallengeTask-subContainer">
-    
-          <div className="ChallengeTask-details">
-            <div>
-              <p className="ChallengeTask-description">Challenged by</p>
-              <p>{this.props.challengedBy}</p>
-            </div>
-
-            <div>
-              <p className="ChallengeTask-description">Points</p>
-              <p>{this.props.points}</p>
-            </div>
-          </div>
-
           <div className="ChallengeTask-details">
             <div>
               <p className="ChallengeTask-description">Duration</p>
-              <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.frequency)}` }</p>
+              <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
             </div>
 
             <div>

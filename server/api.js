@@ -24,14 +24,16 @@ const socketManager = require("./server-socket");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
+
 router.get("/whoami", (req, res) => {
+  console.log(req.user)
   if (!req.user) {
     // not logged in
     return res.send({});
   }
-
   res.send(req.user);
 });
+
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
@@ -50,21 +52,62 @@ router.post("/tasks/create", (req,res) => {
     created: req.body.created,
     duration: req.body.duration,
     frequency: req.body.frequency,
-    is_completed: false,
-    date_completed: undefined,
-    progess: 0,
+    is_completed: req.body.is_completed,
+    date_completed: req.body.date_completed,
+    progress: req.body.progress,
     is_challenge: req.body.is_challenge,
-    challenger: req.body.challenger
+    challenger: req.body.challenger,
+    is_accepted: req.body.is_accepted
   });
 
   newTask.save().then((task) => {
     res.send(task);
-    console.log(task);
   });
 });
 
-router.get("/tasks", (req,res) => {
 
+router.get("/tasks/current", (req, res) => {
+  const query = {
+    // userId: req.query.userId
+    is_completed: false
+  }
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+});
+
+
+router.post("/tasks/delete", (req, res) => {
+  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+})
+
+
+router.post("/tasks/update", (req, res) => {
+  Task.findOne({_id: req.body._id}).then((task) => {
+    task.progress = req.body.progress;
+    task.is_completed = req.body.is_completed;
+    task.date_completed = req.body.date_completed;
+    task.save().then((task) => {
+      res.send(task);
+    });
+  })
+})
+
+
+router.get("/tasks/completed", (req, res) => {
+  const query = {
+    // userId: req.query.userId,
+    is_completed: true,
+  }
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+})
+
+router.get("/profile/fill", (req, res) => {
+  User.findById(req.query.userId).then((profile) => {
+    res.send(profile);
+  });
 });
 
 router.get("/profile/fill", (req, res) => {
