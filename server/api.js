@@ -68,7 +68,7 @@ router.post("/tasks/create", (req,res) => {
 
 router.get("/tasks/current", (req, res) => {
   const query = {
-    // userId: req.query.userId
+    //]] userId: req.query.userId,
     is_completed: false
   }
   Task.find(query).then((tasks) => {

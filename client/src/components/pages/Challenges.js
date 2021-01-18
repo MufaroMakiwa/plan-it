@@ -84,6 +84,7 @@ class Challenges extends Component {
       <div className="page-container">
         <SideBar 
           link="/challenges"
+          userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
         <div className="page_main">
           {challengesList}

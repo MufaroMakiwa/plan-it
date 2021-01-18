@@ -26,11 +26,11 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    
+  componentDidMount() { 
     get("/api/whoami").then((user) => {
+      console.log(`This is the user: ${user._id}, ${user.name}`)
       if (user._id) {
-
+        console.log("Updating the state with user credentials");
         // they are registed in the database, and currently logged in.
         this.setState({ 
           userId: user._id,
@@ -43,6 +43,7 @@ class App extends Component {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
+      console.log("Logged in, updating user credentials")
       this.setState({
          userId: user._id,
          userName: user.name 

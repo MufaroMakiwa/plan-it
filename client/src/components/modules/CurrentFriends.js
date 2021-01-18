@@ -42,6 +42,7 @@ class CurrentFriends extends Component {
 
   challengeFriend = () => {
     console.log("Challenge Friend Pop Up");
+    this.props.onChallengeButtonClicked()
   }
 
   unFriend = () => {
