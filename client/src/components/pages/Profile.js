@@ -5,7 +5,12 @@ import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import {post, get} from "../../utilities.js";
-import DemoConstellation from "../../public/DemoConstellation.png";
+import Constellation_0_Image from "../../public/Constellation_0_Points.png";
+import Constellation_1000_Image from "../../public/Constellation_1000_Points.png";
+import Constellation_2000_Image from "../../public/Constellation_2000_Points.png";
+import Constellation_3000_Image from "../../public/Constellation_3000_Points.png";
+import Constellation_4000_Image from "../../public/Constellation_4000_Points.png";
+import Constellation_5000_Image from "../../public/Constellation_5000_Points.png";
 import { navigate } from "@reach/router";
 
 import "../../utilities.css";
@@ -20,6 +25,7 @@ class Profile extends Component {
       // currName: "Name",
       currPoints: 0,
       currNumFriends: 0,
+      currImage: Constellation_0_Image,
     }
   }
 
@@ -31,6 +37,15 @@ class Profile extends Component {
     navigate("/current");
   }
 
+  selectImage = (pts) => {
+    if (pts < 1000) { this.setState ({currImage: Constellation_0_Image}) }
+    else if (pts < 2000) { this.setState ({currImage: Constellation_1000_Image}) }
+    else if (pts < 3000) { this.setState ({currImage: Constellation_2000_Image}) }
+    else if (pts < 4000) { this.setState ({currImage: Constellation_3000_Image}) }
+    else if (pts < 5000) { this.setState ({currImage: Constellation_4000_Image}) }
+    else { this.setState ({currImage: Constellation_5000_Image}) }
+  }
+
   componentDidMount() {
     get('/api/profile/fill', {
       userId: this.props.userId,
@@ -40,6 +55,7 @@ class Profile extends Component {
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
       });
+      this.selectImage(profile.points);
     });
   }
 
@@ -58,7 +74,7 @@ class Profile extends Component {
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>
-            <img className="Profile-Picture" src={DemoConstellation} alt="Constellation"/>
+            <img className="Profile-Picture" src={this.state.currImage} alt="Constellation"/>
             <div className="Profile-Bottom">
               <div className="Profile-Bottom-Container"> 
                 <h1 className="Profile-Header-Stats"> Stats </h1>
