@@ -38,9 +38,13 @@ class Friends extends Component {
           handleLogout={this.props.handleLogout}
           userName={this.props.userName}/>
         <div className="page_main">
-          <AddFriend> </AddFriend>
+          <AddFriend
+          userId={this.props.userId}
+          userName={this.props.userName}> </AddFriend>
+
           <CurrentFriends 
-            onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}> 
+            onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
+            userName={this.props.userName}> 
           </CurrentFriends>
 
           <FriendRequests> </FriendRequests>

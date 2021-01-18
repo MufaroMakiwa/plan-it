@@ -2,42 +2,22 @@ import React, { Component } from 'react';
 import "./FriendMod.css"
 import CFCard from "../modules/CFCard.js";
 
+import "../../utilities.css";
+import {get, post} from '../../utilities.js';
+
 class CurrentFriends extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      friends: [
-        {
-          id: 1,
-          name: "Timothee Beaver"
-        },
-
-        {
-          id: 2,
-          name: "Alyssa P. Hacker"
-        },
-
-        {
-          id: 3,
-          name: "Ben Bitdiddle"
-        },
-
-        {
-          id: 4,
-          name: "Jason J. Son"
-        },
-
-        {
-          id: 5,
-          name: "Hah Vad Yahd"
-        },
-
-        {
-          id: 6,
-          name: "Tim Thee Beaver"
-        }
-      ]
+      friends: []
     }
+  }
+
+  componentDidMount() {
+    get("/api/friend/current", {userName: this.props.userName}).then((friends) => {
+      this.setState({friends}),
+      console.log(friends)
+    })
   }
 
   challengeFriend = () => {
@@ -59,7 +39,7 @@ class CurrentFriends extends Component {
         <CFCard
           key={`listItem-${friendObj.id}`}
 
-          name={friendObj.name} 
+          name={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           onChallenge={() => this.challengeFriend()}
           onUnfriend={() => this.unFriend()}
         />
