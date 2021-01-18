@@ -28,29 +28,33 @@ class Friends extends Component {
     navigate("/current");
   }
 
+
+
   render() {
     return (
       <div className="page-container">
         <SideBar 
           link="/friends"
-          handleLogout={this.props.handleLogout}/>
+          handleLogout={this.props.handleLogout}
+          userName={this.props.userName}/>
         <div className="page_main">
           <AddFriend> </AddFriend>
           <CurrentFriends> </CurrentFriends>
+          <CurrentFriends 
+            onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}> 
+          </CurrentFriends>
+
           <FriendRequests> </FriendRequests>
         </div>
-
-        <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
           userId={this.props.userId}
           userName={this.props.userName}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
-          onSubmit={this.addTask}>
-        
+          onSubmit={this.addTask}
+          buttonText="Challenge friend">
         </AddTaskDialog>
-
       </div>
     );
   }

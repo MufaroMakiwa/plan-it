@@ -216,7 +216,7 @@ class AddTaskDialog extends Component {
               </button>
               
               <button className="AddTaskDialog-createTaskButton AddTaskDialog-button" onClick={this.handleSubmit}>
-                Create task
+                {this.props.buttonText ? this.props.buttonText: "Create task"}
               </button>
             </div> 
           </div>

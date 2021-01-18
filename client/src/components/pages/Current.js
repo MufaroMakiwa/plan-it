@@ -92,6 +92,7 @@ class Current extends Component {
       <div className="page-container">
         <SideBar 
           link="/current"
+          userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
         <div className="page_main">
           {tasksList}

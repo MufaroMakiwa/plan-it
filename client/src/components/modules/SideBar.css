@@ -108,6 +108,12 @@
 
 .SideBar-username {
   color: white;
+  width: auto;
+  padding: 8px 16px;
+}
+
+.SideBar-usernameHidden {
+  visibility: hidden;
 }
 
 .SideBar-profile {

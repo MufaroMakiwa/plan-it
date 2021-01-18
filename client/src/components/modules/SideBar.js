@@ -31,11 +31,11 @@ class SideBar extends Component {
           <p className="SideBar-name">PLAN_IT</p>
         </div>      
 
-        <div to="/profile" onClick={() =>this.handleSubmit("/profile")}  className="SideBar-profile">
-          <div>          
-            <AccountCircleIcon style={{fontSize: 100}} />
-            <p className="SideBar-username">Mufaro Makiwa</p>   
-          </div>
+        <div to="/profile" onClick={() =>this.handleSubmit("/profile")}  className="SideBar-profile">       
+          <AccountCircleIcon style={{fontSize: 100}} />
+          <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
+            {this.props.userName ? this.props.userName: "Placeholder"}
+          </p>   
         </div>
         
         <hr className="SideBar-divider"></hr>

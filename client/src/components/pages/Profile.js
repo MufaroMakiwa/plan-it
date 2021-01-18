@@ -17,7 +17,7 @@ class Profile extends Component {
 
     this.state = {
       isOpenAddTaskDialog: false,
-      currName: "Name",
+      // currName: "Name",
       currPoints: 0,
       currNumFriends: 0,
     }
@@ -36,7 +36,7 @@ class Profile extends Component {
       userId: this.props.userId,
     }).then((profile) => {
       this.setState({
-        currName: profile.name,
+        // currName: profile.name,
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
       });
@@ -48,12 +48,13 @@ class Profile extends Component {
       <div className="Profile-Container" >
         <SideBar 
           link="/profile"
+          userName={this.props.userName}
           handleLogout={this.props.handleLogout}
         />
         
         <div className="Profile-Main">
             <div className="Profile-Header">
-              <h1 className="Profile-Header-Name"> {this.state.currName} </h1>
+              <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>
