@@ -4,6 +4,8 @@ import "./Friends.css"
 import CurrentFriends from "../modules/CurrentFriends.js";
 import FriendRequests from "../modules/FriendRequests.js";
 import SideBar from "../modules/SideBar.js";
+import AddFriend from "../modules/AddFriend.js";
+
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
@@ -33,6 +35,7 @@ class Friends extends Component {
           link="/friends"
           handleLogout={this.props.handleLogout}/>
         <div className="page_main">
+          <AddFriend> </AddFriend>
           <CurrentFriends> </CurrentFriends>
           <FriendRequests> </FriendRequests>
         </div>
