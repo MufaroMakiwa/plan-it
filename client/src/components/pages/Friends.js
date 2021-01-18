@@ -21,7 +21,7 @@ class Friends extends Component {
   }
 
   setOpenAddTaskDialog = (bool) => {
-    this.setState({ isOpenAddTaskDialog: bool })
+    this.setState({ isOpenAddTaskDialog: bool });
   }
 
   addTask = (taskObj) => {
@@ -39,7 +39,6 @@ class Friends extends Component {
           userName={this.props.userName}/>
         <div className="page_main">
           <AddFriend> </AddFriend>
-          <CurrentFriends> </CurrentFriends>
           <CurrentFriends 
             onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}> 
           </CurrentFriends>
