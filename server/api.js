@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Task = require("./models/task");
+const Friend = require("./models/friend");
 
 // import authentication library
 const auth = require("./auth");
@@ -110,6 +111,33 @@ router.get("/profile/fill", (req, res) => {
     res.send(profile);
   });
 });
+
+router.post("/friend/make", (req,res) => {
+  const newFriend = new Friend({
+    userId_1: req.body.userId_1,
+    userName_1: req.body.userName_1,
+    userId_2: req.body.userId_2,
+    userName_2: req.body.userName_2,
+    is_friend: False,
+  });
+
+  newTask.save().then((task) => console.log("New Friend Added"));
+});
+
+router.post("/friend/delete", (req, res) => {
+  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+}) //?????
+
+router.get("/tasks/completed", (req, res) => {
+  const query = {
+    userId_1: req.query.userId,
+    is_completed: true,
+  }
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+})
+
 
 
 

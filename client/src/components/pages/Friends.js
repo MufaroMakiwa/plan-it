@@ -4,6 +4,8 @@ import "./Friends.css"
 import CurrentFriends from "../modules/CurrentFriends.js";
 import FriendRequests from "../modules/FriendRequests.js";
 import SideBar from "../modules/SideBar.js";
+import AddFriend from "../modules/AddFriend.js";
+
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
@@ -36,6 +38,8 @@ class Friends extends Component {
           handleLogout={this.props.handleLogout}
           userName={this.props.userName}/>
         <div className="page_main">
+          <AddFriend> </AddFriend>
+          <CurrentFriends> </CurrentFriends>
           <CurrentFriends 
             onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}> 
           </CurrentFriends>
