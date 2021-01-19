@@ -8,6 +8,7 @@ import {get , post} from "../../utilities.js";
 
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
+import Toast from "../modules/Toast.js";
 
 
 
@@ -16,15 +17,28 @@ class Current extends Component {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
-      tasks: []
+      tasks: [],
+      displayToastDeleted: false,
+      displayToastCompleted: false
     }
   }
 
-  componentDidMount() {
-    console.log(this.props);
-    get("/api/tasks/current", { userId: this.props.userId}).then((tasks) => {
+  getCurrentTasks = () => {
+    get("/api/tasks/current", { userId: this.props.userId }).then((tasks) => {
       this.setState({ tasks: tasks.reverse() })
     })
+  }
+
+  componentDidMount() {
+    this.getCurrentTasks();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(`The previous props: ${prevProps.userId}`)
+
+    if (!prevProps.userId && this.props.userId) {
+      this.getCurrentTasks();
+    }
   }
 
   setOpenAddTaskDialog = (bool) => {
@@ -50,7 +64,31 @@ class Current extends Component {
   deleteTask = (_id) => {
     const tasks = this.state.tasks.filter(task => task._id !== _id);
     this.setState({ tasks })
+    this.taskStatusNotification(false);
   }
+
+  taskStatusNotification = (isCompleted) => {
+    // if bool is true, task is completed else task is deleled
+    if (isCompleted) {
+      this.setState({ 
+        displayToastCompleted: true,
+      })
+    } else {
+      this.setState({ 
+        displayToastDeleted: true,
+      })
+    }
+    
+    const timer = setTimeout(() => {
+      console.log(this.state)
+      this.setState({
+        displayToastCompleted: false,
+        displayToastDeleted: false,
+      })
+    }, 2000);
+    return () => clearTimeout(timer);
+  }
+
 
   addTask = (taskObj) => {
     this.setState({
@@ -58,9 +96,15 @@ class Current extends Component {
     })
   }
 
+  getToastLabel = () => {
+    let label;
+
+  }
+
   completeTask = (_id) => {
     const tasks = this.state.tasks.filter(task => task._id !== _id);
     this.setState({ tasks })
+    this.taskStatusNotification(true);
   }
 
   render() { 
@@ -85,7 +129,7 @@ class Current extends Component {
         />
       ));
     } else {
-      tasksList = <div></div>;
+      tasksList = <div>No Tasks!</div>;
     }
 
     return ( 
@@ -94,8 +138,10 @@ class Current extends Component {
           link="/current"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
+
         <div className="page_main">
           {tasksList}
+
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
@@ -106,8 +152,15 @@ class Current extends Component {
           userName={this.props.userName}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)}
           onSubmit={this.addTask} >
-
         </AddTaskDialog>
+
+        <div className={this.state.displayToastCompleted ? "toast toastVisible" : "toast"}>
+          <Toast label="Task completed"/>
+        </div>
+
+        <div className={this.state.displayToastDeleted ? "toast toastVisible" : "toast"}>
+          <Toast label="Task deleted"/>
+        </div>
 
       </div>
     );

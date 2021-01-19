@@ -28,7 +28,7 @@ class SideBar extends Component {
       <div className="SideBar-container">
 
         <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
-          <p className="SideBar-name">PLAN_IT</p>
+          <p className="SideBar-name">PLAN-IT</p>
         </div>      
 
         <div to="/profile" onClick={() =>this.handleSubmit("/profile")}  className="SideBar-profile">       
@@ -57,7 +57,7 @@ class SideBar extends Component {
           <li key="friends" onClick={() =>this.handleSubmit("/friends")}>
             <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Friends</div> 
-              <span className="SideBar-notifications">2</span>
+              {/* <span className="SideBar-notifications">2</span> */}
             </div>
           </li>
           

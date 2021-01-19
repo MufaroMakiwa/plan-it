@@ -70,12 +70,38 @@ router.post("/tasks/create", (req,res) => {
 router.get("/tasks/current", (req, res) => {
   const query = {
     userId: req.query.userId,
-    is_completed: false
+    is_completed: false,
   }
   Task.find(query).then((tasks) => {
     res.send(tasks)
   })
 });
+
+router.get("/tasks/challenges", (req, res) => {
+  const query = {
+    userId: req.query.userId,
+    is_challenge: true,
+    is_accepted: false
+  }
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+})
+
+
+router.post("/tasks/challenges/accept", (req, res) => {
+  Task.findOne({_id: req.body._id}).then((task) => {
+    task.is_completed = false;
+    task.is_accepted = true
+    task.save().then((task) => {
+      res.send(task);
+    });
+  })
+})
+
+router.post("/tasks/challenges/decline", (req, res) => {
+  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+})
 
 
 router.post("/tasks/delete", (req, res) => {
@@ -94,6 +120,11 @@ router.post("/tasks/update", (req, res) => {
   })
 })
 
+router.get("/friend/id", (req, res) => {
+  User.findOne({name: req.query.friendName}).then((user) => {
+    res.send(user);
+  }) 
+})
 
 router.get("/tasks/completed", (req, res) => {
   const query = {
@@ -120,7 +151,9 @@ router.post("/friend/add", (req,res) => {
     userName_2: req.body.userName_2,
   });
 
-  newFriend.save().then((friend) => console.log("New Friend Added"));
+  newFriend.save().then((friend) => {
+    res.send(friend)
+  });
 });
 
 router.get("/friend/current", (req,res) => {
@@ -130,8 +163,18 @@ router.get("/friend/current", (req,res) => {
       { userName_2: req.query.userName},
     ],
   };
-
   Friend.find(query).then((friends) => res.send(friends));
+});
+
+
+router.post("/friend/delete", (req, res) => {
+  const query = {
+    $or: [
+      { userId_1: req.query.userId_1, userId_2: req.query.userId_2 },
+      { userId_1: req.query.userId_2, userId_2: req.query.userId_1 },
+    ],
+  };
+  Friend.deleteOne(query).then((friend) => res.send(friend));
 });
 
 

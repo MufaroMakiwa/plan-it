@@ -25,8 +25,7 @@ class Completed extends Component {
     this.setState({ isOpenAddTaskDialog: bool })
   }
 
-  componentDidMount() {
-    console.log(this.props);
+  getCompleted = () => {
     const query = {
       userId: this.props.userId,
       is_completed: true
@@ -35,6 +34,20 @@ class Completed extends Component {
       this.setState({ completed: completed.reverse() })
     })
   }
+
+  componentDidMount() {
+    this.getCompleted();
+  }
+
+
+  componentDidUpdate(prevProps) {
+    console.log(`The previous props: ${prevProps.userName}`)
+
+    if (!prevProps.userId && this.props.userId) {
+      this.getCompleted();
+    }
+  }
+
 
   addTask = (taskObj) => {
     navigate("/current");
@@ -67,8 +80,8 @@ class Completed extends Component {
           frequency={completedObj.frequency}
           created={completedObj.created}
           date_completed={completedObj.date_completed}
-          sendChallengeNotification={this.sendChallengeNotification}
-        />
+          sendChallengeNotification={this.sendChallengeNotification}/>
+
       ));
     } else {
       {completedList = <div></div>;}

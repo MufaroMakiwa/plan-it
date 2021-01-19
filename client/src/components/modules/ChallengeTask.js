@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./ChallengeTask.css";
+import {get , post} from "../../utilities.js";
 
 class ChallengeTask extends Component {
   constructor(props){
@@ -21,12 +22,15 @@ class ChallengeTask extends Component {
   }
 
   acceptChallenge = () => {
-    this.props.accept();
+    post("/api/tasks/challenges/accept", {_id: this.props._id}).then((challenge) => {
+      this.props.accept();
+    })
   }
 
   declineChallenge = () => {
-    // to handle api calls before excuting this
-    this.props.decline();
+    post("/api/tasks/challenges/decline", {_id: this.props._id}).then((challenge) => {
+      this.props.decline();
+    })
   }
 
   render() { 

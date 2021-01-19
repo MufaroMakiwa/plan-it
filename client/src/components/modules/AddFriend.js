@@ -22,24 +22,22 @@ class AddFriend extends Component{
   handleSubmit = (event) => {
     // todo: add validation later
     event.preventDefault();
-
-
     console.log("friend added");
-
     this.addNewFriend();
-
     this.setState({
       value: '',
     });
   }
 
   addNewFriend = () => {
-    post('/api/friend/add', {
-      userId_1: this.props.userId,
-      userName_1: this.props.userName,
-      userId_2: null,
-      userName_2: this.state.value
-    }).then((friendObj) => {console.log("AddFriend.js post req")})
+    get("/api/friend/id", {friendName: this.state.value}).then((user) => {
+      post('/api/friend/add', {
+        userId_1: this.props.userId,
+        userName_1: this.props.userName,
+        userId_2: user._id,
+        userName_2: user.name
+      }).then((friendObj) => {console.log("AddFriend.js post req")})
+    })
   };
 
   render(){

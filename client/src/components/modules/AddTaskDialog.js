@@ -15,8 +15,6 @@ class AddTaskDialog extends Component {
   }
 
 
-
-
   handleSubmit = (event) => {
     // validate user input
     let invalid = null;
@@ -29,7 +27,8 @@ class AddTaskDialog extends Component {
       invalid = true;
     }
 
-    if (this.state.duration.trim().length === 0) {
+    const durationInput = this.state.duration.trim()
+    if (! durationInput || durationInput < 1) {
       taskDuration.classList.add("AddTaskDialog-inputError");
       invalid = true;
     }
@@ -38,8 +37,30 @@ class AddTaskDialog extends Component {
       this.props.closeAddTaskDialog();
       this.resetState();
       console.log(this.props.userId);
-      this.createNewTask();
+
+      // if sending a challenge, this.props.isChallenge will be defined and true
+      this.props.isChallenge ? this.sendNewChallenge() : this.createNewTask();
     }
+  }
+
+  sendNewChallenge = () => {
+    post('/api/tasks/create', {
+      task_name: this.state.name,
+      userId: this.props.friendId,
+      userName: this.props.friendName,
+      created: this.getCurrentDate(),
+      duration: this.state.duration,
+      frequency: this.state.frequency,
+      is_completed: null,
+      date_completed: null,
+      progress: 0,
+      is_challenge: true,
+      challenger: this.props.userName,
+      is_accepted: false
+
+    }).then((taskObj) => {
+      this.props.onSubmit()
+    })
   }
 
   createNewTask = () => {

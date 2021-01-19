@@ -13,7 +13,7 @@ class Toast extends Component {
         <div className="Toast-checkIcon">
           <CheckIcon style={{fontSize: 50}}/>
         </div>
-        <p className="Toast-label">Challenge sent</p>
+        <p className="Toast-label">{this.props.label}</p>
       </div>
      );
   }

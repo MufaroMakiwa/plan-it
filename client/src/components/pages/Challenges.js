@@ -5,38 +5,36 @@ import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
 import { navigate } from '@reach/router';
+import {get , post} from "../../utilities.js";
+import Toast from "../modules/Toast.js";
+
 
 class Challenges extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
+      challenges: [],
+      displayToastAccepted: false,
+      displayToastDeclined: false
+    }
+  }
 
-      challenges: [
-        {
-          _id: 0,
-          task_name: "Go for a swim",
-          challenger: "Shreya Gupta",
-          duration: 20,
-          frequency: "Daily",
-        },
+  getChallenges = () => {
+    get("/api/tasks/challenges", { userId: this.props.userId }).then((challenges) => {
+      this.setState({ challenges: challenges.reverse() })
+    })
+  }
 
-        {
-          _id: 1,
-          task_name: "Eat 20 Papa John's Hawaaian Pizza",
-          challenger: "Nisarg Dharia",
-          duration: 2,
-          frequency: "Weekly",
-        },
+  componentDidMount() {
+    this.getChallenges();
+  }
 
-        {
-          _id: 2,
-          task_name: "Run 20 miles on the treadmill",
-          challenger: "Mufaro Makiwa",
-          duration: 12,
-          frequency: "Monthly",
-        },
-      ]
+  componentDidUpdate(prevProps) {
+    console.log(`The previous props: ${prevProps.userId}`)
+
+    if (!prevProps.userId && this.props.userId) {
+      this.getChallenges();
     }
   }
 
@@ -48,14 +46,39 @@ class Challenges extends Component {
     navigate("/current");
   }
 
+  challengeStatusNotification = (isAccepted) => {
+    // if bool is true, challenge is accepted else challenge is declined
+    if (isAccepted) {
+      this.setState({ 
+        displayToastAccepted: true,
+      })
+    } else {
+      this.setState({ 
+        displayToastDeclined : true,
+      })
+    }
+    
+    const timer = setTimeout(() => {
+      console.log(this.state)
+      this.setState({
+        displayToastAccepted: false,
+        displayToastDeclined: false,
+      })
+    }, 2000);
+    return () => clearTimeout(timer);
+  }
+
   accept = (_id) => {
-    alert("Handle me");
+    const challenges = this.state.challenges.filter(challenge => challenge._id !== _id);
+    this.setState({ challenges })
+    this.challengeStatusNotification(true)
   }
 
 
   decline = (_id) => {
     const challenges = this.state.challenges.filter(challenge => challenge._id !== _id);
     this.setState({ challenges })
+    this.challengeStatusNotification(false)
   }
 
   render() { 
@@ -76,7 +99,7 @@ class Challenges extends Component {
         />
       ));
     } else {
-      challengesList = <div></div>;
+      challengesList = <div>No challenges</div>;
     }
 
 
@@ -98,8 +121,16 @@ class Challenges extends Component {
           userName={this.props.userName}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
-
         </AddTaskDialog>
+
+        
+        <div className={this.state.displayToastAccepted ? "toast toastVisible" : "toast"}>
+          <Toast label="Challenge accepted"/>
+        </div>
+
+        <div className={this.state.displayToastDeclined ? "toast toastVisible" : "toast"}>
+          <Toast label="Challenge declined"/>
+        </div>
 
       </div>
     );

@@ -17,9 +17,9 @@ class Profile extends Component {
 
     this.state = {
       isOpenAddTaskDialog: false,
-      // currName: "Name",
-      currPoints: 0,
-      currNumFriends: 0,
+      currName: "",
+      currPoints: "",
+      currNumFriends: "",
     }
   }
 
@@ -31,17 +31,33 @@ class Profile extends Component {
     navigate("/current");
   }
 
+
   componentDidMount() {
+    this.getProfile();
+  }
+
+
+  componentDidUpdate(prevProps) {
+    console.log(`The previous props: ${prevProps.userName}`)
+
+    if (!prevProps.userId && this.props.userId) {
+      this.getProfile();
+    }
+  }
+
+
+  getProfile = () => {
     get('/api/profile/fill', {
       userId: this.props.userId,
     }).then((profile) => {
       this.setState({
-        // currName: profile.name,
+        currName: profile.name,
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
       });
     });
   }
+
 
   render() { 
     return ( 
@@ -54,7 +70,7 @@ class Profile extends Component {
         
         <div className="Profile-Main">
             <div className="Profile-Header">
-              <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
+              <h1 className="Profile-Header-Name"> {this.state.currName} </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>
