@@ -19,13 +19,17 @@ class Current extends Component {
       isOpenAddTaskDialog: false,
       tasks: [],
       displayToastDeleted: false,
-      displayToastCompleted: false
+      displayToastCompleted: false,
+      loading: true
     }
   }
 
   getCurrentTasks = () => {
     get("/api/tasks/current", { userId: this.props.userId }).then((tasks) => {
-      this.setState({ tasks: tasks.reverse() })
+      this.setState({ 
+        tasks: tasks.reverse(),
+        loading: false
+       })
     })
   }
 
@@ -34,7 +38,6 @@ class Current extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(`The previous props: ${prevProps.userId}`)
 
     if (!prevProps.userId && this.props.userId) {
       this.getCurrentTasks();
@@ -85,7 +88,7 @@ class Current extends Component {
         displayToastCompleted: false,
         displayToastDeleted: false,
       })
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }
 
@@ -139,10 +142,12 @@ class Current extends Component {
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        <div className="page_main">
-          {tasksList}
+        {this.state.loading ? <div></div> : (
+          <div className="page_main">
+            {tasksList}
+          </div>
+        )}
 
-        </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

@@ -27,7 +27,6 @@ router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 
 router.get("/whoami", (req, res) => {
-  console.log(req.user)
   if (!req.user) {
     // not logged in
     return res.send({});
@@ -63,13 +62,16 @@ router.post("/tasks/create", (req,res) => {
 
   newTask.save().then((task) => {
     res.send(task);
+    if (req.body.is_challenge) {
+      socketManager.getSocketFromUserID(task.userId).emit("new_challenge", task);
+    }
   });
 });
 
 
 router.get("/tasks/current", (req, res) => {
   const query = {
-    userId: req.query.userId,
+    userId: req.user._id,
     is_completed: false,
   }
   Task.find(query).then((tasks) => {
@@ -79,7 +81,7 @@ router.get("/tasks/current", (req, res) => {
 
 router.get("/tasks/challenges", (req, res) => {
   const query = {
-    userId: req.query.userId,
+    userId: req.user._id,
     is_challenge: true,
     is_accepted: false
   }
@@ -100,7 +102,10 @@ router.post("/tasks/challenges/accept", (req, res) => {
 })
 
 router.post("/tasks/challenges/decline", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+  Task.deleteOne({ _id:  req.body._id }).then((task) => {
+    res.send(task);
+    socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
+  });
 })
 
 
@@ -128,7 +133,7 @@ router.get("/friend/id", (req, res) => {
 
 router.get("/tasks/completed", (req, res) => {
   const query = {
-    userId: req.query.userId,
+    userId: req.user._id,
     is_completed: true,
   }
   Task.find(query).then((tasks) => {
@@ -138,7 +143,7 @@ router.get("/tasks/completed", (req, res) => {
 
 
 router.get("/profile/fill", (req, res) => {
-  User.findById(req.query.userId).then((profile) => {
+  User.findById(req.user._id).then((profile) => {
     res.send(profile);
   });
 });
@@ -163,36 +168,23 @@ router.get("/friend/current", (req,res) => {
       { userName_2: req.query.userName},
     ],
   };
-  Friend.find(query).then((friends) => res.send(friends));
+  Friend.find(query).then((friends) => {
+    res.send(friends)
+  });
 });
 
 
 router.post("/friend/delete", (req, res) => {
   const query = {
     $or: [
-      { userId_1: req.query.userId_1, userId_2: req.query.userId_2 },
-      { userId_1: req.query.userId_2, userId_2: req.query.userId_1 },
+      { userId_1: req.body.friendId, userId_2: req.user._id },
+      { userId_1: req.user._id, userId_2: req.body.friendId },
     ],
   };
-  Friend.deleteOne(query).then((friend) => res.send(friend));
+  Friend.deleteOne(query).then((friend) => {
+    res.send(friend)
+  });
 });
-
-
-router.post("/friend/delete", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
-}) //?????
-
-router.get("/tasks/completed", (req, res) => {
-  const query = {
-    userId_1: req.query.userId,
-    is_completed: true,
-  }
-  Task.find(query).then((tasks) => {
-    res.send(tasks)
-  })
-})
-
-
 
 
 // anything else falls to this "not found" case

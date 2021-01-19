@@ -28,9 +28,7 @@ class App extends Component {
 
   componentDidMount() { 
     get("/api/whoami").then((user) => {
-      console.log(`This is the user: ${user._id}, ${user.name}`)
       if (user._id) {
-        console.log("Updating the state with user credentials");
         // they are registed in the database, and currently logged in.
         this.setState({ 
           userId: user._id,

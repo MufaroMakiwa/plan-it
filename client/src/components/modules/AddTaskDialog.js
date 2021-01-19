@@ -36,7 +36,6 @@ class AddTaskDialog extends Component {
     if (!invalid) {
       this.props.closeAddTaskDialog();
       this.resetState();
-      console.log(this.props.userId);
 
       // if sending a challenge, this.props.isChallenge will be defined and true
       this.props.isChallenge ? this.sendNewChallenge() : this.createNewTask();

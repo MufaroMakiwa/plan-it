@@ -12,12 +12,16 @@ class CurrentFriends extends Component {
     super(props);
     this.state = {
       friends: [],
+      loading: true
     }
   }
 
   getFriends = () => {
     get("/api/friend/current", {userName: this.props.userName}).then((friends) => {
-      this.setState({friends})
+      this.setState({
+        friends: friends,
+        loading: false
+      })
     })
   }
 
@@ -34,15 +38,18 @@ class CurrentFriends extends Component {
   }
 
 
-  unFriend = (userId_1, userId_2) => {
-    post("/api/friend/delete", {userId_1: userId_1, userId_2: userId_2}).then((friend) => {
-      const friends = this.state.friends.filter(friend => friend._id !== userId_1 || friend._id !== userId_2);
-      this.setState({ friends });
-    })
-    
+  unFriend = (friendId) => {
+    const friends = this.state.friends.filter((friend) => {
+      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
+               friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+    });
+    this.setState({ friends }); 
   }
 
   render() { 
+    if (this.state.loading){
+      return <div></div>
+    }
  
     let friendsList = null;
     const hasFriends = this.state.friends.length !== 0;
@@ -54,9 +61,8 @@ class CurrentFriends extends Component {
           userName={this.props.userName}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
-          onUnfriend={() => this.unFriend(friendObj.userId_2, friendObj.userId_1)}/>
+          onUnfriend={() => this.unFriend(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}/>
       ));
-      
     } else {
       friendsList = <div>No Friends!</div>;
     }

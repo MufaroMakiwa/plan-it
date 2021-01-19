@@ -18,6 +18,7 @@ class Completed extends Component {
       isOpenAddTaskDialog: false,
       completed: [],
       displayToast: false,
+      loading: true
     }
   }
 
@@ -31,7 +32,9 @@ class Completed extends Component {
       is_completed: true
     }
     get("/api/tasks/completed", query).then((completed) => {
-      this.setState({ completed: completed.reverse() })
+      this.setState({ 
+        completed: completed.reverse(),
+        loading: false })
     })
   }
 
@@ -41,8 +44,6 @@ class Completed extends Component {
 
 
   componentDidUpdate(prevProps) {
-    console.log(`The previous props: ${prevProps.userName}`)
-
     if (!prevProps.userId && this.props.userId) {
       this.getCompleted();
     }
@@ -61,7 +62,7 @@ class Completed extends Component {
       this.setState({
         displayToast: false
       })
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }
 
@@ -81,7 +82,6 @@ class Completed extends Component {
           created={completedObj.created}
           date_completed={completedObj.date_completed}
           sendChallengeNotification={this.sendChallengeNotification}/>
-
       ));
     } else {
       {completedList = <div></div>;}
@@ -93,10 +93,15 @@ class Completed extends Component {
           link="/completed"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
-        <div className="page_main">
-          {completedList}   
-          <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}><Toast/></div>
-        </div>
+
+        {this.state.loading ? <div></div> : (
+          <div className="page_main">
+            {completedList}   
+            <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}>
+              <Toast label="Challenge sent"/>
+            </div>
+          </div>
+        )}
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
