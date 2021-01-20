@@ -57,7 +57,8 @@ router.post("/tasks/create", (req,res) => {
     progress: req.body.progress,
     is_challenge: req.body.is_challenge,
     challenger: req.body.challenger,
-    is_accepted: req.body.is_accepted
+    is_accepted: req.body.is_accepted,
+    previous_progress_log: req.body.previous_progress_log
   });
 
   newTask.save().then((task) => {
@@ -75,7 +76,7 @@ router.get("/tasks/current", (req, res) => {
     is_completed: false,
   }
   Task.find(query).then((tasks) => {
-    res.send(tasks)
+    res.send(tasks);
   })
 });
 
@@ -94,9 +95,12 @@ router.get("/tasks/challenges", (req, res) => {
 router.post("/tasks/challenges/accept", (req, res) => {
   Task.findOne({_id: req.body._id}).then((task) => {
     task.is_completed = false;
-    task.is_accepted = true
+    task.is_accepted = true;
+    task.previous_progress_log = req.body.previous_progress_log;
+
     task.save().then((task) => {
       res.send(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("challenge_accepted", task);
     });
   })
 })
@@ -119,8 +123,11 @@ router.post("/tasks/update", (req, res) => {
     task.progress = req.body.progress;
     task.is_completed = req.body.is_completed;
     task.date_completed = req.body.date_completed;
+    task.previous_progress_log = req.body.previous_progress_log;
     task.save().then((task) => {
       res.send(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
+      console.log(task);
     });
   })
 })

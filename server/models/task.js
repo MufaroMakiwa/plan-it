@@ -13,6 +13,7 @@ const TaskSchema = new mongoose.Schema({
   is_challenge: Boolean,
   challenger: String,
   is_accepted: Boolean,
+  previous_progress_log: String
 });
 
 // compile model from schema

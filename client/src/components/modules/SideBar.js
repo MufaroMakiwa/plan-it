@@ -48,6 +48,14 @@ class SideBar extends Component {
         challengesCount: prevState.challengesCount - 1,
       }))
     })
+
+    // listen for events when user accepts a challenge
+    socket.on("challenge_accepted", (newChallenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challengesCount: prevState.challengesCount - 1,
+      }))
+    })
   }
 
   animateNotificationIcon = () => {

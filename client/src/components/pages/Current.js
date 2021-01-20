@@ -5,10 +5,12 @@ import SideBar from "../modules/SideBar.js";
 
 import "../../utilities.css";
 import {get , post} from "../../utilities.js";
+import { socket } from "../../client-socket.js";
 
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
+import { DateMethods } from "../modules/DateMethods.js";
 
 
 
@@ -38,7 +40,6 @@ class Current extends Component {
   }
 
   componentDidUpdate(prevProps) {
-
     if (!prevProps.userId && this.props.userId) {
       this.getCurrentTasks();
     }
@@ -50,15 +51,28 @@ class Current extends Component {
 
   incrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      task.progress = (task._id === _id && task.progress < task.duration) ? task.progress + 1 : task.progress;
+      if (task._id === _id && task.progress < task.duration) {
+        const newLog = DateMethods.resetToStart(task.frequency, new Date());
+        task.progress = task.progress + 1;
+        task.previous_progress_log = newLog.toString();
+      }
       return task;
     })
     this.setState({ tasks })
   }
 
+  isPeriodTaskCompleted = (frequency, previous_progress_log) => {
+    const currentPeriod = DateMethods.resetToStart(frequency, new Date())
+    return currentPeriod.toString() === previous_progress_log;
+  }
+
   decrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      task.progress = (task._id === _id && task.progress > 0) ? task.progress - 1 : task.progress;
+      if (task._id === _id && task.progress > 0) {
+        const newLog = DateMethods.getPreviousLog(task.frequency, new Date(task.previous_progress_log));
+        task.progress = task.progress - 1;
+        task.previous_progress_log = newLog.toString();
+      }
       return task;
     })
     this.setState({ tasks })
@@ -83,7 +97,6 @@ class Current extends Component {
     }
     
     const timer = setTimeout(() => {
-      console.log(this.state)
       this.setState({
         displayToastCompleted: false,
         displayToastDeleted: false,
@@ -125,6 +138,8 @@ class Current extends Component {
           frequency={taskObj.frequency}
           progress={taskObj.progress}
           challenger={taskObj.challenger}
+          previous_progress_log={taskObj.previous_progress_log}
+          isPeriodTaskCompleted={this.isPeriodTaskCompleted(taskObj.frequency, taskObj.previous_progress_log)}
           onIncrement={() => this.incrementProgress(taskObj._id)}
           onDecrement={() => this.decrementProgress(taskObj._id)}
           onDelete = {() => this.deleteTask(taskObj._id)}

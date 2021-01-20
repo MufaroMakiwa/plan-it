@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./CompletedTask.css";
+import { DateMethods } from "./DateMethods.js";
 
 class CompletedTask extends Component {
   constructor(props){
@@ -39,7 +40,7 @@ class CompletedTask extends Component {
           <div className="CompletedTask-details">
             <div>
               <p className="CompletedTask-description">Created</p>
-              <p>{this.props.created}</p>
+              <p>{DateMethods.getDateFormat(this.props.created)}</p>
             </div>
 
             <div>

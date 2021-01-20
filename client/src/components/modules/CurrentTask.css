@@ -105,6 +105,18 @@
 }
 
 .CurrentTask-delete:hover {
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--color_on_secondary);
   cursor: pointer;
+}
+
+.CurrentTask-progressSummaryDone {
+  padding: 8px 0 0 0;
+  font-style: italic;
+  color: rgb(0, 255, 0);
+}
+
+.CurrentTask-progressSummaryNotDone {
+  padding: 8px 0 0 0;
+  font-style: italic;
+  color: yellow;
 }
