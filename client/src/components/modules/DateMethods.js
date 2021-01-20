@@ -66,32 +66,46 @@ export class DateMethods {
     return newDate;
   }
 
+
+  static resetToStartOfMinute = (date) => {
+    const newDate = new Date(date);
+    newDate.setSeconds(0, 0);
+    return newDate;
+  }
+
+
+  static getPreviousLogMinute = (date) => {
+    const newDate = new Date(date);
+    newDate.setMinutes(date.getMinutes() - 1, 0, 0);
+    return newDate;
+  }
+
   static getPreviousLog = (frequency, date) => {
-    switch (frequency) {
-      case "Daily":
-        return this.getPreviousLogDay(date);
+    // switch (frequency) {
+    //   case "Daily":
+    //     return this.getPreviousLogDay(date);
 
-      case "Weekly":
-        return this.getPreviousLogWeek(date);
+    //   case "Weekly":
+    //     return this.getPreviousLogWeek(date);
 
-      case "Monthly":
-        return this.getPreviousLogMonth(date);
-    }
-    // return this.getPreviousLogTest(date);
+    //   case "Monthly":
+    //     return this.getPreviousLogMonth(date);
+    // }
+    return this.getPreviousLogMinute(date);
   }
 
   static resetToStart = (frequency, date) => {
-    switch (frequency) {
-      case "Daily":
-        return this.resetToStartOfDay(date);
+    // switch (frequency) {
+    //   case "Daily":
+    //     return this.resetToStartOfDay(date);
 
-      case "Weekly":
-        return this.resetToStartOfWeek(date);
+    //   case "Weekly":
+    //     return this.resetToStartOfWeek(date);
 
-      case "Monthly":
-        return this.resetToStartOfMonth(date);
-    }
-    // return this.resetToStartOfTest(date);
+    //   case "Monthly":
+    //     return this.resetToStartOfMonth(date);
+    // }
+    return this.resetToStartOfMinute(date);
   }
 
   static getDateFormat = (dateObj) => {

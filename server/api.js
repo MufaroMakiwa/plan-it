@@ -21,7 +21,7 @@ const auth = require("./auth");
 const router = express.Router();
 
 // import node=cron to schedule tasks
-// const cron = require('node-cron');
+const cron = require('node-cron');
 
 //initialize socket
 const socketManager = require("./server-socket");
@@ -196,9 +196,9 @@ router.post("/friend/delete", (req, res) => {
   });
 });
 
-// cron.schedule('* * * * *', () => {
-//   console.log("Running task every minute");
-// })
+cron.schedule('0 0 * * *', () => {
+  socketManager.getIo().emit("update_current_tasks", true);
+})
 
 
 // anything else falls to this "not found" case

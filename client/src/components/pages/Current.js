@@ -15,6 +15,8 @@ import { DateMethods } from "../modules/DateMethods.js";
 
 
 class Current extends Component {
+  isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -35,8 +37,40 @@ class Current extends Component {
     })
   }
 
+
+  filterTasks = () => {
+    const tasks = this.state.tasks.filter(task => {
+      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
+      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
+
+      // return currentPeriodPrev.toString() === task.previous_progress_log;
+      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+        console.log(task);
+        return false;
+      } else {
+        return true;
+      }
+    });
+    this.setState({ tasks })
+    
+  }
+
+
   componentDidMount() {
+    this.isMounted = true;
     this.getCurrentTasks();
+
+    // listen to update the page
+    socket.on("update_current_tasks", (val) => {
+      if (!this.isMounted) return;
+      console.log("Updating the page");
+      // this.forceUpdate();
+      this.filterTasks();
+    })
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
   }
 
   componentDidUpdate(prevProps) {
