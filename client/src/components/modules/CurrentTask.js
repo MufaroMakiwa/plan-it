@@ -76,6 +76,7 @@ class CurrentTask extends Component {
 
     if (currentPeriod.toString() !== this.props.previous_progress_log) {
       console.log("You cannot decrement progress now")
+      return;
     }
 
     const prevLog = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);

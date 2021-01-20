@@ -20,6 +20,9 @@ const auth = require("./auth");
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
+// import node=cron to schedule tasks
+// const cron = require('node-cron');
+
 //initialize socket
 const socketManager = require("./server-socket");
 
@@ -192,6 +195,10 @@ router.post("/friend/delete", (req, res) => {
     res.send(friend)
   });
 });
+
+// cron.schedule('* * * * *', () => {
+//   console.log("Running task every minute");
+// })
 
 
 // anything else falls to this "not found" case
