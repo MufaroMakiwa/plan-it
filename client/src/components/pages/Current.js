@@ -89,9 +89,9 @@ class Current extends Component {
 
   incrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      if (task._id === _id && task.progress < task.duration) {
+      if (task._id === _id && task.progress.length < task.duration) {
         const newLog = DateMethods.resetToStart(task.frequency, new Date());
-        task.progress = task.progress + 1;
+        task.progress = task.progress.concat([1]);
         task.previous_progress_log = newLog.toString();
       }
       return task;
@@ -106,9 +106,9 @@ class Current extends Component {
 
   decrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      if (task._id === _id && task.progress > 0) {
+      if (task._id === _id && task.progress.length > 0) {
         const newLog = DateMethods.getPreviousLog(task.frequency, new Date(task.previous_progress_log));
-        task.progress = task.progress - 1;
+        task.progress = task.progress.slice(0, -1);
         task.previous_progress_log = newLog.toString();
       }
       return task;
@@ -145,6 +145,7 @@ class Current extends Component {
 
 
   addTask = (taskObj) => {
+    console.log(taskObj);
     this.setState({
       tasks: [taskObj].concat(this.state.tasks),
     })

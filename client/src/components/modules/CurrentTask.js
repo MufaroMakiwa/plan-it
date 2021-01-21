@@ -12,6 +12,7 @@ class CurrentTask extends Component {
   }
 
   getProgress = (completed, duration) => {
+    console.log(completed, duration);
     const percentage = Math.round((completed / duration) * 100)
     return percentage + "%";
   }
@@ -44,11 +45,11 @@ class CurrentTask extends Component {
     }
     
 
-    const new_progress = this.props.progress + 1;
-    if (new_progress >= this.props.duration) {
+    const new_progress = this.props.progress.concat([1]);
+    if (new_progress.length >= this.props.duration) {
       const query = {
         _id: this.props._id,
-        progress: this.props.duration,
+        progress: new_progress,
         is_completed: true,
         date_completed: new Date().toString(),
         previous_progress_log: newLog.toString(),
@@ -80,8 +81,9 @@ class CurrentTask extends Component {
     }
 
     const prevLog = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
-    const new_progress = this.props.progress - 1;
-    if (new_progress >= 0) {
+    const new_progress = this.props.progress.slice(0, -1);
+    
+    if (this.props.progress.length > 0) {
       const query = {
         _id: this.props._id,
         progress: new_progress,
@@ -151,7 +153,7 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.props.progress} ${this.getFrequencyLabel(this.props.progress)} completed`}</p>
+              <p>{`${this.props.progress.length} ${this.getFrequencyLabel(this.props.progress.length)} completed`}</p>
             </div>            
           </div>
 
@@ -162,7 +164,7 @@ class CurrentTask extends Component {
 
         <div className="CurrentTask-progress">
           <div className="CurrentTask-progressFill" 
-            style={{width: this.getProgress(this.props.progress, this.props.duration)}}></div>
+            style={{width: this.getProgress(this.props.progress.length, this.props.duration)}}></div>
         </div>
 
         <div className={this.props.isPeriodTaskCompleted ? "CurrentTask-progressSummaryDone" : "CurrentTask-progressSummaryNotDone"}>
