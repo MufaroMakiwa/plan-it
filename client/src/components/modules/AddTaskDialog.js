@@ -56,6 +56,7 @@ class AddTaskDialog extends Component {
       progress: [],
       is_challenge: true,
       challenger: this.props.userName,
+      challengerId: this.props.userId,
       is_accepted: false,
       previous_progress_log: null
 
@@ -80,6 +81,7 @@ class AddTaskDialog extends Component {
       progress: [],
       is_challenge: false,
       challenger: null,
+      challengerId: null,
       is_accepted: null,
       previous_progress_log: prev_log.toString()
 

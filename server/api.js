@@ -60,6 +60,7 @@ router.post("/tasks/create", (req,res) => {
     progress: req.body.progress,
     is_challenge: req.body.is_challenge,
     challenger: req.body.challenger,
+    challengerId: req.body.challengerId,
     is_accepted: req.body.is_accepted,
     previous_progress_log: req.body.previous_progress_log
   });

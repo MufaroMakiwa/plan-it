@@ -12,6 +12,7 @@ const TaskSchema = new mongoose.Schema({
   progress: Array,
   is_challenge: Boolean,
   challenger: String,
+  challengerId: String,
   is_accepted: Boolean,
   previous_progress_log: String
 });
