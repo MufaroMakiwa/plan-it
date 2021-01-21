@@ -45,6 +45,7 @@ class Friends extends Component {
 
           <CurrentFriends 
             onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
+            userId={this.props.userId}
             userName={this.props.userName}
             userEmail={this.props.userEmail}> 
           </CurrentFriends>
