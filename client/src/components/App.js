@@ -23,6 +23,7 @@ class App extends Component {
     this.state = {
       userId: undefined,
       userName: undefined,
+      userEmail: undefined,
     };
   }
 
@@ -34,7 +35,8 @@ class App extends Component {
         // they are registed in the database, and currently logged in.
         this.setState({ 
           userId: user._id,
-          userName: user.name});
+          userName: user.name,
+          userEmail: user.email});
       }
     });
   }
@@ -46,7 +48,8 @@ class App extends Component {
       console.log("Logged in, updating user credentials")
       this.setState({
          userId: user._id,
-         userName: user.name 
+         userName: user.name,
+         userEmail: user.email 
         });
       post("/api/initsocket", { socketid: socket.id });
       navigate('/current');
@@ -56,7 +59,8 @@ class App extends Component {
   handleLogout = () => {
     this.setState({ 
       userId: undefined,
-      userName: undefined
+      userName: undefined,
+      userEmail: undefined
     });
     post("/api/logout");
     navigate('/');
@@ -71,42 +75,48 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
 
           <Current
             path="/current"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
 
           <Friends
             path="/friends"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
 
           <Challenges
             path="/challenges"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
 
           <Completed
             path="/completed"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
 
           <Profile
             path="/profile"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
-            userId={this.state.userId}/>
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
           
           <NotFound default />
         </Router>
