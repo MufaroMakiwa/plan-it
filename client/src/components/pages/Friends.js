@@ -50,7 +50,11 @@ class Friends extends Component {
             userEmail={this.props.userEmail}> 
           </CurrentFriends>
 
-          <FriendRequests> </FriendRequests>
+          <FriendRequests
+            userId={this.props.userId}
+            userName={this.props.userName}
+            userEmail={this.props.userEmail}> 
+          </FriendRequests>
 
           <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

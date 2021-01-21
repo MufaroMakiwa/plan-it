@@ -35,13 +35,10 @@ class CurrentFriends extends Component {
 
 
   unFriend = (friendId) => {
-    console.log('friends step3')
-    console.log(friendId)
     const friends = this.state.friends.filter((friend) => {
       return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
               friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
     });
-    console.log(friends)
     this.setState({friends});
   }
 
