@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./Card.css";
+import {get, post} from '../../utilities.js';
 
 
 class FRCard extends Component {
@@ -12,7 +13,10 @@ class FRCard extends Component {
   }
 
   decline = () => {
-    console.log("accept")
+    console.log("decline")
+    post("/api/friend/delete", {friendId: this.props.friendId}).then((friend) => {
+      this.props.onDecline();
+    })
   }
 
   render() { 

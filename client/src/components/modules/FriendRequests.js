@@ -33,8 +33,13 @@ class FriendRequests extends Component {
     console.log("ACCEPT");
   }
 
-  declineRequest = () => {
+  declineRequest = (friendId) => {
     console.log("DECLINE");
+    const friends = this.state.friends.filter((friend) => {
+      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
+              friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+    });
+    this.setState({friends});
   }
 
   render() { 
@@ -49,7 +54,7 @@ class FriendRequests extends Component {
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
           onAccept={() => this.acceptRequest()}
-          onDecline={() => this.declineRequest()}
+          onDecline={() => this.declineRequest(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}
         />
       ));
       
