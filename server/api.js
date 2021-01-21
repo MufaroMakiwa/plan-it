@@ -143,17 +143,31 @@ router.get("/profile/fill", (req, res) => {
   });
 });
 
-router.post("/friend/add", (req,res) => {
+router.post("/friend/make", (req,res) => {
   const newFriend = new Friend({
     userId_1: req.body.userId_1,
     userName_1: req.body.userName_1,
+    userEmail_1: req.body.userEmail_1,
     userId_2: req.body.userId_2,
     userName_2: req.body.userName_2,
+    userEmail_2: req.body.userEmail_2,
+    is_friend: req.body.is_friend
   });
 
   newFriend.save().then((friend) => {
     res.send(friend)
   });
+});
+
+router.post("/friend/delete", (req, res) => {
+  console.log("friends step2")
+  const query = {
+    $or: [
+      { userId_1: req.body.friendId, userId_2: req.user._id},
+      { userId_1: req.user._id, userId_2: req.body.friendId},
+    ],
+  };
+  Friend.deleteOne(query).then((friend) => res.send(friend));
 });
 
 router.get("/friend/current", (req,res) => {
@@ -167,20 +181,6 @@ router.get("/friend/current", (req,res) => {
 });
 
 
-router.post("/friend/delete", (req, res) => {
-  const query = {
-    $or: [
-      { userId_1: req.query.userId_1, userId_2: req.query.userId_2 },
-      { userId_1: req.query.userId_2, userId_2: req.query.userId_1 },
-    ],
-  };
-  Friend.deleteOne(query).then((friend) => res.send(friend));
-});
-
-
-router.post("/friend/delete", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
-}) //?????
 
 router.get("/tasks/completed", (req, res) => {
   const query = {

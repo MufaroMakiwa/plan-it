@@ -34,12 +34,15 @@ class CurrentFriends extends Component {
   }
 
 
-  unFriend = (userId_1, userId_2) => {
-    post("/api/friend/delete", {userId_1: userId_1, userId_2: userId_2}).then((friend) => {
-      const friends = this.state.friends.filter(friend => friend._id !== userId_1 || friend._id !== userId_2);
-      this.setState({ friends });
-    })
-    
+  unFriend = (friendId) => {
+    console.log('friends step3')
+    console.log(friendId)
+    const friends = this.state.friends.filter((friend) => {
+      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
+              friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+    });
+    console.log(friends)
+    this.setState({friends});
   }
 
   render() { 
@@ -54,7 +57,7 @@ class CurrentFriends extends Component {
           userName={this.props.userName}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
-          onUnfriend={() => this.unFriend(friendObj.userId_2, friendObj.userId_1)}/>
+          onUnfriend={() => this.unFriend(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}/>
       ));
       
     } else {

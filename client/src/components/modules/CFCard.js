@@ -21,8 +21,8 @@ class CFCard extends Component {
   }
 
   unFriend = () => {
-    console.log("Unfriending")
-    post("/api/friend/delete", {userId_1: userId_1, userId_2: userId_2}).then((friend) => {
+    console.log("friend step1")
+    post("/api/friend/delete", {friendId: this.props.friendId}).then((friend) => {
       this.props.onUnfriend();
     })
   }
@@ -45,7 +45,7 @@ class CFCard extends Component {
 
           <p className="card-title">{this.props.friendName}</p>
           <button onClick={() => this.setOpenAddTaskDialog(true)} className ="challenge-button" type="button"> Challenge </button>
-          <button onClick={this.props.onUnfriend} className ="unfriend-button" type="button"> Unfriend </button>     
+          <button onClick={this.unFriend} className ="unfriend-button" type="button"> Unfriend </button>     
         </div>
 
         <AddTaskDialog 

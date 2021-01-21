@@ -31,11 +31,14 @@ class AddFriend extends Component{
 
   addNewFriend = () => {
     get("/api/friend/id", {friendName: this.state.value}).then((user) => {
-      post('/api/friend/add', {
+      post('/api/friend/make', {
         userId_1: this.props.userId,
         userName_1: this.props.userName,
+        userEmail_1: this.props.userEmail,
         userId_2: user._id,
-        userName_2: user.name
+        userName_2: user.name,
+        userEmail_2: user.email,
+        is_friend: false
       }).then((friendObj) => {console.log("AddFriend.js post req")})
     })
   };

@@ -39,12 +39,14 @@ class Friends extends Component {
         <div className="page_main">
           <AddFriend
             userId={this.props.userId}
-            userName={this.props.userName}> 
+            userName={this.props.userName}
+            userEmail={this.props.userEmail}> 
           </AddFriend>
 
           <CurrentFriends 
             onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
-            userName={this.props.userName}> 
+            userName={this.props.userName}
+            userEmail={this.props.userEmail}> 
           </CurrentFriends>
 
           <FriendRequests> </FriendRequests>
