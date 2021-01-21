@@ -1,4 +1,10 @@
-export class DateMethods {
+// initialize the Task schema
+const Task = require("./models/task");
+
+//initialize socket
+const socketManager = require("./server-socket");
+
+class UpdateTasks {
 
   static resetToStartOfMonth = (date) => {
     const newDate = new Date(date);
@@ -100,11 +106,29 @@ export class DateMethods {
     return this.resetToStartOfMinute(date);
   }
 
-  static getDateFormat = (dateObj) => {
-    const date = new Date(dateObj);
-    let dd = String(date.getDate()).padStart(2, '0');
-    let mm = String(date.getMonth() + 1).padStart(2, '0'); 
-    let yyyy = date.getFullYear();
-    return mm + '/' + dd + '/' + yyyy;
+  
+  static update = () => {
+    Task.find({is_completed: false}).then(tasks => {
+      for (let task of tasks) {
+        const currentPeriod = this.resetToStart(task.frequency, new Date());
+        const currentPeriodPrev = this.getPreviousLog(task.frequency, currentPeriod);
+
+        if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+          task.progress = task.progress.concat([0])
+          task.previous_progress_log = currentPeriodPrev.toString();
+
+          if (task.progress.length === task.duration) {
+            task.is_completed = true;
+            task.date_completed = new Date().toString();
+          }
+          task.save();
+        }
+      }
+      socketManager.getIo().emit("update_current_tasks", true);
+    })
+      // console.log(".........................................................")
+      // console.log("Updating tasks");
   }
 }
+
+module.exports = UpdateTasks;

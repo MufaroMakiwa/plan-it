@@ -41,7 +41,24 @@ class Current extends Component {
     })
   }
 
+  updateTasks = () => {
+    let toUpdate = [];
+    for (let task of this.state.tasks) {
+      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
+      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
 
+      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+        // toUpdate.push(task._id);
+        toUpdate.push(task);
+      }
+    }
+    post("/api/tasks/logIncomplete", {taskIds: toUpdate}).then((tasks) => {
+      console.log(tasks)
+    })
+  }
+
+
+  
   filterTasks = () => {
     const tasks = this.state.tasks.filter(task => {
       const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
@@ -67,9 +84,7 @@ class Current extends Component {
     // listen to update the page
     socket.on("update_current_tasks", (val) => {
       if (!this.isMounted) return;
-      console.log("Updating the page");
-      // this.forceUpdate();
-      this.filterTasks();
+      this.getCurrentTasks();
     })
   }
 
@@ -145,7 +160,6 @@ class Current extends Component {
 
 
   addTask = (taskObj) => {
-    console.log(taskObj);
     this.setState({
       tasks: [taskObj].concat(this.state.tasks),
     })

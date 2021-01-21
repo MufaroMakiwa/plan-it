@@ -20,8 +20,11 @@ const auth = require("./auth");
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
-// import node=cron to schedule tasks
+// import node-cron to schedule tasks
 const cron = require('node-cron');
+
+// import updateTasks to run a script that updates all the task everr 24 hours
+const updateTasks = require("./updateTasks.js")
 
 //initialize socket
 const socketManager = require("./server-socket");
@@ -136,6 +139,16 @@ router.post("/tasks/update", (req, res) => {
   })
 })
 
+// router.post("/tasks/logIncomplete", (req, res) => {
+//   Task.updateMany(
+//     {_id : {$in : req.body.taskIds}},
+//     {$set: {"progress" : {$concatArrays : ["$progress", [0]]}}}
+//   ).then((tasks) => {
+//     console.log(tasks);
+//     res.send(tasks)
+//   })
+// })
+
 router.get("/friend/id", (req, res) => {
   User.findOne({name: req.query.friendName}).then((user) => {
     res.send(user);
@@ -206,8 +219,8 @@ router.get("/friend/suggestions", (req, res) => {
   })
 })
 
-cron.schedule('0 0 * * *', () => {
-  socketManager.getIo().emit("update_current_tasks", true);
+cron.schedule('* * * * *', () => {
+  updateTasks.update();
 })
 
 

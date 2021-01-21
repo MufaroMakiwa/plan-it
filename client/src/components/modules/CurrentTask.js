@@ -113,7 +113,37 @@ class CurrentTask extends Component {
 
 
   render() { 
-    return ( 
+    let gridCells = [];
+
+    for (let i = 0; i < this.props.duration; i++) {
+      switch (this.props.progress[i]) {
+        case 1:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressCellDone"
+              key={`ProgressCell_${i}`}>
+            </div>));
+          break;
+
+        case 0:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressCellSkipped"
+              key={`ProgressCell_${i}`}>
+            </div>))
+          break;
+
+        default:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressNotDone"
+              key={`ProgressCell_${i}`}>
+            </div>))
+          break;
+      }
+    }
+
+    return (
       <div className="CurrentTask-container">
         <p className="CurrentTask-taskTitle">{this.props.task_name}</p>
 
@@ -162,8 +192,9 @@ class CurrentTask extends Component {
         </div>
 
         <div className="CurrentTask-progress">
-          <div className="CurrentTask-progressFill" 
-            style={{width: this.getProgress(this.props.progress.length, this.props.duration)}}></div>
+          {gridCells}
+          {/* <div className="CurrentTask-progressFill" 
+            style={{width: this.getProgress(this.props.progress.length, this.props.duration)}}></div> */}
         </div>
 
         <div className={this.props.isPeriodTaskCompleted ? "CurrentTask-progressSummaryDone" : "CurrentTask-progressSummaryNotDone"}>

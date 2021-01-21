@@ -53,7 +53,7 @@ class CompletedTask extends Component {
           <div className="CompletedTask-details">
             <div>
               <p className="CompletedTask-description">Completed</p>
-              <p>{this.props.date_completed}</p>
+              <p>{DateMethods.getDateFormat(this.props.date_completed)}</p>
             </div>
 
             <div>

@@ -75,15 +75,34 @@
   border: 1px solid #fa5460;
   margin-top: 16px;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
 }
 
 .CurrentTask-progressFill {
   height: 100%;
   background-color: #fa5460;
+}
 
-  display: grid;
-  grid-auto-rows: 0;
-  grid-auto-columns: 0;
+.CurrentTask-progressCell {
+  height: 100%;
+  flex-grow: 1;
+  width: auto;
+  border-right: 1px solid rgb(196, 196, 196, 0.3);
+}
+
+.CurrentTask-progressCellDone {
+  background-color: #fa5460;
+}
+
+.CurrentTask-progressCellSkipped {
+  background-color: var(--color_on_secondary);
+}
+
+.CurrentTask-progressCellNotDone {
+  background-color: transparent;
+  border-right: none;
+  border-left: 1px solid rgb(196, 196, 196, 0.3);
 }
 
 .CurrentTask-details > * {
