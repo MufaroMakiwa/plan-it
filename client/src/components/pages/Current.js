@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import "./Current.css"
+
 import CurrentTask from "../modules/CurrentTask.js";
 import SideBar from "../modules/SideBar.js";
 
+import "./Current.css"
 import "../../utilities.css";
+
 import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 
+import IncompleteTasksDialog from "../modules/IncompleteTasksDialog.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
@@ -24,7 +27,8 @@ class Current extends Component {
       tasks: [],
       displayToastDeleted: false,
       displayToastCompleted: false,
-      loading: true
+      loading: true, 
+      hasIncompleteTasks: false,
     }
   }
 
@@ -193,10 +197,21 @@ class Current extends Component {
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
-            {tasksList}
+            <div>
+              {tasksList}
+            </div>
+
+            {this.state.hasIncompleteTasks && (
+              <div className="Current-incompleteTaskLayout">
+                <div className="Current-dimTransparent"></div>
+
+                <div className="Current-incompleteTasksDialog">
+                  <IncompleteTasksDialog/>
+                </div>
+              </div>
+            )}
           </div>
         )}
-
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

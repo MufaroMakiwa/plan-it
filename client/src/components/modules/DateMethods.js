@@ -1,11 +1,3 @@
-/* 
-For any task created, create a new field, prev_progress_log. We reset each
-task date created to the corresponding beginning of the week, day or month
-Everytime progress is logged, update the prev_progress_log field with the 
-reset date of that particular day, week or month
-At the start, we set the prev_progress_log to the date created - 1
-*/
-
 export class DateMethods {
 
   static resetToStartOfMonth = (date) => {

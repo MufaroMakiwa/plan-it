@@ -196,6 +196,15 @@ router.post("/friend/delete", (req, res) => {
   });
 });
 
+router.get("/friend/suggestions", (req, res) => {
+  const query = {
+    name: new RegExp(`^${req.query.name}`)
+  }
+  User.find(query).then(users => {
+    res.send(users)
+  })
+})
+
 cron.schedule('0 0 * * *', () => {
   socketManager.getIo().emit("update_current_tasks", true);
 })

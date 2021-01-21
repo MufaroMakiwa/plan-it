@@ -1,0 +1,11 @@
+.IncompleteTask-container {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  border: 1px solid black;
+  margin: 8px;
+}
+
+.IncompleteTask-taskName {
+  flex-grow: 1;
+}

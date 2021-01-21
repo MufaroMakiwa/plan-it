@@ -80,6 +80,10 @@
 .CurrentTask-progressFill {
   height: 100%;
   background-color: #fa5460;
+
+  display: grid;
+  grid-auto-rows: 0;
+  grid-auto-columns: 0;
 }
 
 .CurrentTask-details > * {
