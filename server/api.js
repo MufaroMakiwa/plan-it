@@ -66,7 +66,6 @@ router.post("/tasks/create", (req,res) => {
   });
 });
 
-
 router.get("/tasks/current", (req, res) => {
   const query = {
     userId: req.query.userId,
@@ -88,7 +87,6 @@ router.get("/tasks/challenges", (req, res) => {
   })
 })
 
-
 router.post("/tasks/challenges/accept", (req, res) => {
   Task.findOne({_id: req.body._id}).then((task) => {
     task.is_completed = false;
@@ -103,11 +101,9 @@ router.post("/tasks/challenges/decline", (req, res) => {
   Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
 })
 
-
 router.post("/tasks/delete", (req, res) => {
   Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
 })
-
 
 router.post("/tasks/update", (req, res) => {
   Task.findOne({_id: req.body._id}).then((task) => {
@@ -118,12 +114,6 @@ router.post("/tasks/update", (req, res) => {
       res.send(task);
     });
   })
-})
-
-router.get("/friend/id", (req, res) => {
-  User.findOne({name: req.query.friendName}).then((user) => {
-    res.send(user);
-  }) 
 })
 
 router.get("/tasks/completed", (req, res) => {
@@ -142,6 +132,12 @@ router.get("/profile/fill", (req, res) => {
     res.send(profile);
   });
 });
+
+router.get("/friend/id", (req, res) => {
+  User.findOne({name: req.query.friendName}).then((user) => {
+    res.send(user);
+  }) 
+})
 
 router.post("/friend/make", (req,res) => {
   const newFriend = new Friend({
@@ -173,25 +169,17 @@ router.post("/friend/delete", (req, res) => {
 router.get("/friend/current", (req,res) => {
   const query = {
     $or: [
-      { userName_1: req.query.userName},
-      { userName_2: req.query.userName},
+      { userName_1: req.query.userName, is_friend: true},
+      { userName_2: req.query.userName, is_friend: true},
     ],
   };
   Friend.find(query).then((friends) => res.send(friends));
 });
 
-
-
-router.get("/tasks/completed", (req, res) => {
-  const query = {
-    userId_1: req.query.userId,
-    is_completed: true,
-  }
-  Task.find(query).then((tasks) => {
-    res.send(tasks)
-  })
-})
-
+router.get("/friend/requests", (req,res) => {
+  const query = {userId_2: req.user._id, is_friend: false};
+  Friend.find(query).then((friends) => res.send(friends));
+});
 
 
 

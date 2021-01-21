@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import "./FriendMod.css"
 import FRCard from "../modules/FRCard.js";
+import "../../utilities.css";
+import {get, post} from '../../utilities.js';
 
 class FriendRequests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      friends: [
-        {
-          id: 1,
-          name: "Req Person 1"
-        },
+      friends: []
+    }
+  }
 
-        {
-          id: 2,
-          name: "Req Person 2"
-        },
+  getRequests = () => {
+    console.log("!!!")
+    get("/api/friend/requests", {}).then((friends) => {
+      this.setState({friends})
+    })
+  }
 
-        {
-          id: 3,
-          name: "Req Person 3"
-        }
-      ]
+  componentDidMount() {
+    this.getRequests();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.userName && this.props.userName ) {
+      this.getRequests();
     }
   }
 
@@ -29,8 +33,13 @@ class FriendRequests extends Component {
     console.log("ACCEPT");
   }
 
-  declineRequest = () => {
+  declineRequest = (friendId) => {
     console.log("DECLINE");
+    const friends = this.state.friends.filter((friend) => {
+      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
+              friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+    });
+    this.setState({friends});
   }
 
   render() { 
@@ -41,11 +50,11 @@ class FriendRequests extends Component {
     if (hasFriends) {
       friendsList = this.state.friends.map((friendObj) => (
         <FRCard
-          key={`listItem-${friendObj.id}`}
-
-          name={friendObj.name} 
+          key={`listItem-${friendObj._id}`}
+          friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
+          friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
           onAccept={() => this.acceptRequest()}
-          onDecline={() => this.declineRequest()}
+          onDecline={() => this.declineRequest(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}
         />
       ));
       
