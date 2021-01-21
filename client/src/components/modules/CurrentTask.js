@@ -12,7 +12,6 @@ class CurrentTask extends Component {
   }
 
   getProgress = (completed, duration) => {
-    console.log(completed, duration);
     const percentage = Math.round((completed / duration) * 100)
     return percentage + "%";
   }
