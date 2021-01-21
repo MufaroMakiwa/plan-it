@@ -24,7 +24,7 @@ class SideBar extends Component {
   }
 
   getChallengesCount = () => {
-    get("/api/tasks/challenges").then((challenges) => {
+    get("/api/tasks/challenges/received").then((challenges) => {
       if (!this.isMounted) return;
       this.setState({ 
         challengesCount: challenges.length

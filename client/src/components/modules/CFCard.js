@@ -51,6 +51,7 @@ class CFCard extends Component {
           friendId={this.props.friendId}
           friendName={this.props.friendName}
           userName={this.props.userName}
+          userId={this.props.userId}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.challengeFriendNotification}
           isChallenge={true}

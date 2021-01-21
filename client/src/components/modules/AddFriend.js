@@ -22,22 +22,7 @@ class AddFriend extends Component{
 
   handleChange = (event) => {
     const value = event.target.value;
-
-    if (value.length > 0) {
-      get("/api/friend/suggestions", {name: value}).then(users => {
-        this.setState({
-          suggestions: users.sort((a, b) => (a.name > b.name) ? 1: -1),
-          value: value
-        })
-      })
-
-    } else {
-      this.setState({ 
-        suggestions: [],
-        value: value
-     })
-    }
-    // this.setState({ value })
+    this.setState({ value })
   }
 
   renderSuggestions = () => {
@@ -88,21 +73,12 @@ class AddFriend extends Component{
 
   render(){
     return (
-      // <div className="AddFriend-container"> 
-      //   <input 
-      //     type="text" 
-      //     value={this.state.value} 
-      //     onChange ={this.handleChange}/>
-      //   <button type = "submit" value = "Add Friend" onClick = {this.handleSubmit}> Add Friend </button>
-      // </div>
-
       <div className="AddFriend-container"> 
         <input 
           type="text" 
           value={this.state.value} 
-          onChange={this.handleChange}
-          className="AddFriend-input"/>   
-        {this.renderSuggestions()}
+          onChange ={this.handleChange}/>
+        <button type = "submit" value = "Add Friend" onClick = {this.handleSubmit}> Add Friend </button>
       </div>
     )
   }

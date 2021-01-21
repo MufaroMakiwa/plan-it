@@ -59,6 +59,7 @@ class CurrentFriends extends Component {
         <CFCard
           key={`listItem-${friendObj._id}`}
           userName={this.props.userName}
+          userId={this.props.userId}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
           onUnfriend={() => this.unFriend(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}/>

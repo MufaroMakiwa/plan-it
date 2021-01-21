@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import SideBar from "../modules/SideBar.js";
+
 import "../../utilities.css";
+import "./Challenges.css";
+
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
@@ -21,17 +24,20 @@ class Challenges extends Component {
       displayToastAccepted: false,
       displayToastDeclined: false,
       loading: true,
+      displayChallengesSent: false,
+      displayChallengesReceived: true,
     }
   }
 
   getChallenges = () => {
-    get("/api/tasks/challenges", { userId: this.props.userId }).then((challenges) => {
+    get("/api/tasks/challenges").then((challenges) => {
       this.setState({ 
         challenges: challenges.reverse(),
         loading: false
        })
     })
   }
+
 
   componentDidMount() {
     this.isMounted = true;
@@ -48,6 +54,7 @@ class Challenges extends Component {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.userId && this.props.userId) {
+      console.log(prevProps)
       this.getChallenges();
     }
   }
@@ -100,13 +107,55 @@ class Challenges extends Component {
     this.challengeStatusNotification(false)
   }
 
-  render() { 
-    let challengesList = null;
-    const hasChallenges = this.state.challenges.length !== 0;
+  toggleReceived = () => {
+    if (!this.state.displayChallengesReceived) {
+      this.setState({
+        displayChallengesSent: false,
+        displayChallengesReceived: true,
+      })
+    }
+  }
 
-    if (hasChallenges) {
-      challengesList = this.state.challenges.map((challengeObj) => (
-        <ChallengeTask
+  toggleSent = () => {
+    if (!this.state.displayChallengesSent) {
+      this.setState({
+        displayChallengesSent: true,
+        displayChallengesReceived: false,
+      })
+    }
+  }
+
+  render() { 
+    // let challengesList = null;
+    // const hasChallenges = this.state.challenges.length !== 0;
+
+    // if (hasChallenges) {
+    //   challengesList = this.state.challenges.map((challengeObj) => (
+    //     <ChallengeTask
+    //       key={`Challenge_${challengeObj._id}`}
+    //       _id={challengeObj._id}
+    //       task_name={challengeObj.task_name}
+    //       challenger={challengeObj.challenger}
+    //       duration={challengeObj.duration}
+    //       frequency={challengeObj.frequency}
+    //       accept={() => this.accept(challengeObj._id)}
+    //       decline={() => this.decline(challengeObj._id)}
+    //     />
+    //   ));
+    // } else {
+    //   challengesList = <div>No challenges</div>;
+    // }
+
+
+    let challengesReceived = [];
+    let challengesSent = [];
+
+    for (let challengeObj of this.state.challenges) {
+      if (challengeObj.userId === this.props.userId) {
+
+        // this is a received challenge
+        challengesReceived.push((
+          <ChallengeTask
           key={`Challenge_${challengeObj._id}`}
           _id={challengeObj._id}
           task_name={challengeObj.task_name}
@@ -114,13 +163,13 @@ class Challenges extends Component {
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
           accept={() => this.accept(challengeObj._id)}
-          decline={() => this.decline(challengeObj._id)}
-        />
-      ));
-    } else {
-      challengesList = <div>No challenges</div>;
-    }
+          decline={() => this.decline(challengeObj._id)}/>
+        ))
 
+      } else {
+        // this is a sent challenge
+      }
+    }
 
     return ( 
       <div className="page-container">
@@ -131,7 +180,23 @@ class Challenges extends Component {
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
-            {challengesList}
+            <div className="Challenges-toggleButtons">
+              <button 
+                className={`Challenges-button ${this.state.displayChallengesReceived ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`}
+                onClick={this.toggleReceived}
+                style={{marginRight : 12}}>
+                Received
+              </button>
+              
+              <button 
+                className={`Challenges-button ${this.state.displayChallengesSent ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`} 
+                onClick={this.toggleSent}
+                style={{marginLeft : 12}}>
+                Sent
+              </button>
+            </div>
+            
+            {this.state.displayChallengesReceived && challengesReceived.length > 0 ? challengesReceived : null}
           </div>
         )}  
 

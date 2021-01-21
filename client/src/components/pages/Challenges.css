@@ -1,0 +1,35 @@
+.Challenges-toggleButtons {
+  margin: 24px;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.Challenges-button {
+  padding: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 8px 0;
+  width: 50%;
+}
+
+.Challenges-buttonSelected {
+  background: var(--color_on_secondary);
+  color: black;
+  border: none;
+  cursor: default;
+  transition: ease-in-out;
+}
+
+.Challenges-buttonUnselected {
+  border: 1px solid var(--color_on_secondary);
+  background-color: transparent;
+  color: var(--color_on_secondary);
+}
+
+.Challenges-buttonUnselected:hover {
+  background: rgb(255, 255, 255, 0.1);
+}

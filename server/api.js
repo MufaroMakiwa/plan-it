@@ -89,10 +89,24 @@ router.get("/tasks/current", (req, res) => {
 
 router.get("/tasks/challenges", (req, res) => {
   const query = {
-    userId: req.user._id,
-    is_challenge: true,
-    is_accepted: false
+    $or: [
+      { userId: req.user._id, is_challenge: true, is_accepted: false },
+      { challengerId: req.user._id },
+    ],
+  };
+
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+})
+
+router.get("/tasks/challenges/received", (req, res) => {
+  const query = { 
+    userId: req.user._id, 
+    is_challenge: true, 
+    is_accepted: false 
   }
+  
   Task.find(query).then((tasks) => {
     res.send(tasks)
   })
