@@ -79,6 +79,7 @@ class Completed extends Component {
           challenger={completedObj.challenger}
           duration={completedObj.duration}
           frequency={completedObj.frequency}
+          progress={completedObj.progress}
           created={completedObj.created}
           date_completed={completedObj.date_completed}
           sendChallengeNotification={this.sendChallengeNotification}/>

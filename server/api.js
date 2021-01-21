@@ -219,7 +219,7 @@ router.get("/friend/suggestions", (req, res) => {
   })
 })
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 0 * * *', () => {
   updateTasks.update();
 })
 

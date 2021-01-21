@@ -28,6 +28,28 @@ class CompletedTask extends Component {
 
 
   render() { 
+    let gridCells = [];
+
+    for (let i = 0; i < this.props.duration; i++) {
+      switch (this.props.progress[i]) {
+        case 1:
+          gridCells.push((
+            <div 
+              className="CompletedTask-progressCell CompletedTask-progressCellDone"
+              key={`ProgressCell_${i}`}>
+            </div>));
+          break;
+
+        case 0:
+          gridCells.push((
+            <div 
+              className="CompletedTask-progressCell CompletedTask-progressCellSkipped"
+              key={`ProgressCell_${i}`}>
+            </div>))
+          break;
+      }
+    }
+
     return (
       <div className="CompletedTask-container">
         <p className="CompletedTask-taskTitle">{this.props.task_name}</p>
@@ -69,7 +91,16 @@ class CompletedTask extends Component {
               onClick={this.sendChallenge}>
               CHALLENGE FRIENDS
             </button>
+          </div>
+        </div>
 
+        <div className="CurrentTask-progressDetails">
+          <div className="CurrentTask-progressLabels">
+            <span>Progress summary</span>
+          </div>
+
+          <div className="CurrentTask-progress">
+            {gridCells}
           </div>
         </div>
       </div>

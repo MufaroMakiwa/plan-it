@@ -191,10 +191,15 @@ class CurrentTask extends Component {
           </div>
         </div>
 
-        <div className="CurrentTask-progress">
-          {gridCells}
-          {/* <div className="CurrentTask-progressFill" 
-            style={{width: this.getProgress(this.props.progress.length, this.props.duration)}}></div> */}
+        <div className="CurrentTask-progressDetails">
+          <div className="CurrentTask-progressLabels">
+            <span>Progress</span>
+            <span>{`${this.props.progress.length}/${this.props.duration}`}</span>
+          </div>
+
+          <div className="CurrentTask-progress">
+            {gridCells}
+          </div>
         </div>
 
         <div className={this.props.isPeriodTaskCompleted ? "CurrentTask-progressSummaryDone" : "CurrentTask-progressSummaryNotDone"}>
