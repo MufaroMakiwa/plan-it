@@ -6,6 +6,9 @@ import FriendRequests from "../modules/FriendRequests.js";
 import SideBar from "../modules/SideBar.js";
 import AddFriend from "../modules/AddFriend.js";
 
+import RocketTagRoll from "../modules/RocketTagRoll.js";
+import "../modules/background.css"
+
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
@@ -27,6 +30,15 @@ class Friends extends Component {
     navigate("/current");
   }
 
+  renderBackground = () => {
+    return (
+      <div className="page">
+        <div className="stars stars_main"></div>
+        <div className="stars2 stars_main"></div>
+        <div className="stars3 stars_main"></div>    
+      </div>
+    )
+  }
 
   render() {
     return (
@@ -35,6 +47,8 @@ class Friends extends Component {
           link="/friends"
           handleLogout={this.props.handleLogout}
           userName={this.props.userName}/>
+
+        {this.renderBackground()}
 
         <div className="page_main">
           <AddFriend
@@ -66,6 +80,8 @@ class Friends extends Component {
             onSubmit={this.addTask}>
           </AddTaskDialog>
         </div>
+
+        <RocketTagRoll /> 
       </div>
     );
   }

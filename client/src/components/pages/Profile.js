@@ -75,6 +75,15 @@ class Profile extends Component {
     });
   }
 
+  renderBackground = () => {
+    return (
+      <div className="page">
+        <div className="stars stars_main"></div>
+        <div className="stars2 stars_main"></div>
+        <div className="stars3 stars_main"></div>    
+      </div>
+    )
+  }
 
   render() { 
     return ( 
@@ -84,6 +93,8 @@ class Profile extends Component {
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}
         />
+
+        {this.renderBackground()}
         
         {this.state.loading ? (<div></div>) : (
           <div className="Profile-Main">

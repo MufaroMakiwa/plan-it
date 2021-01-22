@@ -1,10 +1,10 @@
 .page {
   position: fixed;
   left: var(--sidebar_width);
-  background: #130e18;
   top: 0;
   bottom: 0;
   /* right: var(--sidebar_width); */
+  right: 0;
   overflow: hidden;
   background: radial-gradient(ellipse at bottom, #322c36 0%, #0d0a11 100%);
 }

@@ -7,6 +7,8 @@ import CompletedTask from "../modules/CompletedTask.js";
 import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
+import "../modules/background.css";
+import RocketTagRoll from "../modules/RocketTagRoll.js";;
 
 import "./Completed.css";
 
@@ -66,6 +68,16 @@ class Completed extends Component {
     return () => clearTimeout(timer);
   }
 
+  renderBackground = () => {
+    return (
+      <div className="page">
+        <div className="stars stars_main"></div>
+        <div className="stars2 stars_main"></div>
+        <div className="stars3 stars_main"></div>    
+      </div>
+    )
+  }
+
   render() { 
     let completedList = null;
     const hasChallenges = this.state.completed.length !== 0;
@@ -95,6 +107,7 @@ class Completed extends Component {
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
+        {this.renderBackground()}
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             {completedList}   
@@ -113,6 +126,8 @@ class Completed extends Component {
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
         </AddTaskDialog>
+
+        <RocketTagRoll /> 
       </div>
     );
   }

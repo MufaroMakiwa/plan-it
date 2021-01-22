@@ -11,6 +11,7 @@ import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 
 import IncompleteTasksDialog from "../modules/IncompleteTasksDialog.js";
+import RocketTagRoll from "../modules/RocketTagRoll.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
@@ -210,6 +211,8 @@ class Current extends Component {
             )}
           </div>
         )}
+
+        <RocketTagRoll /> 
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

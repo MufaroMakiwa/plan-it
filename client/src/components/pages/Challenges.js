@@ -3,10 +3,13 @@ import SideBar from "../modules/SideBar.js";
 
 import "../../utilities.css";
 import "./Challenges.css";
+import "../modules/background.css"
+
 
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
+import RocketTagRoll from "../modules/RocketTagRoll.js";
 import ChallengeTaskSent from "../modules/ChallengeTaskSent.js";
 import { navigate } from '@reach/router';
 import {get , post} from "../../utilities.js";
@@ -236,6 +239,16 @@ class Challenges extends Component {
     }
   }
 
+  renderBackground = () => {
+    return (
+      <div className="page">
+        <div className="stars stars_main"></div>
+        <div className="stars2 stars_main"></div>
+        <div className="stars3 stars_main"></div>    
+      </div>
+    )
+  }
+
 
   render() { 
     return ( 
@@ -244,6 +257,8 @@ class Challenges extends Component {
           link="/challenges"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
+
+        {this.renderBackground()}
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
@@ -266,6 +281,8 @@ class Challenges extends Component {
             {this.displayChallenges()}
           </div>
         )}  
+
+        <RocketTagRoll />
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
