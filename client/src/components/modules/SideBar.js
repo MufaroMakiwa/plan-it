@@ -99,7 +99,9 @@ class SideBar extends Component {
           <p className="SideBar-name">PLAN-IT</p>
         </div>      
 
-        <div to="/profile" onClick={() =>this.handleSubmit("/profile")}  className="SideBar-profile">       
+        <div to="/profile" 
+          onClick={() =>this.handleSubmit("/profile")}  
+          className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
           <AccountCircleIcon style={{fontSize: 100}} />
           <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
             {this.props.userName ? this.props.userName: "Placeholder"}

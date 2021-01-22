@@ -133,6 +133,12 @@
   color: inherit;
 }
 
+.SideBar-profileSelected {
+  background: rgba(0, 0, 0, 0.1);
+  mix-blend-mode: normal;
+  color: inherit;
+}
+
 .SideBar-profile:hover {
   background: rgba(0, 0, 0, 0.1);
   mix-blend-mode: normal;

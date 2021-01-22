@@ -118,7 +118,7 @@ class App extends Component {
             userEmail={this.state.userEmail}/>
 
           <RocketTag
-            path="rocketTag"
+            path="/rocketTag"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
