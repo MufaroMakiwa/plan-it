@@ -117,10 +117,11 @@ p {
 }
 
 .page_main {
-  margin-left: var(--sidebar_width);
+  margin: 0 var(--sidebar_width);
   position: relative;
   padding-bottom: 50px;
   height: 100%;
+  z-index: 1;
 }
 
 .page-container {

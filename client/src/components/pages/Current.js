@@ -4,6 +4,7 @@ import CurrentTask from "../modules/CurrentTask.js";
 import SideBar from "../modules/SideBar.js";
 
 import "./Current.css"
+import "../modules/background.css"
 import "../../utilities.css";
 
 import {get , post} from "../../utilities.js";
@@ -145,6 +146,16 @@ class Current extends Component {
     })
   }
 
+  renderBackground = () => {
+    return (
+      <div className="page">
+        <div className="stars stars_main"></div>
+        <div className="stars2 stars_main"></div>
+        <div className="stars3 stars_main"></div>    
+      </div>
+    )
+  }
+
   render() { 
     let tasksList = null;
     const hasTasks = this.state.tasks.length !== 0;
@@ -181,6 +192,7 @@ class Current extends Component {
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
+        {this.renderBackground()}
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             <div>
