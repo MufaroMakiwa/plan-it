@@ -90,6 +90,11 @@ class Challenges extends Component {
       }))
     })
 
+    // listen for server updates of all the tasks
+    socket.on("update_current_tasks", (val) => {
+      if (!this.isMounted) return;
+      this.getChallenges();
+    })
   }
 
   componentDidUpdate(prevProps) {

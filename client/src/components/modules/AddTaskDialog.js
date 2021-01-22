@@ -145,12 +145,11 @@ class AddTaskDialog extends Component {
     });
   }
 
-
   closeAddTaskDialog = () => {
     this.props.closeAddTaskDialog();
     this.resetState();
   }
-  
+
 
   render() { 
     return ( 
