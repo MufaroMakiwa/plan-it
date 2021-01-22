@@ -163,7 +163,9 @@ router.post("/tasks/update", (req, res) => {
 //   })
 // })
 
-router.get("/friend/id", (req, res) => {
+
+
+router.get("/friend/", (req, res) => {
   User.findOne({name: req.query.friendName}).then((user) => {
     res.send(user);
   }) 

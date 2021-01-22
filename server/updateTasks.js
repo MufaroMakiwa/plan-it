@@ -79,31 +79,31 @@ class UpdateTasks {
   }
 
   static getPreviousLog = (frequency, date) => {
-    // switch (frequency) {
-    //   case "Daily":
-    //     return this.getPreviousLogDay(date);
+    switch (frequency) {
+      case "Daily":
+        return this.getPreviousLogDay(date);
 
-    //   case "Weekly":
-    //     return this.getPreviousLogWeek(date);
+      case "Weekly":
+        return this.getPreviousLogWeek(date);
 
-    //   case "Monthly":
-    //     return this.getPreviousLogMonth(date);
-    // }
-    return this.getPreviousLogMinute(date);
+      case "Monthly":
+        return this.getPreviousLogMonth(date);
+    }
+    // return this.getPreviousLogMinute(date);
   }
 
   static resetToStart = (frequency, date) => {
-    // switch (frequency) {
-    //   case "Daily":
-    //     return this.resetToStartOfDay(date);
+    switch (frequency) {
+      case "Daily":
+        return this.resetToStartOfDay(date);
 
-    //   case "Weekly":
-    //     return this.resetToStartOfWeek(date);
+      case "Weekly":
+        return this.resetToStartOfWeek(date);
 
-    //   case "Monthly":
-    //     return this.resetToStartOfMonth(date);
-    // }
-    return this.resetToStartOfMinute(date);
+      case "Monthly":
+        return this.resetToStartOfMonth(date);
+    }
+    // return this.resetToStartOfMinute(date);
   }
 
   

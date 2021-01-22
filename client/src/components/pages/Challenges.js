@@ -7,6 +7,7 @@ import "./Challenges.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
+import ChallengeTaskSent from "../modules/ChallengeTaskSent.js";
 import { navigate } from '@reach/router';
 import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
@@ -125,28 +126,8 @@ class Challenges extends Component {
     }
   }
 
-  render() { 
-    // let challengesList = null;
-    // const hasChallenges = this.state.challenges.length !== 0;
 
-    // if (hasChallenges) {
-    //   challengesList = this.state.challenges.map((challengeObj) => (
-    //     <ChallengeTask
-    //       key={`Challenge_${challengeObj._id}`}
-    //       _id={challengeObj._id}
-    //       task_name={challengeObj.task_name}
-    //       challenger={challengeObj.challenger}
-    //       duration={challengeObj.duration}
-    //       frequency={challengeObj.frequency}
-    //       accept={() => this.accept(challengeObj._id)}
-    //       decline={() => this.decline(challengeObj._id)}
-    //     />
-    //   ));
-    // } else {
-    //   challengesList = <div>No challenges</div>;
-    // }
-
-
+  displayChallenges = () => {
     let challengesReceived = [];
     let challengesSent = [];
 
@@ -168,9 +149,30 @@ class Challenges extends Component {
 
       } else {
         // this is a sent challenge
+        challengesSent.push((
+          <ChallengeTaskSent
+          key={`Challenge_${challengeObj._id}`}
+          _id={challengeObj._id}
+          task_name={challengeObj.task_name}
+          userName={challengeObj.userName}
+          duration={challengeObj.duration}
+          progress={challengeObj.progress}
+          frequency={challengeObj.frequency}
+          accept={() => this.accept(challengeObj._id)}
+          decline={() => this.decline(challengeObj._id)}/>
+        ))
       }
     }
+    if (this.state.displayChallengesReceived) {
+      return challengesReceived;
 
+    } else {
+      return challengesSent;
+    }
+  }
+
+
+  render() { 
     return ( 
       <div className="page-container">
         <SideBar 
@@ -196,7 +198,7 @@ class Challenges extends Component {
               </button>
             </div>
             
-            {this.state.displayChallengesReceived && challengesReceived.length > 0 ? challengesReceived : null}
+            {this.displayChallenges()}
           </div>
         )}  
 
