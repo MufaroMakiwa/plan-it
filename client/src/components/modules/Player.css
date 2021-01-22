@@ -1,0 +1,7 @@
+.Player-player {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  background-color: #FA5460;
+  position: absolute;
+}

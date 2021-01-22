@@ -35,6 +35,10 @@ class Profile extends Component {
     navigate("/current");
   }
 
+  playRocketTag = () => {
+    navigate("/rocketTag");
+  }
+
   selectImage = (pts) => {
     if (pts === 0) { this.setState ({currImage: Constellation_0_Image}) }
     else if (pts < 1000) { this.setState ({currImage: Constellation_1000_Image}) }
@@ -88,13 +92,13 @@ class Profile extends Component {
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>
-            <img className="Profile-Picture" src={this.state.currImage} alt="Constellation"/>
-            <div className="Profile-Bottom">
+            <img className="Profile-Picture" src={this.state.currImage} alt="Constellation" />
+            <div className="Profile-Bottom" onClick={() => this.playRocketTag()}>
               <div className="Profile-Bottom-Container"> 
-                <h1 className="Profile-Header-Stats"> Stats </h1>
+                <h1 className="Profile-Header-Stats"> Click For Rocket Tag </h1>
               </div>
               <div className="Profile-Bottom-Container">
-                <h1 className="Profile-Header-Stats"> Accomplishments </h1>
+                <h1 className="Profile-Header-Stats"> Click For Rocket Tag </h1>
               </div>
             </div>
           </div>

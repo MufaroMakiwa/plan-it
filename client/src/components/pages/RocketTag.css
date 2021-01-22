@@ -1,0 +1,18 @@
+.RocketTag-Container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.RocketTag-Main {
+  margin-left: var(--sidebar_width);
+  position: relative;
+  text-align: center;
+}
+
+.RocketTag-Header {
+  margin: 0;
+  padding: 3vh;
+  font-size: 6vh;
+  color: #FA5460;
+}

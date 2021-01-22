@@ -33,12 +33,16 @@
   padding-top: 4vh;
   padding-bottom: 1vh;
   width: 80%;
-  padding-left: 10%;
+  margin-top: 2%;
+  margin-left: 10%;
+  border-width: 3px;
+  border-radius: 20px;
+  border-style: solid;
 }
 
 .Profile-Bottom-Container {
   width: 50%;
-  text-align: left;
+  text-align: center;
 }
 
 .Profile-Bottom-Stats {
