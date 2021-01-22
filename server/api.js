@@ -165,6 +165,14 @@ router.get("/tasks/completed", (req, res) => {
   })
 })
 
+router.post("/profile/points", (req, res) => {
+  User.findById(req.body.userId).then((profile) => {
+    profile.points = req.body.pts + profile.points;
+    profile.save().then((profile) => {
+      res.send(profile);
+    })
+  });
+})
 
 router.get("/profile/fill", (req, res) => {
   User.findById(req.user._id).then((profile) => {

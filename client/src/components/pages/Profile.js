@@ -21,7 +21,6 @@ class Profile extends Component {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
-      currName: "",
       currPoints: "",
       currNumFriends: "",
       loading: true
@@ -37,11 +36,11 @@ class Profile extends Component {
   }
 
   selectImage = (pts) => {
-    if (pts < 1000) { this.setState ({currImage: Constellation_0_Image}) }
-    else if (pts < 2000) { this.setState ({currImage: Constellation_1000_Image}) }
-    else if (pts < 3000) { this.setState ({currImage: Constellation_2000_Image}) }
-    else if (pts < 4000) { this.setState ({currImage: Constellation_3000_Image}) }
-    else if (pts < 5000) { this.setState ({currImage: Constellation_4000_Image}) }
+    if (pts === 0) { this.setState ({currImage: Constellation_0_Image}) }
+    else if (pts < 1000) { this.setState ({currImage: Constellation_1000_Image}) }
+    else if (pts < 2000) { this.setState ({currImage: Constellation_2000_Image}) }
+    else if (pts < 3000) { this.setState ({currImage: Constellation_3000_Image}) }
+    else if (pts < 4000) { this.setState ({currImage: Constellation_4000_Image}) }
     else { this.setState ({currImage: Constellation_5000_Image}) }
   }
 
@@ -64,7 +63,6 @@ class Profile extends Component {
       userId: this.props.userId,
     }).then((profile) => {
       this.setState({
-        currName: profile.name,
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
         loading: false
@@ -86,7 +84,7 @@ class Profile extends Component {
         {this.state.loading ? (<div></div>) : (
           <div className="Profile-Main">
             <div className="Profile-Header">
-              <h1 className="Profile-Header-Name"> {this.state.currName} </h1>
+              <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>

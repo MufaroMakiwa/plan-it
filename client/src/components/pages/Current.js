@@ -170,10 +170,15 @@ class Current extends Component {
 
   }
 
-  completeTask = (_id) => {
+  completeTask = (_id, duration) => {
     const tasks = this.state.tasks.filter(task => task._id !== _id);
     this.setState({ tasks })
     this.taskStatusNotification(true);
+
+    post("/api/profile/points", {
+      userId: this.props.userId,
+      pts: duration * 10,
+    })
   }
 
   render() { 
@@ -196,7 +201,7 @@ class Current extends Component {
           onIncrement={() => this.incrementProgress(taskObj._id)}
           onDecrement={() => this.decrementProgress(taskObj._id)}
           onDelete = {() => this.deleteTask(taskObj._id)}
-          onCompleted={() => this.completeTask(taskObj._id)}
+          onCompleted={() => this.completeTask(taskObj._id, taskObj.duration)}
         />
       ));
     } else {
