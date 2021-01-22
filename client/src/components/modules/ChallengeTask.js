@@ -28,6 +28,7 @@ class ChallengeTask extends Component {
 
     const query = {
       _id: this.props._id,
+      challengerId: this.props.challengerId,
       previous_progress_log: prev_log.toString(),
     }
     post("/api/tasks/challenges/accept", query).then((challenge) => {
@@ -36,7 +37,12 @@ class ChallengeTask extends Component {
   }
 
   declineChallenge = () => {
-    post("/api/tasks/challenges/decline", {_id: this.props._id}).then((challenge) => {
+    const query = {
+      _id: this.props._id,
+      challengerId: this.props.challengerId,
+    }
+
+    post("/api/tasks/challenges/decline", query).then((challenge) => {
       this.props.decline();
     })
   }
@@ -45,7 +51,9 @@ class ChallengeTask extends Component {
     return (
       <div className="ChallengeTask-container">
         <p className="ChallengeTask-taskTitle">{this.props.task_name}</p>
-        <p className="ChallengeTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>
+        <p className="ChallengeTask-challengedBy">
+          {`(Challenged by ${this.props.challenger} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
         <hr className="ChallengeTask-divider"></hr>
 
         <div className="ChallengeTask-subContainer">

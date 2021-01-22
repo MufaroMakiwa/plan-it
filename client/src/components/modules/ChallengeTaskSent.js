@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import ChallengeStatus from "./ChallengeStatus.js";
 import "./ChallengeTaskSent.css";
-import {get , post} from "../../utilities.js";
 import { DateMethods } from "./DateMethods.js";
 
 class ChallengeTaskSent extends Component {
@@ -20,6 +20,48 @@ class ChallengeTaskSent extends Component {
     } else {
       return labels[this.props.frequency] + "s";
     }
+  }
+
+
+  getStatus = () => {
+    if (this.props.is_completed) {
+      // render completed status
+      return "Completed";
+
+    } else if (this.props.is_accepted) {
+      // render in progress
+      return "In progress";
+
+    } else if (this.props.is_challenge) {
+      // render pending
+      return "Pending";
+
+    } else {
+      // render it is declined
+      return "Declined";
+    }
+  }
+
+  displayProgressBar = () => {
+    return this.getStatus() === "Completed" || this.getStatus() === "In progress";
+  }
+
+  // if a task is in progress, display the days past else display days logged
+  getProgressStatusCount = () => {
+    if (this.getStatus() === "Completed") {
+      let count = 0;
+      for (let log of this.props.progress) {
+        if (log === 1) count += 1;
+      }
+      return count;
+
+    } else {
+      return this.props.progress.length;
+    }
+
+    
+    
+
   }
 
   render() { 
@@ -56,7 +98,9 @@ class ChallengeTaskSent extends Component {
     return (
       <div className="ChallengeTaskSent-container">
         <p className="ChallengeTaskSent-taskTitle">{this.props.task_name}</p>
-        <p className="ChallengeTaskSent-sentTo">{`(Sent to ${this.props.userName})`}</p>
+        <p className="ChallengeTaskSent-sentTo">
+          {`(Sent to ${this.props.userName} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
         <hr className="ChallengeTaskSent-divider"></hr>
 
         <div className="ChallengeTask-subContainer">
@@ -73,31 +117,31 @@ class ChallengeTaskSent extends Component {
 
           </div>
 
-          <div className="ChallengeTaskSent-buttonContainer">
-            {/* <button 
-              className="ChallengeTaskSent-acceptButton ChallengeTaskSent-button"
-              onClick={this.acceptChallenge}>
-              ACCEPT
-            </button>
+          <div className="ChallengeTaskSent-statusContainer">
+            <span className="ChallengeTaskSent-statusLabel">
+              STATUS
+            </span>
 
-            <button 
-              className="ChallengeTaskSent-declineButton ChallengeTaskSent-button"
-              onClick={this.declineChallenge}>
-              DECLINE
-            </button> */}
+            <div className="ChallengeTaskSent-statusElement">
+              <ChallengeStatus status={this.getStatus()} />
+            </div>
           </div>
         </div>
 
-        <div className="ChallengeTaskSent-progressDetails">
-          <div className="ChallengeTaskSent-progressLabels">
-            <span>Progress</span>
-            <span>{`${this.props.progress.length}/${this.props.duration}`}</span>
-          </div>
+        {this.displayProgressBar() && (<hr className="CurrentTask-divider"></hr>)}
 
-          <div className="ChallengeTaskSent-progress">
-            {gridCells}
+        {this.displayProgressBar() && (
+          <div className="ChallengeTaskSent-progressDetails">
+            <div className="ChallengeTaskSent-progressLabels">
+              <span>{this.getStatus() === "Completed" ? "Progress summary" : "Progress"}</span>
+              <span>{`${this.getProgressStatusCount()}/${this.props.duration}`}</span>
+            </div>
+
+            <div className="ChallengeTaskSent-progress">
+              {gridCells}
+            </div>
           </div>
-        </div>
+        )}
 
       </div>
     );

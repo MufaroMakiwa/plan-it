@@ -43,21 +43,6 @@ export class DateMethods {
     return newDate;
   }
   
-  
-  static resetToStartOfTest = (date) => {
-    const newDate = new Date(date);
-    const minutes = date.getMinutes();
-    minutes % 2 === 0 ? newDate.setMinutes(minutes, 0, 0) : newDate.setMinutes(minutes - 1, 0, 0);
-    return newDate;
-  }
-  
-  
-  static getPreviousLogTest = (date) => {
-    const newDate = new Date(date);
-    newDate.setMinutes(date.getMinutes() - 2, 0, 0);
-    return newDate;
-  }
-
 
   static resetToStartOfMinute = (date) => {
     const newDate = new Date(date);
@@ -106,5 +91,19 @@ export class DateMethods {
     let mm = String(date.getMonth() + 1).padStart(2, '0'); 
     let yyyy = date.getFullYear();
     return mm + '/' + dd + '/' + yyyy;
+  }
+
+  static getPrettyDateFormat = (dateObj) => {
+    const date = new Date(dateObj);
+
+    let monthNames =["January","February","March","April",
+                      "May","June","July","August",
+                      "September", "October","November","December"];
+
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+
+    return `${monthNames[month]} ${day}, ${year}`;
   }
 }

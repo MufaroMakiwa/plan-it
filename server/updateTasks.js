@@ -48,21 +48,6 @@ class UpdateTasks {
     newDate.setMonth(date.getMonth() - 1);
     return newDate;
   }
-  
-  
-  static resetToStartOfTest = (date) => {
-    const newDate = new Date(date);
-    const minutes = date.getMinutes();
-    minutes % 2 === 0 ? newDate.setMinutes(minutes, 0, 0) : newDate.setMinutes(minutes - 1, 0, 0);
-    return newDate;
-  }
-  
-  
-  static getPreviousLogTest = (date) => {
-    const newDate = new Date(date);
-    newDate.setMinutes(date.getMinutes() - 2, 0, 0);
-    return newDate;
-  }
 
 
   static resetToStartOfMinute = (date) => {
@@ -126,8 +111,6 @@ class UpdateTasks {
       }
       socketManager.getIo().emit("update_current_tasks", true);
     })
-      // console.log(".........................................................")
-      // console.log("Updating tasks");
   }
 }
 

@@ -19,6 +19,7 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: space-evenly;
 }
 
@@ -36,53 +37,12 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 
 .ChallengeTaskSent-description {
   font-weight: bold;
   color: #fa5460;
-}
-
-.ChallengeTaskSent-buttonContainer {
-  width: 25%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  /* border-left: 1px solid rgba(255, 255, 255, 0.2); */
-  padding-left: 16px;
-}
-
-.ChallengeTaskSent-button {
-  padding: 8px 16px;
-  margin: 8px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  outline: none;
-}
-
-.ChallengeTaskSent-acceptButton {
-  border: none;
-  background-color: #fa5460;
-  color: white;
-}
-
-.ChallengeTaskSent-declineButton {
-  border: 1px solid #fa5460;
-  background-color: transparent;
-  color: #fa5460;
-}
-
-.ChallengeTaskSent-acceptButton:hover {
-  background-color: var(--background_color_secondary);
-}
-
-.ChallengeTaskSent-declineButton:hover {
-  border: 1px solid #c4c4c4;
-  color: #c4c4c4;
 }
 
 .ChallengeTaskSent-details > * {
@@ -132,4 +92,26 @@
   font-style: italic;
   font-size: 0.8em;
   margin-bottom: 8px;
+}
+
+.ChallengeTaskSent-statusElement {
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+}
+
+.ChallengeTaskSent-statusContainer {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  /* border-left: 1px solid rgba(255, 255, 255, 0.2); */
+  padding: 0 16px;
+}
+
+.ChallengeTaskSent-statusLabel {
+  font-weight: bold;
+  font-size: 1.3em;
 }

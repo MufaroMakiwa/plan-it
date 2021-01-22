@@ -26,6 +26,14 @@ class CompletedTask extends Component {
     this.props.sendChallengeNotification();
   }
 
+  getCompletedDays = () => {
+    let count = 0;
+    for (let log of this.props.progress) {
+      if (log === 1) count += 1;
+    }
+    return count;
+  }
+
 
   render() { 
     let gridCells = [];
@@ -94,9 +102,12 @@ class CompletedTask extends Component {
           </div>
         </div>
 
+        <hr className="CurrentTask-divider"></hr>
+
         <div className="CurrentTask-progressDetails">
           <div className="CurrentTask-progressLabels">
             <span>Progress summary</span>
+            <span>{`${this.getCompletedDays()}/${this.props.duration}`}</span>
           </div>
 
           <div className="CurrentTask-progress">
