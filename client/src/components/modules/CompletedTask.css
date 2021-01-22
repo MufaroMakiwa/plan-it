@@ -62,12 +62,12 @@
 
 .CompletedTask-sendTaskButton {
   border: none;
-  background-color: #fa5460;
+  background-color: var(--background_color_secondary);
   color: white;
 }
 
 .CompletedTask-sendTaskButton:hover {
-  background-color: var(--background_color_secondary);
+  background: rgb(79, 70, 85, 0.6);
 }
 
 .CompletedTask-progressLabels {

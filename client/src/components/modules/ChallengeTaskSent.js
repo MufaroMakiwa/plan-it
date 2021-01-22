@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChallengeStatus from "./ChallengeStatus.js";
 import "./ChallengeTaskSent.css";
+import { DateMethods } from "./DateMethods.js";
 
 class ChallengeTaskSent extends Component {
   constructor(props){
@@ -45,6 +46,24 @@ class ChallengeTaskSent extends Component {
     return this.getStatus() === "Completed" || this.getStatus() === "In progress";
   }
 
+  // if a task is in progress, display the days past else display days logged
+  getProgressStatusCount = () => {
+    if (this.getStatus() === "Completed") {
+      let count = 0;
+      for (let log of this.props.progress) {
+        if (log === 1) count += 1;
+      }
+      return count;
+
+    } else {
+      return this.props.progress.length;
+    }
+
+    
+    
+
+  }
+
   render() { 
     let gridCells = [];
 
@@ -79,7 +98,9 @@ class ChallengeTaskSent extends Component {
     return (
       <div className="ChallengeTaskSent-container">
         <p className="ChallengeTaskSent-taskTitle">{this.props.task_name}</p>
-        <p className="ChallengeTaskSent-sentTo">{`(Sent to ${this.props.userName})`}</p>
+        <p className="ChallengeTaskSent-sentTo">
+          {`(Sent to ${this.props.userName} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
         <hr className="ChallengeTaskSent-divider"></hr>
 
         <div className="ChallengeTask-subContainer">
@@ -107,11 +128,13 @@ class ChallengeTaskSent extends Component {
           </div>
         </div>
 
+        {this.displayProgressBar() && (<hr className="CurrentTask-divider"></hr>)}
+
         {this.displayProgressBar() && (
           <div className="ChallengeTaskSent-progressDetails">
             <div className="ChallengeTaskSent-progressLabels">
               <span>{this.getStatus() === "Completed" ? "Progress summary" : "Progress"}</span>
-              <span>{`${this.props.progress.length}/${this.props.duration}`}</span>
+              <span>{`${this.getProgressStatusCount()}/${this.props.duration}`}</span>
             </div>
 
             <div className="ChallengeTaskSent-progress">

@@ -134,7 +134,7 @@ class AddTaskDialog extends Component {
       Weekly : "weeks",
       Monthly : "months"
     }
-    return this.state !== null ? labels[this.state.frequency]: "days";
+    return labels[this.state.frequency];
      
   }
 
@@ -145,6 +145,12 @@ class AddTaskDialog extends Component {
     });
   }
 
+
+  closeAddTaskDialog = () => {
+    this.props.closeAddTaskDialog();
+    this.resetState();
+  }
+  
 
   render() { 
     return ( 
@@ -229,7 +235,7 @@ class AddTaskDialog extends Component {
             </div>
            
             <div className="AddTaskDialog-buttonContainer">
-              <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.props.closeAddTaskDialog}>
+              <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.closeAddTaskDialog}>
                 Cancel
               </button>
               

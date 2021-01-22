@@ -51,7 +51,9 @@ class ChallengeTask extends Component {
     return (
       <div className="ChallengeTask-container">
         <p className="ChallengeTask-taskTitle">{this.props.task_name}</p>
-        <p className="ChallengeTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>
+        <p className="ChallengeTask-challengedBy">
+          {`(Challenged by ${this.props.challenger} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
         <hr className="ChallengeTask-divider"></hr>
 
         <div className="ChallengeTask-subContainer">

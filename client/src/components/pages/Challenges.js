@@ -25,8 +25,8 @@ class Challenges extends Component {
       displayToastAccepted: false,
       displayToastDeclined: false,
       loading: true,
-      displayChallengesSent: true,
-      displayChallengesReceived: false,
+      displayChallengesSent: false,
+      displayChallengesReceived: true,
     }
   }
 
@@ -53,8 +53,8 @@ class Challenges extends Component {
   }
 
 
-
   componentDidMount() {
+    console.log("componentDidMount");
     this.isMounted = true;
     this.getChallenges();
 
@@ -94,14 +94,21 @@ class Challenges extends Component {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.userId && this.props.userId) {
-      console.log(prevProps)
       this.getChallenges();
+
+      // update to previous selection
+      const prevState = JSON.parse(localStorage.getItem('challengesState'))
+      this.setState({
+        displayChallengesReceived: prevState.displayChallengesReceived,
+        displayChallengesSent: prevState.displayChallengesSent
+      })
     }
   }
 
   componentWillUnmount() {
     this.isMounted = false;
   }
+
 
   setOpenAddTaskDialog = (bool) => {
     this.setState({ isOpenAddTaskDialog: bool })
@@ -153,6 +160,11 @@ class Challenges extends Component {
         displayChallengesSent: false,
         displayChallengesReceived: true,
       })
+
+      localStorage.setItem('challengesState', JSON.stringify({
+        displayChallengesSent: false,
+        displayChallengesReceived: true,
+      }))
     }
   }
 
@@ -162,6 +174,11 @@ class Challenges extends Component {
         displayChallengesSent: true,
         displayChallengesReceived: false,
       })
+
+      localStorage.setItem('challengesState', JSON.stringify({
+        displayChallengesSent: true,
+        displayChallengesReceived: false,
+      }))
     }
   }
 
@@ -182,6 +199,7 @@ class Challenges extends Component {
           challenger={challengeObj.challenger}
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
+          created={challengeObj.created}
           challengerId={challengeObj.challengerId}
           accept={() => this.accept(challengeObj._id)}
           decline={() => this.decline(challengeObj._id)}/>
@@ -198,6 +216,7 @@ class Challenges extends Component {
           duration={challengeObj.duration}
           progress={challengeObj.progress}
           frequency={challengeObj.frequency}
+          created={challengeObj.created}
           is_accepted={challengeObj.is_accepted}
           is_completed={challengeObj.is_completed}
           is_challenge={challengeObj.is_challenge}/>

@@ -119,6 +119,32 @@ class CurrentTask extends Component {
     
   }
 
+  getTaskDetails = () => {
+    if (this.props.challenger !== null) {
+      //challenger summary
+      return (
+        <p className="CurrentTask-challengedBy">
+          {`(Challenged by ${this.props.challenger} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
+        )
+
+    } else {
+      // default summary
+      return (
+        <p className="CurrentTask-challengedBy">
+          {`(Created on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
+        )
+    }
+  }
+
+  getCompletedDays = () => {
+    let count = 0;
+    for (let log of this.props.progress) {
+      if (log === 1) count += 1;
+    }
+    return count;
+  }
 
   render() { 
     let gridCells = [];
@@ -155,17 +181,11 @@ class CurrentTask extends Component {
       <div className="CurrentTask-container">
         <p className="CurrentTask-taskTitle">{this.props.task_name}</p>
 
-        {(this.props.challenger !== null) && (
-        <p className="CurrentTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>)}
+        {this.getTaskDetails()}
         <hr className="CurrentTask-divider"></hr>
 
         <div className="CurrentTask-subContainer">
           <div className="CurrentTask-details">
-            <div>
-              <p className="CurrentTask-description">{this.props.challenger !== null ? "Challenged" : "Created"}</p>
-              <p>{DateMethods.getDateFormat(this.props.created)}</p>
-            </div>
-
             <div>
               <p className="CurrentTask-description">Duration</p>
               <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
@@ -190,7 +210,7 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.props.progress.length} ${this.getFrequencyLabel(this.props.progress.length)} completed`}</p>
+              <p>{`${this.getCompletedDays()} ${this.getFrequencyLabel(this.props.progress.length)} completed`}</p>
             </div>            
           </div>
 
@@ -199,6 +219,8 @@ class CurrentTask extends Component {
           </div>
         </div>
 
+        <hr className="CurrentTask-divider"></hr>
+        
         <div className="CurrentTask-progressDetails">
           <div className="CurrentTask-progressLabels">
             <span>Progress</span>

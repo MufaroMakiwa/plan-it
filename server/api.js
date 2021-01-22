@@ -115,7 +115,6 @@ router.post("/tasks/update", (req, res) => {
       socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
       
       if (req.body.challengerId) {
-        console.log("Updating challenger");
         socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_updated", task);
       }
     });

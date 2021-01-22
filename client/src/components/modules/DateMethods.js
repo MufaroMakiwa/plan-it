@@ -107,4 +107,18 @@ export class DateMethods {
     let yyyy = date.getFullYear();
     return mm + '/' + dd + '/' + yyyy;
   }
+
+  static getPrettyDateFormat = (dateObj) => {
+    const date = new Date(dateObj);
+
+    let monthNames =["January","February","March","April",
+                      "May","June","July","August",
+                      "September", "October","November","December"];
+
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+
+    return `${monthNames[month]} ${day}, ${year}`;
+  }
 }
