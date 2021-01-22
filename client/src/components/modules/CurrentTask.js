@@ -31,7 +31,12 @@ class CurrentTask extends Component {
 
 
   deleteTask = () => {
-    post("/api/tasks/delete", {_id: this.props._id}).then(this.props.onDelete)
+    const query = {
+      _id: this.props._id, 
+      is_challenge: this.props.is_challenge,
+      challengerId: this.props.challengerId,
+    }
+    post("/api/tasks/delete", query).then(this.props.onDelete)
   }
 
 
@@ -52,6 +57,7 @@ class CurrentTask extends Component {
         is_completed: true,
         date_completed: new Date().toString(),
         previous_progress_log: newLog.toString(),
+        challengerId: this.props.challengerId
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onCompleted()
@@ -64,6 +70,7 @@ class CurrentTask extends Component {
         is_completed: false,
         date_completed: null,
         previous_progress_log: newLog.toString(),
+        challengerId: this.props.challengerId,
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onIncrement()
@@ -89,6 +96,7 @@ class CurrentTask extends Component {
         is_completed: false,
         date_completed: null,
         previous_progress_log: prevLog.toString(),
+        challengerId: this.props.challengerId,
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onDecrement()

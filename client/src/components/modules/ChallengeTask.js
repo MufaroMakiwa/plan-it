@@ -28,6 +28,7 @@ class ChallengeTask extends Component {
 
     const query = {
       _id: this.props._id,
+      challengerId: this.props.challengerId,
       previous_progress_log: prev_log.toString(),
     }
     post("/api/tasks/challenges/accept", query).then((challenge) => {
@@ -36,7 +37,12 @@ class ChallengeTask extends Component {
   }
 
   declineChallenge = () => {
-    post("/api/tasks/challenges/decline", {_id: this.props._id}).then((challenge) => {
+    const query = {
+      _id: this.props._id,
+      challengerId: this.props.challengerId,
+    }
+
+    post("/api/tasks/challenges/decline", query).then((challenge) => {
       this.props.decline();
     })
   }

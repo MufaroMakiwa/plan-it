@@ -25,8 +25,8 @@ class Challenges extends Component {
       displayToastAccepted: false,
       displayToastDeclined: false,
       loading: true,
-      displayChallengesSent: false,
-      displayChallengesReceived: true,
+      displayChallengesSent: true,
+      displayChallengesReceived: false,
     }
   }
 
@@ -40,6 +40,20 @@ class Challenges extends Component {
   }
 
 
+  getUpdatedChallenges = (challenges, updatedChallenge) => {
+    const newChallenges = challenges.map(prevChallenge => {
+      if (prevChallenge._id === updatedChallenge._id) {
+        return updatedChallenge;
+
+      } else {
+        return prevChallenge;
+      }
+    })
+    return newChallenges;
+  }
+
+
+
   componentDidMount() {
     this.isMounted = true;
     this.getChallenges();
@@ -51,6 +65,31 @@ class Challenges extends Component {
         challenges: [newChallenge].concat(prevState.challenges),
       }))
     })
+
+    // listen for events when a challenge is accepted
+    socket.on("challenge_accepted", (challenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challenges: this.getUpdatedChallenges(prevState.challenges, challenge)
+      }))
+    })
+
+    // listen to events when a challenge is declined
+    socket.on("challenge_declined", (challenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challenges: this.getUpdatedChallenges(prevState.challenges, challenge)
+      }))
+    })
+
+     // listen to events when a challenge is updated
+     socket.on("challenge_updated", (challenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challenges: this.getUpdatedChallenges(prevState.challenges, challenge)
+      }))
+    })
+
   }
 
   componentDidUpdate(prevProps) {
@@ -143,6 +182,7 @@ class Challenges extends Component {
           challenger={challengeObj.challenger}
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
+          challengerId={challengeObj.challengerId}
           accept={() => this.accept(challengeObj._id)}
           decline={() => this.decline(challengeObj._id)}/>
         ))
@@ -158,8 +198,9 @@ class Challenges extends Component {
           duration={challengeObj.duration}
           progress={challengeObj.progress}
           frequency={challengeObj.frequency}
-          accept={() => this.accept(challengeObj._id)}
-          decline={() => this.decline(challengeObj._id)}/>
+          is_accepted={challengeObj.is_accepted}
+          is_completed={challengeObj.is_completed}
+          is_challenge={challengeObj.is_challenge}/>
         ))
       }
     }

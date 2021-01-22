@@ -40,48 +40,12 @@ class Current extends Component {
        })
     })
   }
-
-  updateTasks = () => {
-    let toUpdate = [];
-    for (let task of this.state.tasks) {
-      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
-      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
-
-      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
-        // toUpdate.push(task._id);
-        toUpdate.push(task);
-      }
-    }
-    post("/api/tasks/logIncomplete", {taskIds: toUpdate}).then((tasks) => {
-      console.log(tasks)
-    })
-  }
-
-
   
-  filterTasks = () => {
-    const tasks = this.state.tasks.filter(task => {
-      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
-      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
-
-      // return currentPeriodPrev.toString() === task.previous_progress_log;
-      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
-        console.log(task);
-        return false;
-      } else {
-        return true;
-      }
-    });
-    this.setState({ tasks })
-    
-  }
-
-
   componentDidMount() {
     this.isMounted = true;
     this.getCurrentTasks();
 
-    // listen to update the page
+    // listen to update the page at 12 midnight
     socket.on("update_current_tasks", (val) => {
       if (!this.isMounted) return;
       this.getCurrentTasks();
@@ -196,6 +160,8 @@ class Current extends Component {
           frequency={taskObj.frequency}
           progress={taskObj.progress}
           challenger={taskObj.challenger}
+          is_challenge={taskObj.is_challenge}
+          challengerId={taskObj.challengerId}
           previous_progress_log={taskObj.previous_progress_log}
           isPeriodTaskCompleted={this.isPeriodTaskCompleted(taskObj.frequency, taskObj.previous_progress_log)}
           onIncrement={() => this.incrementProgress(taskObj._id)}

@@ -86,6 +86,43 @@ router.get("/tasks/current", (req, res) => {
   })
 });
 
+
+router.post("/tasks/delete", (req, res) => {
+  if (req.body.is_challenge) {
+    Task.findOne({_id: req.body._id}).then((task) => {
+      task.is_completed = undefined;
+      task.is_challenge = undefined;
+      task.is_accepted = undefined; 
+      task.save().then((task) => {
+        res.send(task);
+        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
+      });
+    })
+  } else {
+    Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+  }
+})
+
+
+router.post("/tasks/update", (req, res) => {
+  Task.findOne({_id: req.body._id}).then((task) => {
+    task.progress = req.body.progress;
+    task.is_completed = req.body.is_completed;
+    task.date_completed = req.body.date_completed;
+    task.previous_progress_log = req.body.previous_progress_log;
+    task.save().then((task) => {
+      res.send(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
+      
+      if (req.body.challengerId) {
+        console.log("Updating challenger");
+        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_updated", task);
+      }
+    });
+  })
+})
+
+
 router.get("/tasks/challenges", (req, res) => {
   const query = {
     $or: [
@@ -120,34 +157,24 @@ router.post("/tasks/challenges/accept", (req, res) => {
     task.save().then((task) => {
       res.send(task);
       socketManager.getSocketFromUserID(req.user._id).emit("challenge_accepted", task);
+      socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_accepted", task);
     });
   })
 })
 
 router.post("/tasks/challenges/decline", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => {
-    res.send(task);
-    socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
-  });
-})
-
-router.post("/tasks/delete", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
-})
-
-router.post("/tasks/update", (req, res) => {
   Task.findOne({_id: req.body._id}).then((task) => {
-    task.progress = req.body.progress;
-    task.is_completed = req.body.is_completed;
-    task.date_completed = req.body.date_completed;
-    task.previous_progress_log = req.body.previous_progress_log;
+    task.is_completed = undefined;
+    task.is_challenge = undefined;
+    task.is_accepted = undefined; 
     task.save().then((task) => {
       res.send(task);
-      socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
-      console.log(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
+      socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
     });
   })
 })
+
 
 router.get("/friend/", (req, res) => {
   User.findOne({name: req.query.friendName}).then((user) => {

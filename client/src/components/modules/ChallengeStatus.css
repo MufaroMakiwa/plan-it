@@ -1,0 +1,27 @@
+.ChallengeStatus-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ChallengeStatus-pending {
+  color: rgba(101, 101, 224, 0.5);
+}
+
+.ChallengeStatus-completed {
+  color: rgb(0, 255, 0, 0.5);
+}
+
+.ChallengeStatus-inProgress {
+  color: rgb(255, 255, 0, 0.5);
+}
+
+.ChallengeStatus-declined {
+  color: rgb(255, 0, 0, 0.5);
+}
+
+.ChallengeStatus-statusLabel {
+  font-style: italic;
+  margin-left: 8px;
+  color: rgb(255, 255, 255, 0.5);
+}
