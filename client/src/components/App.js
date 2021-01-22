@@ -7,6 +7,7 @@ import Current from "./pages/Current.js";
 import Challenges from "./pages/Challenges.js";
 import Completed from "./pages/Completed.js";
 import Profile from "./pages/Profile.js";
+import RocketTag from "./pages/RocketTag.js";
 
 import "../utilities.css";
 import { socket } from "../client-socket.js";
@@ -115,7 +116,15 @@ class App extends Component {
             userName={this.state.userName}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
-          
+
+          <RocketTag
+            path="rocketTag"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userName={this.state.userName}
+            userId={this.state.userId}
+            userEmail={this.state.userEmail}/>
+
           <NotFound default />
         </Router>
       </>
