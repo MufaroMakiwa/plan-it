@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./ChallengeTask.css";
 import {get , post} from "../../utilities.js";
+import { DateMethods } from "./DateMethods.js";
 
 class ChallengeTask extends Component {
   constructor(props){
@@ -22,7 +23,14 @@ class ChallengeTask extends Component {
   }
 
   acceptChallenge = () => {
-    post("/api/tasks/challenges/accept", {_id: this.props._id}).then((challenge) => {
+    const reset = DateMethods.resetToStart(this.props.frequency, new Date())
+    const prev_log = DateMethods.getPreviousLog(this.props.frequency, reset)
+
+    const query = {
+      _id: this.props._id,
+      previous_progress_log: prev_log.toString(),
+    }
+    post("/api/tasks/challenges/accept", query).then((challenge) => {
       this.props.accept();
     })
   }
@@ -37,7 +45,7 @@ class ChallengeTask extends Component {
     return (
       <div className="ChallengeTask-container">
         <p className="ChallengeTask-taskTitle">{this.props.task_name}</p>
-        <p className="CurrentTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>
+        <p className="ChallengeTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>
         <hr className="ChallengeTask-divider"></hr>
 
         <div className="ChallengeTask-subContainer">

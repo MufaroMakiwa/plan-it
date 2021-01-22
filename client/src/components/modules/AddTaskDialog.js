@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import "./AddTaskDialog.css";
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
+import { DateMethods } from "./DateMethods.js";
 
 class AddTaskDialog extends Component {
   constructor(props) {
@@ -36,7 +37,6 @@ class AddTaskDialog extends Component {
     if (!invalid) {
       this.props.closeAddTaskDialog();
       this.resetState();
-      console.log(this.props.userId);
 
       // if sending a challenge, this.props.isChallenge will be defined and true
       this.props.isChallenge ? this.sendNewChallenge() : this.createNewTask();
@@ -48,15 +48,17 @@ class AddTaskDialog extends Component {
       task_name: this.state.name,
       userId: this.props.friendId,
       userName: this.props.friendName,
-      created: this.getCurrentDate(),
+      created: new Date().toString(),
       duration: this.state.duration,
       frequency: this.state.frequency,
       is_completed: null,
       date_completed: null,
-      progress: 0,
+      progress: [],
       is_challenge: true,
       challenger: this.props.userName,
-      is_accepted: false
+      challengerId: this.props.userId,
+      is_accepted: false,
+      previous_progress_log: null
 
     }).then((taskObj) => {
       this.props.onSubmit()
@@ -64,19 +66,24 @@ class AddTaskDialog extends Component {
   }
 
   createNewTask = () => {
+    const reset = DateMethods.resetToStart(this.state.frequency, new Date())
+    const prev_log = DateMethods.getPreviousLog(this.state.frequency, reset)
+
     post('/api/tasks/create', {
       task_name: this.state.name,
       userId: this.props.userId,
       userName: this.props.userName,
-      created: this.getCurrentDate(),
+      created: new Date().toString(),
       duration: this.state.duration,
       frequency: this.state.frequency,
       is_completed: false,
       date_completed: null,
-      progress: 0,
+      progress: [],
       is_challenge: false,
       challenger: null,
-      is_accepted: null
+      challengerId: null,
+      is_accepted: null,
+      previous_progress_log: prev_log.toString()
 
     }).then((taskObj) => {
       this.props.onSubmit(taskObj)
@@ -138,15 +145,6 @@ class AddTaskDialog extends Component {
     });
   }
 
-
-  getCurrentDate = () => {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    let yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
-    return today;
-  }
 
   render() { 
     return ( 
@@ -229,10 +227,9 @@ class AddTaskDialog extends Component {
                 <span className="AddTaskDialog-durationLabel">{this.getFrequencyLabel()}</span>
               </div>            
             </div>
-
            
             <div className="AddTaskDialog-buttonContainer">
-            <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.props.closeAddTaskDialog}>
+              <button className="AddTaskDialog-cancelButton AddTaskDialog-button" onClick={this.props.closeAddTaskDialog}>
                 Cancel
               </button>
               

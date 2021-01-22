@@ -19,12 +19,12 @@ import "./Profile.css";
 class Profile extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isOpenAddTaskDialog: false,
       currName: "",
       currPoints: "",
       currNumFriends: "",
+      loading: true
     }
   }
 
@@ -67,6 +67,7 @@ class Profile extends Component {
         currName: profile.name,
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
+        loading: false
       });
       this.selectImage(profile.points);
     });
@@ -82,7 +83,8 @@ class Profile extends Component {
           handleLogout={this.props.handleLogout}
         />
         
-        <div className="Profile-Main">
+        {this.state.loading ? (<div></div>) : (
+          <div className="Profile-Main">
             <div className="Profile-Header">
               <h1 className="Profile-Header-Name"> {this.state.currName} </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
@@ -97,7 +99,8 @@ class Profile extends Component {
                 <h1 className="Profile-Header-Stats"> Accomplishments </h1>
               </div>
             </div>
-        </div>
+          </div>
+        )}
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

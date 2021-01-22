@@ -30,11 +30,10 @@ class CFCard extends Component {
   challengeFriendNotification = () => {
     this.setState({displayToast: true})
     const timer = setTimeout(() => {
-      console.log(this.state)
       this.setState({
         displayToast: false
       })
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }
 
@@ -53,6 +52,7 @@ class CFCard extends Component {
           friendId={this.props.friendId}
           friendName={this.props.friendName}
           userName={this.props.userName}
+          userId={this.props.userId}
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.challengeFriendNotification}
           isChallenge={true}

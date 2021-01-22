@@ -1,0 +1,135 @@
+.ChallengeTaskSent-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+}
+
+.ChallengeTaskSent-divider {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ChallengeTaskSent-sentTo {
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--color_on_secondary);
+}
+
+.ChallengeTaskSent-details {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.ChallengeTaskSent-taskTitle {
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+.ChallengeTaskSent-completedLabel {
+  margin-left: 8px;
+}
+
+.ChallengeTaskSent-subContainer {
+  margin-top: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ChallengeTaskSent-description {
+  font-weight: bold;
+  color: #fa5460;
+}
+
+.ChallengeTaskSent-buttonContainer {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border-left: 1px solid rgba(255, 255, 255, 0.2); */
+  padding-left: 16px;
+}
+
+.ChallengeTaskSent-button {
+  padding: 8px 16px;
+  margin: 8px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.ChallengeTaskSent-acceptButton {
+  border: none;
+  background-color: #fa5460;
+  color: white;
+}
+
+.ChallengeTaskSent-declineButton {
+  border: 1px solid #fa5460;
+  background-color: transparent;
+  color: #fa5460;
+}
+
+.ChallengeTaskSent-acceptButton:hover {
+  background-color: var(--background_color_secondary);
+}
+
+.ChallengeTaskSent-declineButton:hover {
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+}
+
+.ChallengeTaskSent-details > * {
+  margin: 8px 0;
+}
+
+.ChallengeTaskSent-progressDetails {
+  margin-top: 16px;
+}
+
+.ChallengeTaskSent-progress {
+  width: 100%;
+  height: 16px;
+  border-radius: 15px;
+  border: 1px solid #fa5460;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.ChallengeTaskSent-progressCell {
+  height: 100%;
+  flex-grow: 1;
+  width: auto;
+  border-right: 1px solid var(--background_color_secondary);
+}
+
+.ChallengeTaskSent-progressCellDone {
+  background-color: #fa5460;
+}
+
+.ChallengeTaskSent-progressCellSkipped {
+  background-color: var(--color_on_secondary);
+}
+
+.ChallengeTaskSent-progressCellNotDone {
+  background-color: transparent;
+  border-right: none;
+  border-left: 1px solid var(--background_color_secondary);
+}
+
+.ChallengeTaskSent-progressLabels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: #c4c4c4;
+  font-style: italic;
+  font-size: 0.8em;
+  margin-bottom: 8px;
+}

@@ -3,14 +3,83 @@ import { navigate } from "@reach/router";
 import "./SideBar.css";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { GoogleLogout } from 'react-google-login';
+import {get, post} from '../../utilities.js';
+import { socket } from "../../client-socket.js";
+ 
 
 
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
 
 class SideBar extends Component {
+  isMounted = false;
+
   constructor(props) {
       super(props);
+      this.state = {
+        challengesCount: 0,
+        friendRequestsCount: 0,
+        animateNotificationIcon: false
+      }
+  }
+
+  getChallengesCount = () => {
+    get("/api/tasks/challenges/received").then((challenges) => {
+      if (!this.isMounted) return;
+      this.setState({ 
+        challengesCount: challenges.length
+      })
+    })
+
+    // listen for events when the user gets a new challenge
+    socket.on("new_challenge", (newChallenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challengesCount: prevState.challengesCount + 1,
+        animateNotificationIcon: true
+      }))
+      this.animateNotificationIcon()
+    })
+
+    // listen for events when user declines a challenge
+    socket.on("challenge_declined", (newChallenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challengesCount: prevState.challengesCount - 1,
+      }))
+    })
+
+    // listen for events when user accepts a challenge
+    socket.on("challenge_accepted", (newChallenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challengesCount: prevState.challengesCount - 1,
+      }))
+    })
+  }
+
+  animateNotificationIcon = () => {
+    const timer = setTimeout(() => {
+      this.setState({
+        animateNotificationIcon: false,
+      })
+    }, 1000);
+    return () => clearTimeout(timer);
+  }
+
+
+  getFriendRequestsCount = () => {
+  }
+
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
+
+
+  componentDidMount() {
+    this.isMounted = true;
+    this.getChallengesCount();
   }
 
 
@@ -26,7 +95,6 @@ class SideBar extends Component {
   render() { 
     return ( 
       <div className="SideBar-container">
-
         <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
           <p className="SideBar-name">PLAN-IT</p>
         </div>      
@@ -49,15 +117,24 @@ class SideBar extends Component {
 
           <li key="challenges" onClick={() =>this.handleSubmit("/challenges")}>
             <div className={"/challenges" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
-              <div className="SideBar-buttonLabel">Challenges</div> 
-              <span className="SideBar-notifications">2</span>
+              <div className="SideBar-buttonLabel">Challenges</div>       
+                <span className={`SideBar-notifications ${this.state.animateNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
+                                  ${this.state.challengesCount > 0 ? "" : "SideBar-notificationsHidden"}`}>
+                  {this.state.challengesCount}
+                </span>          
             </div>
           </li>
+
+          
 
           <li key="friends" onClick={() =>this.handleSubmit("/friends")}>
             <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Friends</div> 
-              {/* <span className="SideBar-notifications">2</span> */}
+              {/* {!this.state.loadingFriendRequestsCount && this.state.friendRequestsCount > 0 && 
+                <span className={this.state.animateNotificationIcon ? "Sidebar-notifications SideBar-notificationsUpdate" : "Sidebar-notifications"}>
+                  2
+                </span>
+              } */}
             </div>
           </li>
           

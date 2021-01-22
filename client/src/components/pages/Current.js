@@ -1,41 +1,98 @@
 import React, { Component } from 'react';
-import "./Current.css"
+
 import CurrentTask from "../modules/CurrentTask.js";
 import SideBar from "../modules/SideBar.js";
 
+import "./Current.css"
 import "../../utilities.css";
-import {get , post} from "../../utilities.js";
 
+import {get , post} from "../../utilities.js";
+import { socket } from "../../client-socket.js";
+
+import IncompleteTasksDialog from "../modules/IncompleteTasksDialog.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
+import { DateMethods } from "../modules/DateMethods.js";
 
 
 
 class Current extends Component {
+  isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
       tasks: [],
       displayToastDeleted: false,
-      displayToastCompleted: false
+      displayToastCompleted: false,
+      loading: true, 
+      hasIncompleteTasks: false,
     }
   }
 
   getCurrentTasks = () => {
     get("/api/tasks/current", { userId: this.props.userId }).then((tasks) => {
-      this.setState({ tasks: tasks.reverse() })
+      this.setState({ 
+        tasks: tasks.reverse(),
+        loading: false
+       })
     })
   }
 
+  updateTasks = () => {
+    let toUpdate = [];
+    for (let task of this.state.tasks) {
+      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
+      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
+
+      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+        // toUpdate.push(task._id);
+        toUpdate.push(task);
+      }
+    }
+    post("/api/tasks/logIncomplete", {taskIds: toUpdate}).then((tasks) => {
+      console.log(tasks)
+    })
+  }
+
+
+  
+  filterTasks = () => {
+    const tasks = this.state.tasks.filter(task => {
+      const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
+      const currentPeriodPrev = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
+
+      // return currentPeriodPrev.toString() === task.previous_progress_log;
+      if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+        console.log(task);
+        return false;
+      } else {
+        return true;
+      }
+    });
+    this.setState({ tasks })
+    
+  }
+
+
   componentDidMount() {
+    this.isMounted = true;
     this.getCurrentTasks();
+
+    // listen to update the page
+    socket.on("update_current_tasks", (val) => {
+      if (!this.isMounted) return;
+      this.getCurrentTasks();
+    })
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
   }
 
   componentDidUpdate(prevProps) {
-    console.log(`The previous props: ${prevProps.userId}`)
-
     if (!prevProps.userId && this.props.userId) {
       this.getCurrentTasks();
     }
@@ -47,15 +104,28 @@ class Current extends Component {
 
   incrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      task.progress = (task._id === _id && task.progress < task.duration) ? task.progress + 1 : task.progress;
+      if (task._id === _id && task.progress.length < task.duration) {
+        const newLog = DateMethods.resetToStart(task.frequency, new Date());
+        task.progress = task.progress.concat([1]);
+        task.previous_progress_log = newLog.toString();
+      }
       return task;
     })
     this.setState({ tasks })
   }
 
+  isPeriodTaskCompleted = (frequency, previous_progress_log) => {
+    const currentPeriod = DateMethods.resetToStart(frequency, new Date())
+    return currentPeriod.toString() === previous_progress_log;
+  }
+
   decrementProgress = (_id) => {
     const tasks = this.state.tasks.map(task => {
-      task.progress = (task._id === _id && task.progress > 0) ? task.progress - 1 : task.progress;
+      if (task._id === _id && task.progress.length > 0) {
+        const newLog = DateMethods.getPreviousLog(task.frequency, new Date(task.previous_progress_log));
+        task.progress = task.progress.slice(0, -1);
+        task.previous_progress_log = newLog.toString();
+      }
       return task;
     })
     this.setState({ tasks })
@@ -80,12 +150,11 @@ class Current extends Component {
     }
     
     const timer = setTimeout(() => {
-      console.log(this.state)
       this.setState({
         displayToastCompleted: false,
         displayToastDeleted: false,
       })
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }
 
@@ -122,6 +191,8 @@ class Current extends Component {
           frequency={taskObj.frequency}
           progress={taskObj.progress}
           challenger={taskObj.challenger}
+          previous_progress_log={taskObj.previous_progress_log}
+          isPeriodTaskCompleted={this.isPeriodTaskCompleted(taskObj.frequency, taskObj.previous_progress_log)}
           onIncrement={() => this.incrementProgress(taskObj._id)}
           onDecrement={() => this.decrementProgress(taskObj._id)}
           onDelete = {() => this.deleteTask(taskObj._id)}
@@ -139,10 +210,23 @@ class Current extends Component {
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        <div className="page_main">
-          {tasksList}
+        {this.state.loading ? <div></div> : (
+          <div className="page_main">
+            <div>
+              {tasksList}
+            </div>
 
-        </div>
+            {this.state.hasIncompleteTasks && (
+              <div className="Current-incompleteTaskLayout">
+                <div className="Current-dimTransparent"></div>
+
+                <div className="Current-incompleteTasksDialog">
+                  <IncompleteTasksDialog/>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

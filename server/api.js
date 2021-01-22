@@ -20,6 +20,12 @@ const auth = require("./auth");
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
+// import node-cron to schedule tasks
+const cron = require('node-cron');
+
+// import updateTasks to run a script that updates all the task everr 24 hours
+const updateTasks = require("./updateTasks.js")
+
 //initialize socket
 const socketManager = require("./server-socket");
 
@@ -27,7 +33,6 @@ router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 
 router.get("/whoami", (req, res) => {
-  console.log(req.user)
   if (!req.user) {
     // not logged in
     return res.send({});
@@ -58,30 +63,49 @@ router.post("/tasks/create", (req,res) => {
     progress: req.body.progress,
     is_challenge: req.body.is_challenge,
     challenger: req.body.challenger,
-    is_accepted: req.body.is_accepted
+    challengerId: req.body.challengerId,
+    is_accepted: req.body.is_accepted,
+    previous_progress_log: req.body.previous_progress_log
   });
 
   newTask.save().then((task) => {
     res.send(task);
+    if (req.body.is_challenge) {
+      socketManager.getSocketFromUserID(task.userId).emit("new_challenge", task);
+    }
   });
 });
 
 router.get("/tasks/current", (req, res) => {
   const query = {
-    userId: req.query.userId,
+    userId: req.user._id,
     is_completed: false,
   }
   Task.find(query).then((tasks) => {
-    res.send(tasks)
+    res.send(tasks);
   })
 });
 
 router.get("/tasks/challenges", (req, res) => {
   const query = {
-    userId: req.query.userId,
-    is_challenge: true,
-    is_accepted: false
+    $or: [
+      { userId: req.user._id, is_challenge: true, is_accepted: false },
+      { challengerId: req.user._id },
+    ],
+  };
+
+  Task.find(query).then((tasks) => {
+    res.send(tasks)
+  })
+})
+
+router.get("/tasks/challenges/received", (req, res) => {
+  const query = { 
+    userId: req.user._id, 
+    is_challenge: true, 
+    is_accepted: false 
   }
+  
   Task.find(query).then((tasks) => {
     res.send(tasks)
   })
@@ -90,15 +114,21 @@ router.get("/tasks/challenges", (req, res) => {
 router.post("/tasks/challenges/accept", (req, res) => {
   Task.findOne({_id: req.body._id}).then((task) => {
     task.is_completed = false;
-    task.is_accepted = true
+    task.is_accepted = true;
+    task.previous_progress_log = req.body.previous_progress_log;
+
     task.save().then((task) => {
       res.send(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("challenge_accepted", task);
     });
   })
 })
 
 router.post("/tasks/challenges/decline", (req, res) => {
-  Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+  Task.deleteOne({ _id:  req.body._id }).then((task) => {
+    res.send(task);
+    socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
+  });
 })
 
 router.post("/tasks/delete", (req, res) => {
@@ -110,15 +140,24 @@ router.post("/tasks/update", (req, res) => {
     task.progress = req.body.progress;
     task.is_completed = req.body.is_completed;
     task.date_completed = req.body.date_completed;
+    task.previous_progress_log = req.body.previous_progress_log;
     task.save().then((task) => {
       res.send(task);
+      socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
+      console.log(task);
     });
   })
 })
 
+router.get("/friend/", (req, res) => {
+  User.findOne({name: req.query.friendName}).then((user) => {
+    res.send(user);
+  }) 
+})
+
 router.get("/tasks/completed", (req, res) => {
   const query = {
-    userId: req.query.userId,
+    userId: req.user._id,
     is_completed: true,
   }
   Task.find(query).then((tasks) => {
@@ -128,7 +167,7 @@ router.get("/tasks/completed", (req, res) => {
 
 
 router.get("/profile/fill", (req, res) => {
-  User.findById(req.query.userId).then((profile) => {
+  User.findById(req.user._id).then((profile) => {
     res.send(profile);
   });
 });
@@ -181,6 +220,9 @@ router.get("/friend/requests", (req,res) => {
   Friend.find(query).then((friends) => res.send(friends));
 });
 
+cron.schedule('0 0 * * *', () => {
+  updateTasks.update();
+})
 
 
 // anything else falls to this "not found" case

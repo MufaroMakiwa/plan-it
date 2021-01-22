@@ -39,6 +39,12 @@
   color: #fa5460;
 }
 
+.ChallengeTask-challengedBy {
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--color_on_secondary);
+}
+
 .ChallengeTask-buttonContainer {
   width: 25%;
   height: 100%;

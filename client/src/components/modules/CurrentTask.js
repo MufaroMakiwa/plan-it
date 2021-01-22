@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import "./CurrentTask.css";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { post } from '../../utilities';
-
+import { DateMethods } from "./DateMethods.js";
 
 class CurrentTask extends Component {
   constructor(props) {
@@ -30,29 +30,28 @@ class CurrentTask extends Component {
   }
 
 
-  getCurrentDate = () => {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    let yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
-    return today;
-  }
-
-
   deleteTask = () => {
     post("/api/tasks/delete", {_id: this.props._id}).then(this.props.onDelete)
   }
 
-  incrementProgress = () => {
-    const new_progress = this.props.progress + 1;
 
-    if (new_progress === this.props.duration) {
+  incrementProgress = () => {
+    const newLog = DateMethods.resetToStart(this.props.frequency, new Date());
+    
+    if (newLog.toString() === this.props.previous_progress_log) {
+      console.log("You have logged today's progress already")
+      return;
+    }
+    
+
+    const new_progress = this.props.progress.concat([1]);
+    if (new_progress.length >= this.props.duration) {
       const query = {
         _id: this.props._id,
         progress: new_progress,
         is_completed: true,
-        date_completed: this.getCurrentDate(),
+        date_completed: new Date().toString(),
+        previous_progress_log: newLog.toString(),
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onCompleted()
@@ -64,6 +63,7 @@ class CurrentTask extends Component {
         progress: new_progress,
         is_completed: false,
         date_completed: null,
+        previous_progress_log: newLog.toString(),
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onIncrement()
@@ -72,11 +72,23 @@ class CurrentTask extends Component {
   }
 
   decrementProgress = () => {
-    const new_progress = this.props.progress - 1;
-    if (new_progress >= 0) {
+    const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
+
+    if (currentPeriod.toString() !== this.props.previous_progress_log) {
+      console.log("You cannot decrement progress now")
+      return;
+    }
+
+    const prevLog = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
+    const new_progress = this.props.progress.slice(0, -1);
+    
+    if (this.props.progress.length > 0) {
       const query = {
         _id: this.props._id,
         progress: new_progress,
+        is_completed: false,
+        date_completed: null,
+        previous_progress_log: prevLog.toString(),
       }
       post("/api/tasks/update", query).then((taskOj) => {
         this.props.onDecrement()
@@ -84,9 +96,54 @@ class CurrentTask extends Component {
     }
   }
 
+  getProgressSummary = (frequency, isPeriodTaskCompleted) => {
+    const labels = {
+      Daily : "today's",
+      Weekly : "this week's",
+      Monthly : "this month's"
+    }
+    if (isPeriodTaskCompleted) {
+      return `You have completed ${labels[frequency]} task`;
+
+    } else {
+      return `You have not completed ${labels[frequency]} task`;
+    }
+    
+  }
+
 
   render() { 
-    return ( 
+    let gridCells = [];
+
+    for (let i = 0; i < this.props.duration; i++) {
+      switch (this.props.progress[i]) {
+        case 1:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressCellDone"
+              key={`ProgressCell_${i}`}>
+            </div>));
+          break;
+
+        case 0:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressCellSkipped"
+              key={`ProgressCell_${i}`}>
+            </div>))
+          break;
+
+        default:
+          gridCells.push((
+            <div 
+              className="CurrentTask-progressCell CurrentTask-progressNotDone"
+              key={`ProgressCell_${i}`}>
+            </div>))
+          break;
+      }
+    }
+
+    return (
       <div className="CurrentTask-container">
         <p className="CurrentTask-taskTitle">{this.props.task_name}</p>
 
@@ -97,8 +154,8 @@ class CurrentTask extends Component {
         <div className="CurrentTask-subContainer">
           <div className="CurrentTask-details">
             <div>
-              <p className="CurrentTask-description">Created</p>
-              <p>{this.props.created}</p>
+              <p className="CurrentTask-description">{this.props.challenger !== null ? "Challenged" : "Created"}</p>
+              <p>{DateMethods.getDateFormat(this.props.created)}</p>
             </div>
 
             <div>
@@ -125,7 +182,7 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.props.progress} ${this.getFrequencyLabel(this.props.progress)} completed`}</p>
+              <p>{`${this.props.progress.length} ${this.getFrequencyLabel(this.props.progress.length)} completed`}</p>
             </div>            
           </div>
 
@@ -134,9 +191,19 @@ class CurrentTask extends Component {
           </div>
         </div>
 
-        <div className="CurrentTask-progress">
-          <div className="CurrentTask-progressFill" 
-               style={{width: this.getProgress(this.props.progress, this.props.duration)}}></div>
+        <div className="CurrentTask-progressDetails">
+          <div className="CurrentTask-progressLabels">
+            <span>Progress</span>
+            <span>{`${this.props.progress.length}/${this.props.duration}`}</span>
+          </div>
+
+          <div className="CurrentTask-progress">
+            {gridCells}
+          </div>
+        </div>
+
+        <div className={this.props.isPeriodTaskCompleted ? "CurrentTask-progressSummaryDone" : "CurrentTask-progressSummaryNotDone"}>
+          <span>{this.getProgressSummary(this.props.frequency, this.props.isPeriodTaskCompleted)}</span>
         </div>
       </div>
      );

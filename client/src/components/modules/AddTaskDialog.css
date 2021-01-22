@@ -58,10 +58,12 @@ div.MuiDialogContent-root:first-child {
 .AddTaskDialog-durationContent {
   display: flex;
   flex-direction: row;
-  justify-self: start;
 }
 
 .AddTaskDialog-durationLabel {
+  display: flex;
+  align-items: center;
+  height: 20px;
   text-align: start;
   margin-left: 8px;
   padding: 8px;

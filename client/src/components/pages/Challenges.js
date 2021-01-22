@@ -1,41 +1,67 @@
 import React, { Component } from 'react';
 import SideBar from "../modules/SideBar.js";
+
 import "../../utilities.css";
+import "./Challenges.css";
+
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
+import ChallengeTaskSent from "../modules/ChallengeTaskSent.js";
 import { navigate } from '@reach/router';
 import {get , post} from "../../utilities.js";
+import { socket } from "../../client-socket.js";
 import Toast from "../modules/Toast.js";
 
 
 class Challenges extends Component {
+  isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
       challenges: [],
       displayToastAccepted: false,
-      displayToastDeclined: false
+      displayToastDeclined: false,
+      loading: true,
+      displayChallengesSent: false,
+      displayChallengesReceived: true,
     }
   }
 
   getChallenges = () => {
-    get("/api/tasks/challenges", { userId: this.props.userId }).then((challenges) => {
-      this.setState({ challenges: challenges.reverse() })
+    get("/api/tasks/challenges").then((challenges) => {
+      this.setState({ 
+        challenges: challenges.reverse(),
+        loading: false
+       })
     })
   }
 
+
   componentDidMount() {
+    this.isMounted = true;
     this.getChallenges();
+
+    // listen for events when the user gets a new challenge
+    socket.on("new_challenge", (newChallenge) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        challenges: [newChallenge].concat(prevState.challenges),
+      }))
+    })
   }
 
   componentDidUpdate(prevProps) {
-    console.log(`The previous props: ${prevProps.userId}`)
-
     if (!prevProps.userId && this.props.userId) {
+      console.log(prevProps)
       this.getChallenges();
     }
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
   }
 
   setOpenAddTaskDialog = (bool) => {
@@ -59,12 +85,11 @@ class Challenges extends Component {
     }
     
     const timer = setTimeout(() => {
-      console.log(this.state)
       this.setState({
         displayToastAccepted: false,
         displayToastDeclined: false,
       })
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }
 
@@ -77,17 +102,41 @@ class Challenges extends Component {
 
   decline = (_id) => {
     const challenges = this.state.challenges.filter(challenge => challenge._id !== _id);
-    this.setState({ challenges })
+    this.setState({ 
+      challenges : challenges,
+     })
     this.challengeStatusNotification(false)
   }
 
-  render() { 
-    let challengesList = null;
-    const hasChallenges = this.state.challenges.length !== 0;
+  toggleReceived = () => {
+    if (!this.state.displayChallengesReceived) {
+      this.setState({
+        displayChallengesSent: false,
+        displayChallengesReceived: true,
+      })
+    }
+  }
 
-    if (hasChallenges) {
-      challengesList = this.state.challenges.map((challengeObj) => (
-        <ChallengeTask
+  toggleSent = () => {
+    if (!this.state.displayChallengesSent) {
+      this.setState({
+        displayChallengesSent: true,
+        displayChallengesReceived: false,
+      })
+    }
+  }
+
+
+  displayChallenges = () => {
+    let challengesReceived = [];
+    let challengesSent = [];
+
+    for (let challengeObj of this.state.challenges) {
+      if (challengeObj.userId === this.props.userId) {
+
+        // this is a received challenge
+        challengesReceived.push((
+          <ChallengeTask
           key={`Challenge_${challengeObj._id}`}
           _id={challengeObj._id}
           task_name={challengeObj.task_name}
@@ -95,23 +144,63 @@ class Challenges extends Component {
           duration={challengeObj.duration}
           frequency={challengeObj.frequency}
           accept={() => this.accept(challengeObj._id)}
-          decline={() => this.decline(challengeObj._id)}
-        />
-      ));
-    } else {
-      challengesList = <div>No challenges</div>;
+          decline={() => this.decline(challengeObj._id)}/>
+        ))
+
+      } else {
+        // this is a sent challenge
+        challengesSent.push((
+          <ChallengeTaskSent
+          key={`Challenge_${challengeObj._id}`}
+          _id={challengeObj._id}
+          task_name={challengeObj.task_name}
+          userName={challengeObj.userName}
+          duration={challengeObj.duration}
+          progress={challengeObj.progress}
+          frequency={challengeObj.frequency}
+          accept={() => this.accept(challengeObj._id)}
+          decline={() => this.decline(challengeObj._id)}/>
+        ))
+      }
     }
+    if (this.state.displayChallengesReceived) {
+      return challengesReceived;
+
+    } else {
+      return challengesSent;
+    }
+  }
 
 
+  render() { 
     return ( 
       <div className="page-container">
         <SideBar 
           link="/challenges"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
-        <div className="page_main">
-          {challengesList}
-        </div>
+
+        {this.state.loading ? <div></div> : (
+          <div className="page_main">
+            <div className="Challenges-toggleButtons">
+              <button 
+                className={`Challenges-button ${this.state.displayChallengesReceived ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`}
+                onClick={this.toggleReceived}
+                style={{marginRight : 12}}>
+                Received
+              </button>
+              
+              <button 
+                className={`Challenges-button ${this.state.displayChallengesSent ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`} 
+                onClick={this.toggleSent}
+                style={{marginLeft : 12}}>
+                Sent
+              </button>
+            </div>
+            
+            {this.displayChallenges()}
+          </div>
+        )}  
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
@@ -122,8 +211,7 @@ class Challenges extends Component {
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
         </AddTaskDialog>
-
-        
+      
         <div className={this.state.displayToastAccepted ? "toast toastVisible" : "toast"}>
           <Toast label="Challenge accepted"/>
         </div>
@@ -131,7 +219,6 @@ class Challenges extends Component {
         <div className={this.state.displayToastDeclined ? "toast toastVisible" : "toast"}>
           <Toast label="Challenge declined"/>
         </div>
-
       </div>
     );
   }

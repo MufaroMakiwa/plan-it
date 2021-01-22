@@ -12,12 +12,16 @@ class CurrentFriends extends Component {
     super(props);
     this.state = {
       friends: [],
+      loading: true
     }
   }
 
   getFriends = () => {
     get("/api/friend/current", {userName: this.props.userName}).then((friends) => {
-      this.setState({friends})
+      this.setState({
+        friends: friends,
+        loading: false
+      })
     })
   }
 
@@ -43,6 +47,9 @@ class CurrentFriends extends Component {
   }
 
   render() { 
+    if (this.state.loading){
+      return <div></div>
+    }
  
     let friendsList = null;
     const hasFriends = this.state.friends.length !== 0;
@@ -52,11 +59,11 @@ class CurrentFriends extends Component {
         <CFCard
           key={`listItem-${friendObj._id}`}
           userName={this.props.userName}
+          userId={this.props.userId}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
           onUnfriend={() => this.unFriend(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}/>
       ));
-      
     } else {
       friendsList = <div>No Friends!</div>;
     }
