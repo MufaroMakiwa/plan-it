@@ -173,6 +173,19 @@ class AddTaskDialog extends Component {
             <div className="AddTaskDialog-inputContainer">           
               <label htmlFor="taskFrequency" className="AddTaskDialog-formLabel">Frequency</label>
               <div className="AddTaskDialog-radioContainer" name="taskFrequency" >
+
+                {/* <label htmlFor="minute" className="AddTaskDialog-label"> 
+                  <input 
+                    type="radio" 
+                    name = "frequency" 
+                    id="minute" 
+                    className="AddTaskDialog-radioName" 
+                    onClick={this.handleFrequencyChange} 
+                    value="Minute"/> 
+                  <div className="AddTaskDialog-radioButton"></div>
+                  Minute
+                </label> */}
+
                 <label htmlFor="daily" className="AddTaskDialog-label"> 
                   <input 
                     type="radio" 

@@ -59,6 +59,9 @@ export class DateMethods {
 
   static getPreviousLog = (frequency, date) => {
     switch (frequency) {
+      case "Minute": 
+        return this.getPreviousLogMinute(date);
+        
       case "Daily":
         return this.getPreviousLogDay(date);
 
@@ -73,6 +76,9 @@ export class DateMethods {
 
   static resetToStart = (frequency, date) => {
     switch (frequency) {
+      case "Minute":
+        return this.resetToStartOfMinute(date);
+
       case "Daily":
         return this.resetToStartOfDay(date);
 

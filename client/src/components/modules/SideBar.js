@@ -96,7 +96,7 @@ class SideBar extends Component {
     return ( 
       <div className="SideBar-container">
         <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
-          <p className="SideBar-name">PLAN-IT</p>
+          {/* <p className="SideBar-name">PLAN-IT</p> */}
         </div>      
 
         <div to="/profile" 

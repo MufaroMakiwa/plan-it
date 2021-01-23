@@ -65,6 +65,9 @@ class UpdateTasks {
 
   static getPreviousLog = (frequency, date) => {
     switch (frequency) {
+      case "Minute": 
+        return this.getPreviousLogMinute(date);
+
       case "Daily":
         return this.getPreviousLogDay(date);
 
@@ -79,6 +82,9 @@ class UpdateTasks {
 
   static resetToStart = (frequency, date) => {
     switch (frequency) {
+      case "Minute":
+        return this.resetToStartOfMinute(date);
+
       case "Daily":
         return this.resetToStartOfDay(date);
 
@@ -94,11 +100,19 @@ class UpdateTasks {
   
   static update = () => {
     Task.find({is_completed: false}).then(tasks => {
+      // console.log("..............................................")
       for (let task of tasks) {
+
         const currentPeriod = this.resetToStart(task.frequency, new Date());
         const currentPeriodPrev = this.getPreviousLog(task.frequency, currentPeriod);
 
-        if (currentPeriodPrev.toString() !== task.previous_progress_log) {
+        // console.log()
+        // console.log(task.task_name)
+        // console.log(`Current period   : ${currentPeriod.toString()}`);
+        // console.log(`Curr period prev : ${currentPeriodPrev.toString()}`);
+        // console.log(`Task prev log    : ${task.previous_progress_log}`);
+
+        if (new Date(task.previous_progress_log) < currentPeriodPrev) {
           task.progress = task.progress.concat([0])
           task.previous_progress_log = currentPeriodPrev.toString();
 
