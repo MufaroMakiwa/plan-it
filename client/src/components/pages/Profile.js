@@ -1,10 +1,10 @@
 
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import {post, get} from "../../utilities.js";
+import RocketTagRoll from "../modules/RocketTagRoll.js";
 import Constellation_0_Image from "../../public/Constellation_0_Points.png";
 import Constellation_1000_Image from "../../public/Constellation_1000_Points.png";
 import Constellation_2000_Image from "../../public/Constellation_2000_Points.png";
@@ -54,8 +54,6 @@ class Profile extends Component {
 
 
   componentDidUpdate(prevProps) {
-    console.log(`The previous props: ${prevProps.userName}`)
-
     if (!prevProps.userId && this.props.userId) {
       this.getProfile();
     }
@@ -87,33 +85,30 @@ class Profile extends Component {
 
   render() { 
     return ( 
-      <div className="Profile-Container" >
+      <div className="page-container">
         <SideBar 
           link="/profile"
           userName={this.props.userName}
-          handleLogout={this.props.handleLogout}
-        />
+          handleLogout={this.props.handleLogout}/>
 
         {this.renderBackground()}
         
         {this.state.loading ? (<div></div>) : (
-          <div className="Profile-Main">
+          <div className="page_main">
             <div className="Profile-Header">
               <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
               <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
             </div>
-            <img className="Profile-Picture" src={this.state.currImage} alt="Constellation" />
-            <div className="Profile-Bottom" onClick={() => this.playRocketTag()}>
-              <div className="Profile-Bottom-Container"> 
-                <h1 className="Profile-Header-Stats"> Click For Rocket Tag </h1>
-              </div>
-              <div className="Profile-Bottom-Container">
-                <h1 className="Profile-Header-Stats"> Click For Rocket Tag </h1>
-              </div>
+
+            <div className="Profile-PictureContainer">
+              <img className="Profile-Picture" src={this.state.currImage} alt="Constellation" />
             </div>
+        
           </div>
         )}
+
+        <RocketTagRoll />
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

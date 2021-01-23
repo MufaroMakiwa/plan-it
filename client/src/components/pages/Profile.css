@@ -1,43 +1,19 @@
-.Profile-Container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-}
-
-.Profile-Main {
-  margin-left: var(--sidebar_width);
-  position: relative;
-  text-align: center;
-}
-
 .Profile-Header {
   display: flex;
-  justify-content: space-around;
+  text-align: center;
+  justify-content: space-between;
   align-items: center;
-  padding-top: 4vh;
+  padding: 24px;
 }
 
 .Profile-Header-Name {
-  font-size: 4vw;
+  font-size: 4em;
   color: #fa5460;
 }
 
 .Profile-Header-Stats {
-  font-size: 3vw;
+  font-size: 3em;
   color: #f8f8f8;
-}
-
-.Profile-Bottom {
-  display: flex;
-  justify-content: left;
-  padding-top: 4vh;
-  padding-bottom: 1vh;
-  width: 80%;
-  margin-top: 2%;
-  margin-left: 10%;
-  border-width: 3px;
-  border-radius: 20px;
-  border-style: solid;
 }
 
 .Profile-Bottom-Container {
@@ -46,8 +22,14 @@
 }
 
 .Profile-Bottom-Stats {
-  font-size: 3vw;
+  font-size: 3em;
   color: #f8f8f8;
+}
+
+.Profile-PictureContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Profile-Picture {
