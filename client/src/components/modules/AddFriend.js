@@ -4,13 +4,43 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
+import SearchSuggestion from "./SearchSuggestion.js"
 
 class AddFriend extends Component{
+
+  items = [
+    {
+      _id: 1,
+      name: "Mufaro Makiwa",
+      email: "mufaroemakiwa@gmail.com",
+    },
+    {
+      _id: 2,
+      name: "Rutendo Makiwa",
+      email: "rutendomakiwa@gmail.com",
+    },
+    {
+      _id: 3,
+      name: "Mirainashe Makiwa",
+      email: "miraimakiwa@gmail.com",
+    },
+    {
+      _id: 4,
+      name: "Shreya Gupta",
+      email: "shreyagupta@gmail.com",
+    },
+    {
+      _id: 5,
+      name: "Niarg Dharia",
+      email: "nisargdharia@gmail.com",
+    }
+  ]
 
   constructor(props){
     super(props);
     this.state = {
       isSearchBarFocused: false,
+      displaySearchSuggestions: false,
       value: '',
       suggestions: []
     };
@@ -18,26 +48,14 @@ class AddFriend extends Component{
 
   handleChange = (event) => {
     const value = event.target.value;
-    this.setState({ value })
+    const displaySearchSuggestions = (value.length !== 0);
+    this.props.setDisplaySearchSuggestions(displaySearchSuggestions);
+    this.setState({ 
+      value: value,
+      displaySearchSuggestions: displaySearchSuggestions
+    })
   }
 
-  renderSuggestions = () => {
-    if (this.state.suggestions.length === 0 ) {
-      return null;
-    }
-    return (
-      <ul className="AddFriend-suggestions">
-        {this.state.suggestions.map((user) => (
-          <li 
-            key={Math.random()} 
-            onClick={() => this.suggestionSelected(user)}
-            style={{ padding: 8}}>
-            {`Name: ${user.name} id: ${user._id}`}
-          </li>
-        ))}
-      </ul>
-    )
-  }
 
   suggestionSelected = (user) => {
     this.setState({
@@ -76,14 +94,35 @@ class AddFriend extends Component{
     })
   }
 
+  closeSearch = () => {
+    console.log("Closing search");
+    this.props.setDisplaySearchSuggestions(false);
+    this.setState({
+      displaySearchSuggestions: false,
+      value: '',
+      isSearchBarFocused: false,
+    })
+  }
+
   render(){
+
+    let suggestionList = this.items.map((user) => (
+      <SearchSuggestion
+        key={`searchSuggestion_${user._id}`}
+        name={user.name}
+        email={user.email}/>
+    ))
+    console.log(suggestionList);
+
     return (
       <div className="AddFriend-container"> 
 
         <div className="AddFriend-search_layout">
-          <div className="AddFriend-searchBar">
+          <div 
+            id="AddFriend-searchBar" 
+            className={`AddFriend-searchBar ${this.state.isSearchBarFocused ? "AddFriend-searchBar_active" : ""}`}>
             <div className="AddFriend-searchIcon">
-              <SearchIcon />
+              <SearchIcon/>
             </div>
           
             <input 
@@ -91,18 +130,23 @@ class AddFriend extends Component{
               value={this.state.value} 
               onChange={this.handleChange}
               onFocus={() => this.setFocus(true)}
-              onBlur={() => this.setFocus(false)}
               className="AddFriend-searchInput"/>
-            </div>
+          </div>
 
-            <span className={`AddFriend-cancel ${!this.state.isSearchBarFocused ? "AddFriend-cancel_hidden" : ""}`}>
-              Cancel
-            </span>
+          <span 
+            className={`AddFriend-cancel ${!this.state.isSearchBarFocused ? "AddFriend-cancel_hidden" : ""}`}
+            onClick={this.closeSearch}>
+            Cancel
+          </span>
+        </div>    
 
-        </div>
-        
 
-        {/* <button type = "submit" value = "Add Friend" onClick = {this.handleSubmit}> Add Friend </button> */}
+        {this.state.displaySearchSuggestions && (
+          <div className="AddFriend-suggestions">
+            {suggestionList}
+          </div>  
+        )}  
+
       </div>
     )
   }

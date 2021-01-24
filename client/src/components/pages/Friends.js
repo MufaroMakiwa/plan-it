@@ -18,6 +18,7 @@ class Friends extends Component {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
+      displaySearchSuggestions: false
     };
   }
 
@@ -27,6 +28,12 @@ class Friends extends Component {
 
   addTask = (taskObj) => {
     navigate("/current");
+  }
+
+  setDisplaySearchSuggestions = (isDisplaying) => {
+    this.setState({ 
+      displaySearchSuggestions: isDisplaying
+    })
   }
 
   render() {
@@ -48,25 +55,31 @@ class Friends extends Component {
         <CustomBackground />
 
         <div className="page_main">
+
           <div className="tile_box_centered">
             <AddFriend
               userId={this.props.userId}
               userName={this.props.userName}
-              userEmail={this.props.userEmail}> 
+              userEmail={this.props.userEmail}
+              setDisplaySearchSuggestions={this.setDisplaySearchSuggestions}> 
             </AddFriend>
 
-            <CurrentFriends 
-              onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
-              userId={this.props.userId}
-              userName={this.props.userName}
-              userEmail={this.props.userEmail}> 
-            </CurrentFriends>
+            {!this.state.displaySearchSuggestions && (
+              <>
+                <CurrentFriends 
+                  onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
+                  userId={this.props.userId}
+                  userName={this.props.userName}
+                  userEmail={this.props.userEmail}> 
+                </CurrentFriends>
 
-            <FriendRequests
-              userId={this.props.userId}
-              userName={this.props.userName}
-              userEmail={this.props.userEmail}> 
-            </FriendRequests>
+                <FriendRequests
+                  userId={this.props.userId}
+                  userName={this.props.userName}
+                  userEmail={this.props.userEmail}> 
+                </FriendRequests>
+              </>
+            )}
           </div>   
         </div>
 

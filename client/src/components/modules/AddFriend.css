@@ -2,18 +2,8 @@
   width: 100%;
 }
 
-.AddFriend-suggestions {
-  background-color: white;
-  color: black;
-  text-decoration: none;
-  padding: 0;
-  margin: 0;
-  height: auto;
-  list-style-type: none;
-}
-
 .AddFriend-search_layout {
-  margin: 24px;
+  margin: 24px 24px 16px 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -25,6 +15,10 @@
   border-radius: 24px;
   flex-direction: row;
   display: flex;
+}
+
+.AddFriend-searchBar_active {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .AddFriend-searchIcon {
@@ -54,4 +48,20 @@
 .AddFriend-cancel:hover {
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+}
+
+.AddFriend-suggestions {
+  margin: 0 24px;
+}
+
+.AddFriend-dim_background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  bottom: 0;
+  height: 100%;
+  z-index: -2;
+  background-color: black;
+  opacity: 0.5;
 }
