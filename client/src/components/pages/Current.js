@@ -8,11 +8,9 @@ import "./Current.css"
 import "../modules/CustomBackground"
 import "../../utilities.css";
 
+
 import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
-
-import IncompleteTasksDialog from "../modules/IncompleteTasksDialog.js";
-import RocketTagRoll from "../modules/RocketTagRoll.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
@@ -182,7 +180,9 @@ class Current extends Component {
     return ( 
       <div className="page-container">
 
-        <NavBar />
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
 
         <SideBar 
           link="/current"
@@ -195,25 +195,11 @@ class Current extends Component {
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
-            <div>
+            <div className="tile_box_centered">
               {tasksList}
             </div>
-
-            {this.state.hasIncompleteTasks && (
-              <div className="Current-incompleteTaskLayout">
-                <div className="Current-dimTransparent"></div>
-
-                <div className="Current-incompleteTasksDialog">
-                  <IncompleteTasksDialog/>
-                </div>
-              </div>
-            )}
           </div>
         )}
-
-        <div className="dummy_div_right"></div>
-
-        <RocketTagRoll /> 
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

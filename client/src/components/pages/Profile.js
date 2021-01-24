@@ -4,7 +4,6 @@ import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import {post, get} from "../../utilities.js";
-import RocketTagRoll from "../modules/RocketTagRoll.js";
 import Constellation_0_Image from "../../public/Constellation_0_Points.png";
 import Constellation_1000_Image from "../../public/Constellation_1000_Points.png";
 import Constellation_2000_Image from "../../public/Constellation_2000_Points.png";
@@ -80,7 +79,9 @@ class Profile extends Component {
     return ( 
       <div className="page-container">
 
-        <NavBar />
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
 
         <SideBar 
           link="/profile"
@@ -93,22 +94,19 @@ class Profile extends Component {
         
         {this.state.loading ? (<div></div>) : (
           <div className="page_main">
-            <div className="Profile-Header">
-              <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
-              <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
-              <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
-            </div>
+            <div className="tile_centered">
+              <div className="Profile-Header">
+                <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
+                <h1 className="Profile-Header-Stats"> {this.state.currNumFriends} Friends </h1>
+                <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
+              </div>
 
-            <div className="Profile-PictureContainer">
-              <img className="Profile-Picture" src={this.state.currImage} alt="Constellation" />
-            </div>
-        
+              <div className="Profile-PictureContainer">
+                <img className="Profile-Picture" src={this.state.currImage} alt="Constellation" />
+              </div>
+            </div> 
           </div>
         )}
-
-        <div className="dummy_div_right"></div>
-
-        <RocketTagRoll />
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

@@ -28,6 +28,7 @@
   --background_color_secondary: #4f4655;
   --color_on_secondary: #ada9b0;
   --sidebar_width: 272px;
+  --navbar_height: 80px;
 
   --xs: 4px;
   --s: 8px;
@@ -116,22 +117,31 @@ p {
   color: var(--primary--dim);
 }
 
-.page_main {
-  position: relative;
-  height: 100%;
-  flex-grow: 1;
-  z-index: 1;
-}
-
-.top_bar {
-  display: none;
-}
-
 .page-container {
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: row;
+}
+
+.page_main {
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
+  z-index: 1;
+  align-items: center;
+  display: flex;
+  padding-bottom: 60px;
+  flex-direction: column;
+}
+
+.tile_box_centered {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.top_bar {
+  display: none;
 }
 
 .dummy_div_left {

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SideBar from "../modules/SideBar.js";
 import GameBoard from "../modules/GameBoard.js";
+import NavBar from "../modules/NavBar.js";
+import CustomBackground from '../modules/CustomBackground.js';
 
 import "../../utilities.css";
 import "./RocketTag.css";
@@ -16,15 +18,26 @@ class RocketTag extends Component {
 
   render() {
     return (
-      <div className="RocketTag-Container">
-        <SideBar 
+      <div className="page-container">
+
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
+
+        <SideBar
           link="/rocketTag"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        <div className="RocketTag-Main">
-          <h3 className="RocketTag-Header"> Rocket Tag! </h3>
-          <GameBoard/>
+        <div className="dummy_div_left"></div>
+
+        <CustomBackground />
+
+        <div className="page_main">
+          <div className="tile_box_centered">
+            <h3 className="RocketTag-Header"> Rocket Tag! </h3>
+            <GameBoard />
+          </div>      
         </div>
       </div>
     );
@@ -32,3 +45,10 @@ class RocketTag extends Component {
 }
 
 export default RocketTag;
+
+  // height: 75vh;
+  // border-width: 10px;
+  // border-style: solid;
+  // border-color: #fa5460;
+  // background-color: #000318;
+  // position: relative;

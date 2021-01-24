@@ -1,5 +1,5 @@
 .NavBar-container {
-  height: 80px;
+  height: var(--navbar_height);
   position: fixed;
   flex-direction: row;
   top: 0;

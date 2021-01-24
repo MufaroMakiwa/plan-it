@@ -9,7 +9,6 @@ import CustomBackground from '../modules/CustomBackground.js';
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
-import RocketTagRoll from "../modules/RocketTagRoll.js";
 import ChallengeTaskSent from "../modules/ChallengeTaskSent.js";
 import { navigate } from '@reach/router';
 import {get , post} from "../../utilities.js";
@@ -250,7 +249,9 @@ class Challenges extends Component {
     return ( 
       <div className="page-container">
 
-        <NavBar />
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
 
         <SideBar 
           link="/challenges"
@@ -263,29 +264,28 @@ class Challenges extends Component {
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
-            <div className="Challenges-toggleButtons">
-              <button 
-                className={`Challenges-button ${this.state.displayChallengesReceived ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`}
-                onClick={this.toggleReceived}
-                style={{marginRight : 12}}>
-                Received
-              </button>
+            <div className="tile_box_centered">
+              <div className="Challenges-toggleButtons">
+                <button 
+                  className={`Challenges-button ${this.state.displayChallengesReceived ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`}
+                  onClick={this.toggleReceived}
+                  style={{marginRight : 12}}>
+                  Received
+                </button>
+                
+                <button 
+                  className={`Challenges-button ${this.state.displayChallengesSent ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`} 
+                  onClick={this.toggleSent}
+                  style={{marginLeft : 12}}>
+                  Sent
+                </button>
+              </div>
               
-              <button 
-                className={`Challenges-button ${this.state.displayChallengesSent ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`} 
-                onClick={this.toggleSent}
-                style={{marginLeft : 12}}>
-                Sent
-              </button>
+              {this.displayChallenges()}
             </div>
             
-            {this.displayChallenges()}
           </div>
         )}  
-
-         <div className="dummy_div_right"></div>
-
-        <RocketTagRoll />
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

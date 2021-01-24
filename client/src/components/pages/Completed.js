@@ -7,7 +7,6 @@ import CompletedTask from "../modules/CompletedTask.js";
 import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
-import RocketTagRoll from "../modules/RocketTagRoll.js";
 import CustomBackground from '../modules/CustomBackground.js';
 import NavBar from "../modules/NavBar.js";
 
@@ -95,7 +94,9 @@ class Completed extends Component {
     return ( 
       <div className="page-container">
 
-        <NavBar />
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
 
         <SideBar 
           link="/completed"
@@ -108,14 +109,17 @@ class Completed extends Component {
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
-            {completedList}   
-            <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}>
-              <Toast label="Challenge sent"/>
+            <div className="tile_box_centered">
+              {completedList} 
             </div>
+
+              
           </div>
         )}
 
-        <div className="dummy_div_right"></div>
+        <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}>
+          <Toast label="Challenge sent"/>
+        </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
@@ -127,7 +131,6 @@ class Completed extends Component {
           onSubmit={this.addTask}>
         </AddTaskDialog>
 
-        <RocketTagRoll /> 
       </div>
     );
   }

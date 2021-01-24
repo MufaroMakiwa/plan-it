@@ -30,7 +30,12 @@ class NavBar extends Component {
     return (  
       <div className="NavBar-container top_bar">
         
-        {this.state.isDisplayingSideBar && <SideBar displayAsDrawer={true} />};
+        {this.state.isDisplayingSideBar && 
+          <SideBar 
+            displayAsDrawer={true} 
+            userName={this.props.userName}
+            handleLogout={this.props.handleLogout}/>
+        };
 
         <div className="NavBar-nameContainer" onClick={this.handleLogoClick}></div>
         <div className="NavBar-navIconContainer">

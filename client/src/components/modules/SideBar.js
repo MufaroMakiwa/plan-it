@@ -77,6 +77,9 @@ class SideBar extends Component {
     this.isMounted = false;
   }
 
+  openRocketTag = () => {
+    navigate("/rocketTag");
+  }
 
   componentDidMount() {
     this.isMounted = true;
@@ -96,7 +99,7 @@ class SideBar extends Component {
   render() { 
     console.log(`Display as drawer: ${this.props.displayAsDrawer}`)
     return ( 
-      <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : ""}`}>
+      <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : "SideBar-containerDrawer"}`}>
         {!this.props.displayAsDrawer && 
           <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
           </div>
@@ -151,10 +154,10 @@ class SideBar extends Component {
           </li>
         </ul> 
 
-        <hr className="SideBar-rocketBall_hr"></hr>
+        <hr className="SideBar-divider"></hr>
         
         <div className="SideBar-rocketTag">
-          <div className="SideBar-tagBall"></div>
+          <div className="SideBar-tagBall" onClick={this.openRocketTag}></div>
         </div>
 
 

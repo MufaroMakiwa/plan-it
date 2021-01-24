@@ -39,7 +39,7 @@ class GameBoard extends Component {
       document.getElementById("CPU").style.top = this.state.cpu_y + "px";
     })
 
-    this.playGame();
+    // this.playGame();
   }
 
   playGame = () => {

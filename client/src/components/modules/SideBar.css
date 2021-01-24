@@ -1,8 +1,5 @@
 .SideBar-container {
   height: 100%;
-  max-width: var(--sidebar_width);
-  width: 25%;
-  min-width: 200px;
   margin: 0px;
   padding: 0px;
   left: 0;
@@ -14,10 +11,22 @@
   z-index: 1;
 }
 
+.SideBar-containerResponsive {
+  max-width: var(--sidebar_width);
+  width: 25%;
+  min-width: 200px;
+}
+
 @media only all and (max-width: 800px) {
   .SideBar-containerResponsive {
     display: none;
   }
+}
+
+.SideBar-containerDrawer {
+  width: var(--sidebar_width);
+  z-index: 1000;
+  margin-top: var(--navbar_height);
 }
 
 .SideBar-row {
@@ -95,7 +104,7 @@
   width: 100%;
   position: absolute;
   align-items: center;
-  height: 80px;
+  height: var(--navbar_height);
   display: block;
   background-size: cover;
   background-position: center;
@@ -231,7 +240,7 @@
 }
 
 .SideBar-rocketTag {
-  display: none;
+  display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
@@ -239,21 +248,4 @@
   flex-grow: 1;
   justify-content: center;
   padding: 32px 0;
-}
-
-.SideBar-rocketBall_hr {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 0 24px;
-  mix-blend-mode: overlay;
-  display: none;
-}
-
-@media only all and (max-width: 1200px) {
-  .SideBar-rocketTag {
-    display: flex;
-  }
-
-  .SideBar-rocketBall_hr {
-    display: block;
-  }
 }

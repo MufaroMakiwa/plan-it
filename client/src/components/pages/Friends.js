@@ -6,8 +6,6 @@ import FriendRequests from "../modules/FriendRequests.js";
 import SideBar from "../modules/SideBar.js";
 import AddFriend from "../modules/AddFriend.js";
 
-import RocketTagRoll from "../modules/RocketTagRoll.js";
-
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
@@ -35,7 +33,9 @@ class Friends extends Component {
     return (
       <div className="page-container">
 
-        <NavBar />
+        <NavBar 
+          userName={this.props.userName}
+          handleLogout={this.props.handleLogout}/>
 
         <SideBar 
           link="/friends"
@@ -47,39 +47,38 @@ class Friends extends Component {
         <CustomBackground />
 
         <div className="page_main">
-          <AddFriend
-            userId={this.props.userId}
-            userName={this.props.userName}
-            userEmail={this.props.userEmail}> 
-          </AddFriend>
+          <div className="tile_box_centered">
+            <AddFriend
+              userId={this.props.userId}
+              userName={this.props.userName}
+              userEmail={this.props.userEmail}> 
+            </AddFriend>
 
-          <CurrentFriends 
-            onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
-            userId={this.props.userId}
-            userName={this.props.userName}
-            userEmail={this.props.userEmail}> 
-          </CurrentFriends>
+            <CurrentFriends 
+              onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
+              userId={this.props.userId}
+              userName={this.props.userName}
+              userEmail={this.props.userEmail}> 
+            </CurrentFriends>
 
-          <FriendRequests
-            userId={this.props.userId}
-            userName={this.props.userName}
-            userEmail={this.props.userEmail}> 
-          </FriendRequests>
-
-          <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
-
-          <AddTaskDialog 
-            isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-            userId={this.props.userId}
-            userName={this.props.userName}
-            closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
-            onSubmit={this.addTask}>
-          </AddTaskDialog>
+            <FriendRequests
+              userId={this.props.userId}
+              userName={this.props.userName}
+              userEmail={this.props.userEmail}> 
+            </FriendRequests>
+          </div>   
         </div>
 
-        <div className="dummy_div_right"></div>
+        <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
-        <RocketTagRoll /> 
+        <AddTaskDialog 
+          isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+          userId={this.props.userId}
+          userName={this.props.userName}
+          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+          onSubmit={this.addTask}>
+        </AddTaskDialog>
+
       </div>
     );
   }
