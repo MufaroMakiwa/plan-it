@@ -19,6 +19,11 @@ class NavBar extends Component {
   handleLogoClick = () => {
     if (window.location.pathname !== "/current") {
       navigate("/current");
+
+    } else if (this.state.isDisplayingSideBar) {
+      this.setState({
+        isDisplayingSideBar: false
+      })
     }
   }
 
