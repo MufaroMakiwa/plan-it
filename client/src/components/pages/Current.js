@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import CurrentTask from "../modules/CurrentTask.js";
 import SideBar from "../modules/SideBar.js";
 
+
 import "./Current.css"
-import "../modules/background.css"
+import "../modules/CustomBackground"
 import "../../utilities.css";
 
 import {get , post} from "../../utilities.js";
@@ -16,6 +17,8 @@ import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import Toast from "../modules/Toast.js";
 import { DateMethods } from "../modules/DateMethods.js";
+import CustomBackground from '../modules/CustomBackground.js';
+import NavBar from "../modules/NavBar.js";
 
 
 
@@ -147,16 +150,6 @@ class Current extends Component {
     })
   }
 
-  renderBackground = () => {
-    return (
-      <div className="page">
-        <div className="stars stars_main"></div>
-        <div className="stars2 stars_main"></div>
-        <div className="stars3 stars_main"></div>    
-      </div>
-    )
-  }
-
   render() { 
     let tasksList = null;
     const hasTasks = this.state.tasks.length !== 0;
@@ -188,12 +181,18 @@ class Current extends Component {
 
     return ( 
       <div className="page-container">
+
+        <NavBar />
+
         <SideBar 
           link="/current"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
+          
+        <div className="dummy_div_left"></div>
 
-        {this.renderBackground()}
+        <CustomBackground />
+
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             <div>
@@ -211,6 +210,8 @@ class Current extends Component {
             )}
           </div>
         )}
+
+        <div className="dummy_div_right"></div>
 
         <RocketTagRoll /> 
 

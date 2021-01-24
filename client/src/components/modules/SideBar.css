@@ -1,6 +1,8 @@
 .SideBar-container {
   height: 100%;
-  width: var(--sidebar_width);
+  max-width: var(--sidebar_width);
+  width: 25%;
+  min-width: 200px;
   margin: 0px;
   padding: 0px;
   background-color: var(--background_color_secondary);
@@ -8,6 +10,13 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  z-index: 1;
+}
+
+@media only all and (max-width: 800px) {
+  .SideBar-container {
+    display: none;
+  }
 }
 
 .SideBar-row {
@@ -82,18 +91,19 @@
 }
 
 .SideBar-nameContainer {
-  margin-top: 16px;
   width: 100%;
-  display: flex;
+  position: absolute;
   align-items: center;
-  justify-content: center;
-  height: 60px;
+  height: 80px;
+  display: block;
   background-size: cover;
   background-position: center;
   background-image: url("../../public/logo.png");
-  /* transition: background 0.25s ease-in-out; */
-  /* background: rgba(0, 0, 0, 0.15); */
   cursor: pointer;
+}
+
+.SideBar-name {
+  visibility: hidden;
 }
 
 .SideBar-nameContainer:hover {
@@ -114,7 +124,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 16px 24px 24px 24px;
+  margin: 96px 24px 24px 24px;
   padding: 8px;
   flex-direction: column;
   border-radius: 8px;
@@ -183,4 +193,66 @@
 
 .SideBar-buttonLabel {
   color: black;
+}
+
+.SideBar-tagBall {
+  width: 100px;
+  height: 100px;
+  display: block;
+  background-image: url("../../public/rocket_tag_sideBar.png");
+  background-size: cover;
+  transition: ease-in;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: rotateBall 8s linear infinite;
+}
+
+@-moz-keyframes rotateBall {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotateBall {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes rotateBall {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.SideBar-tagBall:hover {
+  opacity: 0.8;
+  animation-play-state: paused;
+}
+
+.SideBar-rocketTag {
+  display: none;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.SideBar-rocketBall_hr {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 24px;
+  mix-blend-mode: overlay;
+  display: none;
+}
+
+@media only all and (max-width: 1200px) {
+  .SideBar-rocketTag {
+    display: flex;
+  }
+
+  .SideBar-rocketBall_hr {
+    display: block;
+  }
 }

@@ -5,6 +5,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { GoogleLogout } from 'react-google-login';
 import {get, post} from '../../utilities.js';
 import { socket } from "../../client-socket.js";
+
  
 
 
@@ -96,7 +97,6 @@ class SideBar extends Component {
     return ( 
       <div className="SideBar-container">
         <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
-          {/* <p className="SideBar-name">PLAN-IT</p> */}
         </div>      
 
         <div to="/profile" 
@@ -146,8 +146,14 @@ class SideBar extends Component {
               <div>Completed</div> 
             </div>
           </li>
-
         </ul> 
+
+        <hr className="SideBar-rocketBall_hr"></hr>
+        
+        <div className="SideBar-rocketTag">
+          <div className="SideBar-tagBall"></div>
+        </div>
+
 
         <div className="SideBar-signOutContainer">
           <hr className="SideBar-horizontalLine" />

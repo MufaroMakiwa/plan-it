@@ -12,6 +12,8 @@ import "../modules/background.css"
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
+import CustomBackground from '../modules/CustomBackground.js';
+import NavBar from "../modules/NavBar.js";
 
 
 class Friends extends Component {
@@ -30,25 +32,20 @@ class Friends extends Component {
     navigate("/current");
   }
 
-  renderBackground = () => {
-    return (
-      <div className="page">
-        <div className="stars stars_main"></div>
-        <div className="stars2 stars_main"></div>
-        <div className="stars3 stars_main"></div>    
-      </div>
-    )
-  }
-
   render() {
     return (
       <div className="page-container">
+
+        <NavBar />
+
         <SideBar 
           link="/friends"
           handleLogout={this.props.handleLogout}
           userName={this.props.userName}/>
 
-        {this.renderBackground()}
+        <div className="dummy_div_left"></div>
+
+        <CustomBackground />
 
         <div className="page_main">
           <AddFriend
@@ -80,6 +77,8 @@ class Friends extends Component {
             onSubmit={this.addTask}>
           </AddTaskDialog>
         </div>
+
+        <div className="dummy_div_right"></div>
 
         <RocketTagRoll /> 
       </div>

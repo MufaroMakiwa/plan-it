@@ -12,6 +12,8 @@ import Constellation_3000_Image from "../../public/Constellation_3000_Points.png
 import Constellation_4000_Image from "../../public/Constellation_4000_Points.png";
 import Constellation_5000_Image from "../../public/Constellation_5000_Points.png";
 import { navigate } from "@reach/router";
+import CustomBackground from '../modules/CustomBackground.js';
+import NavBar from "../modules/NavBar.js";
 
 import "../../utilities.css";
 import "./Profile.css";
@@ -73,25 +75,21 @@ class Profile extends Component {
     });
   }
 
-  renderBackground = () => {
-    return (
-      <div className="page">
-        <div className="stars stars_main"></div>
-        <div className="stars2 stars_main"></div>
-        <div className="stars3 stars_main"></div>    
-      </div>
-    )
-  }
 
   render() { 
     return ( 
       <div className="page-container">
+
+        <NavBar />
+
         <SideBar 
           link="/profile"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        {this.renderBackground()}
+        <div className="dummy_div_left"></div>
+
+        <CustomBackground />
         
         {this.state.loading ? (<div></div>) : (
           <div className="page_main">
@@ -107,6 +105,8 @@ class Profile extends Component {
         
           </div>
         )}
+
+        <div className="dummy_div_right"></div>
 
         <RocketTagRoll />
 

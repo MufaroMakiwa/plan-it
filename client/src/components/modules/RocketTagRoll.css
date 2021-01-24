@@ -1,12 +1,12 @@
 .RocketTagRoll-container {
   position: fixed;
-  width: var(--sidebar_width);
+  max-width: var(--sidebar_width);
+  width: 25%;
+  padding-right: 12px;
   top: 0;
   bottom: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
-  /* right: var(--sidebar_width); */
   right: 0;
   overflow: hidden;
 }
@@ -17,13 +17,10 @@
   display: block;
   background-image: url("../../public/rocket_tag.png");
   background-size: cover;
-
   -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.1);
   box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.1);
   transition: ease-in;
-
-  /* background: var(--background_color_secondary); */
   border-radius: 50%;
   animation: ball_anim 8s infinite;
 }
@@ -77,4 +74,62 @@
 .RocketTagRoll-rocketTagLabel {
   font-weight: bold;
   font-size: 1.2em;
+}
+
+@media only all and (max-height: 750px) {
+  @keyframes ball_anim {
+    0% {
+      margin-top: -100%;
+      transform: rotate(0deg);
+    }
+
+    17% {
+      margin-top: 100%;
+      transform: rotate(60deg);
+    }
+
+    34% {
+      margin-top: 0;
+      transform: rotate(120deg);
+    }
+
+    51% {
+      margin-top: 100%;
+      transform: rotate(180deg);
+    }
+
+    68% {
+      margin-top: -100%;
+      transform: rotate(240deg);
+    }
+
+    85% {
+      margin-top: 0;
+      transform: rotate(300deg);
+    }
+
+    100% {
+      margin-top: -100%;
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@media only all and (max-height: 550px) {
+  @-moz-keyframes ball_anim {
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes ball_anim {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @keyframes ball_anim {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
 }

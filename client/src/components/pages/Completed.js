@@ -8,7 +8,9 @@ import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
 import "../modules/background.css";
-import RocketTagRoll from "../modules/RocketTagRoll.js";;
+import RocketTagRoll from "../modules/RocketTagRoll.js";
+import CustomBackground from '../modules/CustomBackground.js';
+import NavBar from "../modules/NavBar.js";
 
 import "./Completed.css";
 
@@ -68,15 +70,6 @@ class Completed extends Component {
     return () => clearTimeout(timer);
   }
 
-  renderBackground = () => {
-    return (
-      <div className="page">
-        <div className="stars stars_main"></div>
-        <div className="stars2 stars_main"></div>
-        <div className="stars3 stars_main"></div>    
-      </div>
-    )
-  }
 
   render() { 
     let completedList = null;
@@ -102,12 +95,18 @@ class Completed extends Component {
 
     return ( 
       <div className="page-container">
+
+        <NavBar />
+
         <SideBar 
           link="/completed"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        {this.renderBackground()}
+        <div className="dummy_div_left"></div>
+
+        <CustomBackground />
+
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             {completedList}   
@@ -116,6 +115,8 @@ class Completed extends Component {
             </div>
           </div>
         )}
+
+        <div className="dummy_div_right"></div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 

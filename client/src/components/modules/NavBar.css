@@ -1,0 +1,47 @@
+.NavBar-container {
+  height: 80px;
+  position: fixed;
+  flex-direction: row;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  left: 0;
+  justify-content: center;
+  background-color: var(--background_color_secondary);
+}
+
+.NavBar-navIconContainer {
+  height: 100%;
+  width: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 24px;
+}
+
+.NavBar-nameContainer {
+  width: 272px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../public/logo.png");
+  cursor: pointer;
+}
+
+.NavBar-nameContainer:hover {
+  background-image: url("../../public/logo_darker.png");
+}
+
+.NavBar-icon {
+  cursor: pointer;
+}
+
+.NavBar-icon:hover {
+  color: rgb(255, 255, 255, 0.5);
+}

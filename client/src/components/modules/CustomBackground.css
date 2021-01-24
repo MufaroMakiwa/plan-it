@@ -1,11 +1,12 @@
-.page {
+.Background_main {
   position: fixed;
-  left: var(--sidebar_width);
+  left: 0;
   top: 0;
   bottom: 0;
   /* right: var(--sidebar_width); */
   right: 0;
   overflow: hidden;
+  z-index: -100;
   background: radial-gradient(ellipse at bottom, #322c36 0%, #0d0a11 100%);
 }
 

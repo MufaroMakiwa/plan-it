@@ -3,9 +3,9 @@ import SideBar from "../modules/SideBar.js";
 
 import "../../utilities.css";
 import "./Challenges.css";
-import "../modules/background.css"
 
 
+import CustomBackground from '../modules/CustomBackground.js';
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import ChallengeTask from "../modules/ChallengeTask.js";
@@ -15,6 +15,8 @@ import { navigate } from '@reach/router';
 import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 import Toast from "../modules/Toast.js";
+import NavBar from "../modules/NavBar.js";
+
 
 
 class Challenges extends Component {
@@ -106,6 +108,10 @@ class Challenges extends Component {
 
       // update to previous selection
       const prevState = JSON.parse(localStorage.getItem('challengesState'))
+
+      if (!prevState) {
+        return;
+      }
       this.setState({
         displayChallengesReceived: prevState.displayChallengesReceived,
         displayChallengesSent: prevState.displayChallengesSent
@@ -239,26 +245,21 @@ class Challenges extends Component {
     }
   }
 
-  renderBackground = () => {
-    return (
-      <div className="page">
-        <div className="stars stars_main"></div>
-        <div className="stars2 stars_main"></div>
-        <div className="stars3 stars_main"></div>    
-      </div>
-    )
-  }
-
 
   render() { 
     return ( 
       <div className="page-container">
+
+        <NavBar />
+
         <SideBar 
           link="/challenges"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
-        {this.renderBackground()}
+        <div className="dummy_div_left"></div>
+
+        <CustomBackground />
 
         {this.state.loading ? <div></div> : (
           <div className="page_main">
@@ -281,6 +282,8 @@ class Challenges extends Component {
             {this.displayChallenges()}
           </div>
         )}  
+
+         <div className="dummy_div_right"></div>
 
         <RocketTagRoll />
 
