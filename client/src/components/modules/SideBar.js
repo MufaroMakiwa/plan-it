@@ -94,9 +94,10 @@ class SideBar extends Component {
 
 
   render() { 
+    console.log(`Display as drawer: ${this.props.displayAsDrawer}`)
     return ( 
-      <div className="SideBar-container">
-        {!this.props.displayLogo && 
+      <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : ""}`}>
+        {!this.props.displayAsDrawer && 
           <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
           </div>
         }     

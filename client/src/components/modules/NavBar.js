@@ -30,7 +30,7 @@ class NavBar extends Component {
     return (  
       <div className="NavBar-container top_bar">
         
-        {this.state.isDisplayingSideBar && <SideBar displayLogo={false} />};
+        {this.state.isDisplayingSideBar && <SideBar displayAsDrawer={true} />};
 
         <div className="NavBar-nameContainer" onClick={this.handleLogoClick}></div>
         <div className="NavBar-navIconContainer">
