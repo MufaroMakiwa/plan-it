@@ -96,17 +96,19 @@ class SideBar extends Component {
   render() { 
     return ( 
       <div className="SideBar-container">
-        <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
-        </div>      
+        {!this.props.displayLogo && 
+          <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
+          </div>
+        }     
 
-        <div to="/profile" 
-          onClick={() =>this.handleSubmit("/profile")}  
-          className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
-          <AccountCircleIcon style={{fontSize: 100}} />
-          <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
-            {this.props.userName ? this.props.userName: "Placeholder"}
-          </p>   
-        </div>
+          <div to="/profile" 
+            onClick={() =>this.handleSubmit("/profile")}  
+            className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
+            <AccountCircleIcon style={{fontSize: 100}} />
+            <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
+              {this.props.userName ? this.props.userName: "Placeholder"}
+            </p>   
+          </div>
         
         <hr className="SideBar-divider"></hr>
 
