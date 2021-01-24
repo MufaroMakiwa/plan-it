@@ -111,6 +111,9 @@ class Completed extends Component {
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             <div className="tile_box_centered">
+              <span className="nav_page_title">
+                Completed
+              </span>
               {completedList} 
             </div>
 

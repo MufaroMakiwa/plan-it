@@ -266,6 +266,9 @@ class Challenges extends Component {
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             <div className="tile_box_centered">
+              <span className="nav_page_title">
+                Challenges
+              </span>
               <div className="Challenges-toggleButtons">
                 <button 
                   className={`Challenges-button ${this.state.displayChallengesReceived ?  "Challenges-buttonSelected" : " Challenges-buttonUnselected"}`}

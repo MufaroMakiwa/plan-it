@@ -197,6 +197,10 @@ class Current extends Component {
         {this.state.loading ? <div></div> : (
           <div className="page_main">
             <div className="tile_box_centered">
+              <span className="nav_page_title">
+                Current
+              </span>
+
               {tasksList}
             </div>
           </div>
