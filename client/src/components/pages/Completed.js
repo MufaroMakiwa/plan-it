@@ -121,7 +121,7 @@ class Completed extends Component {
           </div>
         )}
 
-        <div className={this.state.displayToast ? "Completed-toast Completed-toastVisible" : "Completed-toast"}>
+        <div className={this.state.displayToast ? "toast toastVisible" : "toast"}>
           <Toast label="Challenge sent"/>
         </div>
 

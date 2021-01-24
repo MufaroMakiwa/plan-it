@@ -51,11 +51,11 @@ class NavBar extends Component {
 
         <div className="NavBar-navIconContainer">
           {!this.state.isDisplayingSideBar && (
-            <MenuIcon fontSize="large" className="NavBar-icon" onClick={this.toggleSideBar}/>
+            <MenuIcon style={{fontSize: 30}} className="NavBar-icon" onClick={this.toggleSideBar}/>
           )}
 
           {this.state.isDisplayingSideBar && (
-            <CloseIcon fontSize="large" className="NavBar-icon" onClick={this.toggleSideBar}/>
+            <CloseIcon style={{fontSize: 30}} className="NavBar-icon" onClick={this.toggleSideBar}/>
           )}
 
         </div>

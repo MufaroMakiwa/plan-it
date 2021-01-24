@@ -25,7 +25,8 @@
 }
 
 .NavBar-nameContainer {
-  width: 272px;
+  max-width: 272px;
+  width: 50%;
   display: flex;
   height: 100%;
   align-items: center;

@@ -180,3 +180,26 @@ div.MuiDialogContent-root:first-child {
   background-color: transparent;
   color: var(--background_color_secondary);
 }
+
+@media only all and (max-width: 400px) {
+  .AddTaskDialog-radioContainer {
+    flex-direction: column;
+  }
+
+  .AddTaskDialog-label {
+    padding: 8px 0;
+  }
+
+  .AddTaskDialog-label:last-of-type {
+    padding: 8px 0 0 0;
+  }
+
+  .AddTaskDialog-durationLabel {
+    display: none;
+  }
+
+  .AddTaskDialog-button {
+    font-size: 0.8em;
+    padding: 8px;
+  }
+}

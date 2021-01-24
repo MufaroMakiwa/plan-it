@@ -28,7 +28,7 @@
   --background_color_secondary: #4f4655;
   --color_on_secondary: #ada9b0;
   --sidebar_width: 272px;
-  --navbar_height: 80px;
+  --navbar_height: 75px;
 
   --xs: 4px;
   --s: 8px;
@@ -150,21 +150,8 @@ p {
   min-width: 200px;
 }
 
-@media only all and (max-width: 800px) {
-  .dummy_div_left {
-    display: none;
-  }
-
-  .top_bar {
-    display: flex;
-  }
-
-  .page_main {
-    margin-top: 80px;
-  }
-}
-
 .toast {
+  z-index: 2;
   position: fixed;
   bottom: 16px;
   left: 50%;
@@ -184,11 +171,35 @@ p {
 }
 
 @media only all and (max-width: 800px) {
+  .dummy_div_left {
+    display: none;
+  }
+
+  .top_bar {
+    display: flex;
+  }
+
+  .page_main {
+    margin-top: var(--navbar_height);
+  }
+}
+
+@media only all and (max-width: 800px) {
   .nav_page_title {
     display: flex;
     padding: 24px 24px 0 24px;
     font-size: 2em;
     font-style: italic;
     font-weight: bold;
+  }
+}
+
+@media only all and (max-width: 350px) {
+  :root {
+    --navbar_height: 60px;
+  }
+
+  .page_main {
+    overflow-x: inherit;
   }
 }

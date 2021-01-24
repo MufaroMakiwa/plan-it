@@ -17,12 +17,6 @@
   min-width: 200px;
 }
 
-@media only all and (max-width: 800px) {
-  .SideBar-containerResponsive {
-    display: none;
-  }
-}
-
 .SideBar-containerDrawer {
   width: var(--sidebar_width);
   z-index: -2;
@@ -186,7 +180,6 @@
 
 .SideBar-notificationsHidden {
   visibility: hidden;
-  /* animation: leftRight 0.25s infinite; */
 }
 
 .SideBar-notificationsUpdate {
@@ -223,16 +216,6 @@
   animation: rotateBall 8s linear infinite;
 }
 
-/* @-moz-keyframes rotateBall {
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes rotateBall {
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-} */
 @keyframes rotateBall {
   100% {
     -webkit-transform: rotate(360deg);
@@ -254,4 +237,10 @@
   flex-grow: 1;
   justify-content: center;
   padding: 32px 0;
+}
+
+@media only all and (max-width: 800px) {
+  .SideBar-containerResponsive {
+    display: none;
+  }
 }

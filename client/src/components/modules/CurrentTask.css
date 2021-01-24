@@ -151,3 +151,9 @@
   font-size: 0.8em;
   margin-bottom: 8px;
 }
+
+@media only all and (max-width: 350px) {
+  .CurrentTask-completedLabel {
+    display: none;
+  }
+}

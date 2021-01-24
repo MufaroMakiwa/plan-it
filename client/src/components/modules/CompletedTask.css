@@ -112,3 +112,17 @@
 .CompletedTask-progressCellNotDone {
   background-color: transparent;
 }
+
+.CompletedTask-delete {
+  display: none;
+}
+
+@media all and (max-width: 350px) {
+  .CompletedTask-button {
+    display: none;
+  }
+
+  .CompletedTask-delete {
+    display: block;
+  }
+}

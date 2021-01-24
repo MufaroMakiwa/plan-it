@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./CompletedTask.css";
 import { DateMethods } from "./DateMethods.js";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class CompletedTask extends Component {
   constructor(props){
@@ -97,8 +98,14 @@ class CompletedTask extends Component {
             <button 
               className="CompletedTask-sendTaskButton CompletedTask-button"
               onClick={this.sendChallenge}>
-              CHALLENGE FRIENDS
+              DELETE
             </button>
+
+            <div className="CompletedTask-delete">
+              <DeleteIcon />
+            </div>
+            
+
           </div>
         </div>
 
