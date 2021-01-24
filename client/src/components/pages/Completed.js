@@ -122,7 +122,7 @@ class Completed extends Component {
         )}
 
         <div className={this.state.displayToast ? "toast toastVisible" : "toast"}>
-          <Toast label="Challenge sent"/>
+          <Toast label="Deleted"/>
         </div>
 
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>

@@ -1,5 +1,5 @@
 .AddFriend-container {
-  width: 200px;
+  width: 100%;
 }
 
 .AddFriend-suggestions {
@@ -10,4 +10,48 @@
   margin: 0;
   height: auto;
   list-style-type: none;
+}
+
+.AddFriend-search_layout {
+  margin: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.AddFriend-searchBar {
+  flex-grow: 1;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  flex-direction: row;
+  display: flex;
+}
+
+.AddFriend-searchIcon {
+  padding: 8px 16px;
+}
+
+.AddFriend-searchInput {
+  flex-grow: 1;
+  margin-right: 16px;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  font-size: 1.1em;
+}
+
+.AddFriend-cancel {
+  padding: 8px;
+  margin-left: 8px;
+}
+
+.AddFriend-cancel_hidden {
+  display: none;
+}
+
+.AddFriend-cancel:hover {
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
 }

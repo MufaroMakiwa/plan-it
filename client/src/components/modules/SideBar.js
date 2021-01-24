@@ -163,12 +163,12 @@ class SideBar extends Component {
 
         <div className="SideBar-signOutContainer">
           <hr className="SideBar-horizontalLine" />
-          <GoogleLogout 
-            className="SideBar-button" 
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Logout"
-            onLogoutSuccess={this.props.handleLogout}
-            onFailure={(err) => console.log(err)}/>
+            <GoogleLogout 
+              className="SideBar-button" 
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Logout"
+              onLogoutSuccess={this.props.handleLogout}
+              onFailure={(err) => console.log(err)}/>
         </div>
       
       </div>

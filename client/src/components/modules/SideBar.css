@@ -69,6 +69,7 @@
   padding: 10px 16px;
   mix-blend-mode: hard-light;
   background-color: #c4c4c4;
+  flex-shrink: 0;
   outline: none;
 }
 
@@ -91,6 +92,7 @@
   display: flex;
   margin-top: auto;
   flex-direction: column;
+  flex-shrink: 0;
   mix-blend-mode: overlay;
 }
 
@@ -133,13 +135,8 @@
   flex-direction: column;
   border-radius: 8px;
   text-decoration: none;
+  flex-shrink: 0;
 }
-
-/* @media only all and (max-width: 800px) {
-  .SideBar-profile {
-    margin: 0 24px 24px 24px;
-  }
-} */
 
 .SideBar-profile:visited,
 .SideBar-profile:hover,
@@ -230,6 +227,7 @@
 
 .SideBar-rocketTag {
   display: flex;
+  flex-shrink: 0;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;

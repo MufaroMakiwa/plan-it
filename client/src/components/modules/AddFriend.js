@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import "./AddFriend.css"
+import SearchIcon from '@material-ui/icons/Search';
 
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
 
 class AddFriend extends Component{
-  items = [
-    "Mufaro Makiwa",
-    "Mufaro Makiwa",
-    "Shreya Gupta",
-    "Nisarg Dharia",
-  ]
 
   constructor(props){
     super(props);
     this.state = {
+      isSearchBarFocused: false,
       value: '',
       suggestions: []
     };
@@ -74,14 +70,39 @@ class AddFriend extends Component{
     })
   };
 
+  setFocus = (isFocused) => {
+    this.setState({
+      isSearchBarFocused: isFocused,
+    })
+  }
+
   render(){
     return (
       <div className="AddFriend-container"> 
-        <input 
-          type="text" 
-          value={this.state.value} 
-          onChange ={this.handleChange}/>
-        <button type = "submit" value = "Add Friend" onClick = {this.handleSubmit}> Add Friend </button>
+
+        <div className="AddFriend-search_layout">
+          <div className="AddFriend-searchBar">
+            <div className="AddFriend-searchIcon">
+              <SearchIcon />
+            </div>
+          
+            <input 
+              type="text" 
+              value={this.state.value} 
+              onChange={this.handleChange}
+              onFocus={() => this.setFocus(true)}
+              onBlur={() => this.setFocus(false)}
+              className="AddFriend-searchInput"/>
+            </div>
+
+            <span className={`AddFriend-cancel ${!this.state.isSearchBarFocused ? "AddFriend-cancel_hidden" : ""}`}>
+              Cancel
+            </span>
+
+        </div>
+        
+
+        {/* <button type = "submit" value = "Add Friend" onClick = {this.handleSubmit}> Add Friend </button> */}
       </div>
     )
   }
