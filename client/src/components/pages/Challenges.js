@@ -250,6 +250,7 @@ class Challenges extends Component {
       <div className="page-container">
 
         <NavBar 
+          link="/challenges"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 

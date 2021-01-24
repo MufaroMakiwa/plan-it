@@ -95,6 +95,7 @@ class Completed extends Component {
       <div className="page-container">
 
         <NavBar 
+          link="/completed"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 

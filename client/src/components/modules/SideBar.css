@@ -25,8 +25,8 @@
 
 .SideBar-containerDrawer {
   width: var(--sidebar_width);
-  z-index: 1000;
-  margin-top: var(--navbar_height);
+  z-index: -2;
+  /* top: var(--navbar_height); */
 }
 
 .SideBar-row {
@@ -134,12 +134,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 96px 24px 24px 24px;
+  margin: var(--navbar_height) 24px 24px 24px;
   padding: 8px;
   flex-direction: column;
   border-radius: 8px;
   text-decoration: none;
 }
+
+/* @media only all and (max-width: 800px) {
+  .SideBar-profile {
+    margin: 0 24px 24px 24px;
+  }
+} */
 
 .SideBar-profile:visited,
 .SideBar-profile:hover,

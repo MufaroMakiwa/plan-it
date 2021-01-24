@@ -79,7 +79,8 @@ class Profile extends Component {
     return ( 
       <div className="page-container">
 
-        <NavBar 
+        <NavBar
+          link="/profile" 
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 

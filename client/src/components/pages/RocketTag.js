@@ -21,6 +21,7 @@ class RocketTag extends Component {
       <div className="page-container">
 
         <NavBar 
+          link="/rocketTag"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 

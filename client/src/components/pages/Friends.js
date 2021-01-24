@@ -34,6 +34,7 @@ class Friends extends Component {
       <div className="page-container">
 
         <NavBar 
+          link="/friends"
           userName={this.props.userName}
           handleLogout={this.props.handleLogout}/>
 
