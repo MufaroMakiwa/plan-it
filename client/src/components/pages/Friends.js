@@ -7,7 +7,6 @@ import SideBar from "../modules/SideBar.js";
 import AddFriend from "../modules/AddFriend.js";
 
 import RocketTagRoll from "../modules/RocketTagRoll.js";
-import "../modules/background.css"
 
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";

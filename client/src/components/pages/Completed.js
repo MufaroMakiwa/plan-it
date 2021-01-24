@@ -7,7 +7,6 @@ import CompletedTask from "../modules/CompletedTask.js";
 import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
-import "../modules/background.css";
 import RocketTagRoll from "../modules/RocketTagRoll.js";
 import CustomBackground from '../modules/CustomBackground.js';
 import NavBar from "../modules/NavBar.js";
