@@ -210,7 +210,7 @@ class CurrentTask extends Component {
             </div>
 
             <div className="CurrentTask-completedLabel">
-              <p>{`${this.getCompletedDays()} ${this.getFrequencyLabel(this.props.progress.length)} completed`}</p>
+              <p>{`${this.getCompletedDays()} ${this.getFrequencyLabel(this.getCompletedDays())} completed`}</p>
             </div>            
           </div>
 

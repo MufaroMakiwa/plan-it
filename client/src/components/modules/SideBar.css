@@ -208,7 +208,7 @@
   animation: rotateBall 8s linear infinite;
 }
 
-@-moz-keyframes rotateBall {
+/* @-moz-keyframes rotateBall {
   100% {
     -moz-transform: rotate(360deg);
   }
@@ -217,7 +217,7 @@
   100% {
     -webkit-transform: rotate(360deg);
   }
-}
+} */
 @keyframes rotateBall {
   100% {
     -webkit-transform: rotate(360deg);
