@@ -7,7 +7,7 @@ class SearchSuggestion extends Component {
   
   render() { 
     return ( 
-      <div className="SearchSuggestion-container">
+      <div className="SearchSuggestion-container" onClick={this.props.onClick}>
 
         <div className="SearchSuggestion-iconBigger"> 
           <AccountCircleIcon style={{fontSize: 50}}/>

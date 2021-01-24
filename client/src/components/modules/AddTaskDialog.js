@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogContent } from '@material-ui/core';
 import React, { Component } from 'react';
 import "./AddTaskDialog.css";
 import "../../utilities.css";
@@ -7,7 +7,7 @@ import { DateMethods } from "./DateMethods.js";
 
 class AddTaskDialog extends Component {
   constructor(props) {
-    super(props);
+    super(props); 
     this.state = {
       name: "",
       duration: "",

@@ -4,45 +4,45 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
-import SearchSuggestion from "./SearchSuggestion.js"
+import SearchSuggestion from "./SearchSuggestion.js";
+import FriendDetailsDialog from "./FriendDetailsDialog.js";
 
 class AddFriend extends Component{
-
-  items = [
-    {
-      _id: 1,
-      name: "Mufaro Makiwa",
-      email: "mufaroemakiwa@gmail.com",
-    },
-    {
-      _id: 2,
-      name: "Rutendo Makiwa",
-      email: "rutendomakiwa@gmail.com",
-    },
-    {
-      _id: 3,
-      name: "Mirainashe Makiwa",
-      email: "miraimakiwa@gmail.com",
-    },
-    {
-      _id: 4,
-      name: "Shreya Gupta",
-      email: "shreyagupta@gmail.com",
-    },
-    {
-      _id: 5,
-      name: "Niarg Dharia",
-      email: "nisargdharia@gmail.com",
-    }
-  ]
 
   constructor(props){
     super(props);
     this.state = {
       isSearchBarFocused: false,
       displaySearchSuggestions: false,
+      isDisplayingUserDetails: true,
       value: '',
-      suggestions: []
+      suggestions : [
+        {
+          _id: 1,
+          name: "Mufaro Makiwa",
+          email: "mufaroemakiwa@gmail.com",
+        },
+        {
+          _id: 2,
+          name: "Rutendo Makiwa",
+          email: "rutendomakiwa@gmail.com",
+        },
+        {
+          _id: 3,
+          name: "Mirainashe Makiwa",
+          email: "miraimakiwa@gmail.com",
+        },
+        {
+          _id: 4,
+          name: "Shreya Gupta",
+          email: "shreyagupta@gmail.com",
+        },
+        {
+          _id: 5,
+          name: "Niarg Dharia",
+          email: "nisargdharia@gmail.com",
+        }
+      ]
     };
   }
 
@@ -56,13 +56,6 @@ class AddFriend extends Component{
     })
   }
 
-
-  suggestionSelected = (user) => {
-    this.setState({
-      suggestions: [],
-      value: user.name,
-    })
-  }
 
   handleSubmit = (event) => {
     // todo: add validation later
@@ -95,7 +88,8 @@ class AddFriend extends Component{
   }
 
   closeSearch = () => {
-    console.log("Closing search");
+  
+    //todo: clear suggestions in state
     this.props.setDisplaySearchSuggestions(false);
     this.setState({
       displaySearchSuggestions: false,
@@ -104,15 +98,36 @@ class AddFriend extends Component{
     })
   }
 
-  render(){
+  suggestionSelected = (user) => {
 
-    let suggestionList = this.items.map((user) => (
+    //todo: clear suggestions in state
+    this.setState({
+      // suggestions: [],
+      value: user.name,
+      displaySearchSuggestions: false,
+      isSearchBarFocused: true,
+    })
+  }
+
+
+  displayUser = (userObj) => {
+    // close search
+    this.suggestionSelected(userObj);
+
+    // display user
+    console.log("Displaying user");
+  }
+
+
+
+  render(){
+    let suggestionList = this.state.suggestions.map((userObj) => (
       <SearchSuggestion
-        key={`searchSuggestion_${user._id}`}
-        name={user.name}
-        email={user.email}/>
+        key={`SearchSuggestion_${userObj._id}`}
+        name={userObj.name}
+        email={userObj.email}
+        onClick={() => this.displayUser(userObj)}/>
     ))
-    console.log(suggestionList);
 
     return (
       <div className="AddFriend-container"> 
@@ -147,10 +162,13 @@ class AddFriend extends Component{
           </div>  
         )}  
 
+        {this.state.isDisplayingUserDetails &&(
+          <FriendDetailsDialog />
+        )}
+
       </div>
     )
   }
-
 }
 
 export default AddFriend;
