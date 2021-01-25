@@ -94,7 +94,7 @@ class Friends extends Component {
         this.updateRequestsSent(friendId)
     })
 
-    // listen for events when a friend request is cancels
+    // listen for events when a friend request is cancelled
     socket.on("friend_request_cancelled", (friendId) => {
       if (!this.isMounted) return;
         this.updateRequests(friendId)

@@ -298,8 +298,13 @@ router.post("/friend/request/decline", (req, res) => {
     userId_1: req.body.friendId, 
     userId_2: req.user._id 
   };
-  Friend.deleteOne(query).then((friend) => res.send(friend));
-  socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_declined", req.user._id);
+  Friend.deleteOne(query).then((friend) => {
+    res.send(friend);
+    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_declined", req.user._id);
+
+    // when user declines a friend request, this updates the notification badge
+    socketManager.getSocketFromUserID(req.user._id).emit("request_declined", req.user._id);
+  });
 });
 
 router.post("/friend/request/cancel", (req, res) => {
@@ -307,8 +312,10 @@ router.post("/friend/request/cancel", (req, res) => {
     userId_1: req.user._id,
     userId_2: req.body.friendId, 
   };
-  Friend.deleteOne(query).then((friend) => res.send(friend));
-  socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_cancelled", req.user._id);
+  Friend.deleteOne(query).then((friend) => {
+    res.send(friend)
+    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_cancelled", req.user._id);
+  });
 });
 
 cron.schedule('0 0 * * *', () => {

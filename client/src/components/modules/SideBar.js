@@ -20,7 +20,8 @@ class SideBar extends Component {
       this.state = {
         challengesCount: 0,
         friendRequestsCount: 0,
-        animateNotificationIcon: false
+        animateChallengesNotificationIcon: false,
+        animateFriendsNotificationIcon: false
       }
   }
 
@@ -37,9 +38,9 @@ class SideBar extends Component {
       if (!this.isMounted) return;
       this.setState((prevState) => ({
         challengesCount: prevState.challengesCount + 1,
-        animateNotificationIcon: true
+        animateChallengesNotificationIcon: true
       }))
-      this.animateNotificationIcon()
+      this.animateChallengesNotificationIcon()
     })
 
     // listen for events when user declines a challenge
@@ -59,19 +60,70 @@ class SideBar extends Component {
     })
   }
 
-  animateNotificationIcon = () => {
+
+  getFriendRequestsCount = () => {
+    get("/api/friend/requests").then((friendRequests) => {
+      if (!this.isMounted) return;
+      this.setState({ 
+        friendRequestsCount: friendRequests.length
+      })
+    })
+
+    // listen for events when a friend request is received
+    socket.on("friend_request_received", (friend) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        animateFriendsNotificationIcon: true,
+        friendRequestsCount: prevState.friendRequestsCount + 1,
+      }))
+      this.animateFriendsNotificationIcon()
+    })
+
+    // listen for events when a friend request is cancelled
+    socket.on("friend_request_cancelled", (friendId) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        friendRequestsCount: prevState.friendRequestsCount - 1,
+      }))
+    })
+
+    // listen for events when a friend request is cancelled
+    socket.on("request_declined", (friendId) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        friendRequestsCount: prevState.friendRequestsCount - 1,
+      }))
+    })
+
+    // listen for events when the user gets a new friend
+    socket.on("friend_request_accepted", (friendId) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        friendRequestsCount: prevState.friendRequestsCount - 1,
+      }))
+    })
+
+  }
+
+
+  animateChallengesNotificationIcon = () => {
     const timer = setTimeout(() => {
       this.setState({
-        animateNotificationIcon: false,
+        animateChallengesNotificationIcon: false,
       })
     }, 1000);
     return () => clearTimeout(timer);
   }
 
 
-  getFriendRequestsCount = () => {
+  animateFriendsNotificationIcon = () => {
+    const timer = setTimeout(() => {
+      this.setState({
+        animateFriendsNotificationIcon: false,
+      })
+    }, 1000);
+    return () => clearTimeout(timer);
   }
-
 
   componentWillUnmount() {
     this.isMounted = false;
@@ -84,6 +136,7 @@ class SideBar extends Component {
   componentDidMount() {
     this.isMounted = true;
     this.getChallengesCount();
+    this.getFriendRequestsCount();
   }
 
 
@@ -125,7 +178,7 @@ class SideBar extends Component {
           <li key="challenges" onClick={() =>this.handleSubmit("/challenges")}>
             <div className={"/challenges" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Challenges</div>       
-                <span className={`SideBar-notifications ${this.state.animateNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
+                <span className={`SideBar-notifications ${this.state.animateChallengesNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
                                   ${this.state.challengesCount > 0 ? "" : "SideBar-notificationsHidden"}`}>
                   {this.state.challengesCount}
                 </span>          
@@ -137,11 +190,10 @@ class SideBar extends Component {
           <li key="friends" onClick={() =>this.handleSubmit("/friends")}>
             <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Friends</div> 
-              {/* {!this.state.loadingFriendRequestsCount && this.state.friendRequestsCount > 0 && 
-                <span className={this.state.animateNotificationIcon ? "Sidebar-notifications SideBar-notificationsUpdate" : "Sidebar-notifications"}>
-                  2
+                <span className={`SideBar-notifications ${this.state.animateFriendsNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
+                                  ${this.state.friendRequestsCount > 0 ? "" : "SideBar-notificationsHidden"}`}>
+                  {this.state.friendRequestsCount}
                 </span>
-              } */}
             </div>
           </li>
           
