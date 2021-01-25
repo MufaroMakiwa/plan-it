@@ -93,7 +93,6 @@ class AddFriend extends Component{
 
 
   declineRequest = (friendId) => {
-    //todo: socket to emit to self (filter requests) and to userId_1 (filter sent)
     post("/api/friend/request/decline", {friendId: friendId}).then((friend) => {
       console.log("Declining request");
       this.props.updateRequests(friendId);
@@ -103,9 +102,7 @@ class AddFriend extends Component{
 
 
   cancelRequest = (friendId) => {
-    //todo: socket to emit to userId_2 (filter requests) and to self (filter sent)
     post("/api/friend/request/cancel", {friendId: friendId}).then((friend) => {
-      console.log("Cancelling request");
       this.props.updateRequestsSent(friendId);
     })
     this.closeSearch()

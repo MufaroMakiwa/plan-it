@@ -170,13 +170,13 @@ class SideBar extends Component {
 
         <ul className="SideBar-menus">
           <li key="current" onClick={() =>this.handleSubmit("/current")}>
-            <div className={"/current" === this.props.link ? "SideBar-row selected" : "SideBar-row"}>
+            <div className={"/current" === this.props.link ? "SideBar-rowSelected" : "SideBar-row"}>
               Current
             </div>          
           </li>
 
           <li key="challenges" onClick={() =>this.handleSubmit("/challenges")}>
-            <div className={"/challenges" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
+            <div className={"/challenges" === this.props.link ? "SideBar-rowSelected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Challenges</div>       
                 <span className={`SideBar-notifications ${this.state.animateChallengesNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
                                   ${this.state.challengesCount > 0 ? "" : "SideBar-notificationsHidden"}`}>
@@ -188,7 +188,7 @@ class SideBar extends Component {
           
 
           <li key="friends" onClick={() =>this.handleSubmit("/friends")}>
-            <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
+            <div to="/Friends" className={"/friends" === this.props.link ? "SideBar-rowSelected" : "SideBar-row"} >
               <div className="SideBar-buttonLabel">Friends</div> 
                 <span className={`SideBar-notifications ${this.state.animateFriendsNotificationIcon ? "SideBar-notificationsUpdate" : ""} 
                                   ${this.state.friendRequestsCount > 0 ? "" : "SideBar-notificationsHidden"}`}>
@@ -199,7 +199,7 @@ class SideBar extends Component {
           
 
           <li key="completed" onClick={() =>this.handleSubmit("/completed")}>
-            <div to="/completed" className={"/completed" === this.props.link ? "SideBar-row selected" : "SideBar-row"} >
+            <div to="/completed" className={"/completed" === this.props.link ? "SideBar-rowSelected" : "SideBar-row"} >
               <div>Completed</div> 
             </div>
           </li>

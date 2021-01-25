@@ -88,7 +88,6 @@ class FriendDetailsDialog extends Component {
 
 
   onNegative = () => {
-    console.log("Calling on negative");
     switch (this.state.negative) {
       case "Unfriend":
         this.props.unFriend();
@@ -110,7 +109,6 @@ class FriendDetailsDialog extends Component {
 
 
   onAction = () => {
-    console.log("Calling on action");
     switch (this.state.action) {
       case "Accept":
         console.log("Accepted");
@@ -130,19 +128,29 @@ class FriendDetailsDialog extends Component {
 
   componentDidMount() {
     this.getAction()
-    // document.addEventListener("mousedown", this.props.closeDialogOnOutsideClick, true);
+    document.addEventListener("click", this.handleClickOutSide, true);
   }
 
   componentWillUnmount() {
-    // document.removeEventListener("mousedown", this.props.closeDialogOnOutsideClick, true);
+    document.removeEventListener("click", this.handleClickOutSide, true);
   }
 
+  handleClickOutSide = (event) => {
+    const domNode = document.getElementById("FriendDetailsDialog-dialogId");
+    if (!domNode || !domNode.contains(event.target)) {
+        console.log("Clicked outside");
+        this.props.closeDialogOnOutsideClick()
+
+    } else {
+      console.log("Clicked inside");
+    }
+  }
 
   render() { 
     return ( 
       <Dialog open>
         {!this.state.isLoading && (
-          <DialogContent>
+          <DialogContent id="FriendDetailsDialog-dialogId">
             <div method="dialog" className="FriendDetailsDialog-container" autoComplete="off">
 
               <div className="FriendDetailsDialog-detailsContainer">
@@ -161,7 +169,6 @@ class FriendDetailsDialog extends Component {
               </div>   
 
               <div 
-                // className={`${this.state.action === "Pending" ? "FriendDetailsDialog-buttonContainerPending" : "FriendDetailsDialog-buttonsContainer" }`}
                 className="FriendDetailsDialog-buttonsContainer">
 
                 <button 
