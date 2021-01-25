@@ -1,8 +1,11 @@
 .FriendDetailsDialog-container {
   background-color: var(--color_on_secondary);
   padding: 24px;
+  width: 500px;
+  max-width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 div.MuiDialogContent-root {
@@ -29,7 +32,7 @@ div.MuiDialogContent-root:first-child {
 .FriendDetailsDialog-email {
   font-size: 0.9em;
   font-style: italic;
-  color: rgb(255, 255, 255, 0.6);
+  color: rgb(0, 0, 0, 0.4);
 }
 
 .FriendDetailsDialog-name {
@@ -48,7 +51,73 @@ div.MuiDialogContent-root:first-child {
   justify-content: center;
 }
 
-/* @media only all and (max-width: 400px) {
+.FriendDetailsDialog-buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: flex-end;
+  align-items: center;
+}
+
+.FriendDetailsDialog-button {
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 50%;
+  outline: none;
+}
+
+.FriendDetailsDialog-buttonCancel {
+  margin-right: 8px;
+  border: 1px solid var(--background_color_secondary);
+  background-color: transparent;
+  color: var(--background_color_secondary);
+}
+
+.FriendDetailsDialog-buttonCancel:hover {
+  mix-blend-mode: multiply;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.FriendDetailsDialog-buttonAction:hover {
+  mix-blend-mode: hard-light;
+}
+
+.FriendDetailsDialog-buttonAction {
+  border: none;
+  background-color: var(--background_color_secondary);
+  color: white;
+  margin-left: 8px;
+}
+
+.FriendDetailsDialog-detailsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-right: 32px;
+}
+
+@media only all and (max-width: 800px) {
+  .FriendDetailsDialog-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .FriendDetailsDialog-buttonsContainer {
+    margin-top: 24px;
+    max-width: 100%;
+    width: 500px;
+  }
+}
+
+@media only all and (max-width: 400px) {
+  .FriendDetailsDialog-details {
+    margin-left: 8px;
+  }
+
   .FriendDetailsDialog-email {
     font-size: 0.8em;
   }
@@ -66,6 +135,6 @@ div.MuiDialogContent-root:first-child {
   }
 
   .FriendDetailsDialog-container {
-    padding: 8px 8px;
+    padding: 16px 16px;
   }
-} */
+}

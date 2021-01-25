@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./FriendMod.css"
+import "./FriendRequests.css"
 import FRCard from "../modules/FRCard.js";
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
@@ -13,7 +13,6 @@ class FriendRequests extends Component {
   }
 
   getRequests = () => {
-    console.log("!!!")
     get("/api/friend/requests", {}).then((friends) => {
       this.setState({friends})
     })
@@ -63,7 +62,7 @@ class FriendRequests extends Component {
     }
 
     return ( 
-        <div>
+        <div className="FriendRequests-container">
           <h1> Friend Requests </h1>
           {friendsList}
         </div>

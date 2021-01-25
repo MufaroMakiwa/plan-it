@@ -12,43 +12,29 @@ class AddFriend extends Component{
   constructor(props){
     super(props);
     this.state = {
+      selectedUser: null,
       isSearchBarFocused: false,
       displaySearchSuggestions: false,
       isDisplayingUserDetails: true,
       value: '',
-      suggestions : [
-        {
-          _id: 1,
-          name: "Mufaro Makiwa",
-          email: "mufaroemakiwa@gmail.com",
-        },
-        {
-          _id: 2,
-          name: "Rutendo Makiwa",
-          email: "rutendomakiwa@gmail.com",
-        },
-        {
-          _id: 3,
-          name: "Mirainashe Makiwa",
-          email: "miraimakiwa@gmail.com",
-        },
-        {
-          _id: 4,
-          name: "Shreya Gupta",
-          email: "shreyagupta@gmail.com",
-        },
-        {
-          _id: 5,
-          name: "Niarg Dharia",
-          email: "nisargdharia@gmail.com",
-        }
-      ]
+      suggestions: [],
     };
   }
 
   handleChange = (event) => {
     const value = event.target.value;
     const displaySearchSuggestions = (value.length !== 0);
+
+    if (displaySearchSuggestions) {
+      get("/api/friend/suggestions", {name: value}).then(users => {
+        console.log("Users found:")
+        console.log(users)
+        this.setState({
+          suggestions: users.sort((a, b) => (a.name > b.name) ? 1: -1),
+        })
+      })
+    }
+
     this.props.setDisplaySearchSuggestions(displaySearchSuggestions);
     this.setState({ 
       value: value,
@@ -70,13 +56,13 @@ class AddFriend extends Component{
   addNewFriend = () => {
     get("/api/friend/id", {friendName: this.state.value}).then((user) => {
       post('/api/friend/make', {
-        userId_1: this.props.userId,
-        userName_1: this.props.userName,
-        userEmail_1: this.props.userEmail,
+        // userId_1: this.props.userId,
+        // userName_1: this.props.userName,
+        // userEmail_1: this.props.userEmail,
         userId_2: user._id,
         userName_2: user.name,
         userEmail_2: user.email,
-        is_friend: false
+        // is_friend: false
       }).then((friendObj) => {console.log("AddFriend.js post req")})
     })
   };
@@ -88,34 +74,25 @@ class AddFriend extends Component{
   }
 
   closeSearch = () => {
-  
-    //todo: clear suggestions in state
     this.props.setDisplaySearchSuggestions(false);
     this.setState({
+      suggestions: [],
       displaySearchSuggestions: false,
       value: '',
       isSearchBarFocused: false,
+      selectedUser: null,
     })
   }
 
-  suggestionSelected = (user) => {
-
-    //todo: clear suggestions in state
+  suggestionSelected = (userObj) => {
     this.setState({
-      // suggestions: [],
-      value: user.name,
+      suggestions: [],
+      value: userObj.name,
       displaySearchSuggestions: false,
       isSearchBarFocused: true,
+      selectedUser: userObj
     })
-  }
-
-
-  displayUser = (userObj) => {
-    // close search
-    this.suggestionSelected(userObj);
-
-    // display user
-    console.log("Displaying user");
+    this.props.setDisplaySearchSuggestions(false);
   }
 
 
@@ -126,7 +103,7 @@ class AddFriend extends Component{
         key={`SearchSuggestion_${userObj._id}`}
         name={userObj.name}
         email={userObj.email}
-        onClick={() => this.displayUser(userObj)}/>
+        onClick={() => this.suggestionSelected(userObj)}/>
     ))
 
     return (
@@ -162,8 +139,11 @@ class AddFriend extends Component{
           </div>  
         )}  
 
-        {this.state.isDisplayingUserDetails &&(
-          <FriendDetailsDialog />
+        {this.state.selectedUser !== null && (
+          <FriendDetailsDialog 
+            closeDialog={this.closeSearch}
+            name={this.state.selectedUser.name}
+            email={this.state.selectedUser.email}/>
         )}
 
       </div>

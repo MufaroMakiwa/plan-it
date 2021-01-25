@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./FriendMod.css"
 import CFCard from "../modules/CFCard.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import "../../utilities.css";
@@ -69,7 +68,7 @@ class CurrentFriends extends Component {
     }
 
     return ( 
-        <div>
+        <div className="CurrentFriends-container">
           <h1> Current Friends </h1>
           {friendsList}
         </div>

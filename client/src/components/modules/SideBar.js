@@ -97,7 +97,6 @@ class SideBar extends Component {
 
 
   render() { 
-    console.log(`Display as drawer: ${this.props.displayAsDrawer}`)
     return ( 
       <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : "SideBar-containerDrawer"}`}>
         {!this.props.displayAsDrawer && 

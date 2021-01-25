@@ -214,19 +214,31 @@ router.get("/friend/id", (req, res) => {
 
 router.post("/friend/make", (req,res) => {
   const newFriend = new Friend({
-    userId_1: req.body.userId_1,
-    userName_1: req.body.userName_1,
-    userEmail_1: req.body.userEmail_1,
+    userId_1: req.user._id,
+    userName_1: req.user.name,
+    userEmail_1: req.user.email,
     userId_2: req.body.userId_2,
     userName_2: req.body.userName_2,
     userEmail_2: req.body.userEmail_2,
-    is_friend: req.body.is_friend
+    is_friend: false
   });
 
   newFriend.save().then((friend) => {
     res.send(friend)
+    console.log(friend)
   });
 });
+
+
+router.get("/friend/suggestions", (req, res) => {
+  const query = {
+    name: new RegExp(`^${req.query.name}`, "i")
+  }
+  User.find(query).then(users => {
+    res.send(users)
+  })
+})
+
 
 router.post("/friend/delete", (req, res) => {
   console.log("friends step2")
