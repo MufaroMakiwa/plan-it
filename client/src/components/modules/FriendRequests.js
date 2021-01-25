@@ -19,12 +19,12 @@ class FriendRequests extends Component {
   }
 
   componentDidMount() {
-    this.getRequests();
+    // this.getRequests();
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.userName && this.props.userName ) {
-      this.getRequests();
+      // this.getRequests();
     }
   }
 
@@ -44,16 +44,16 @@ class FriendRequests extends Component {
   render() { 
 
     let friendsList = null;
-    const hasFriends = this.state.friends.length !== 0;
+    const hasFriends = this.props.friendRequests.length !== 0;
 
     if (hasFriends) {
-      friendsList = this.state.friends.map((friendObj) => (
+      friendsList = this.props.friendRequests.map((friendObj) => (
         <FRCard
           key={`listItem-${friendObj._id}`}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
-          onAccept={() => this.acceptRequest()}
-          onDecline={() => this.declineRequest(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}
+          onAccept={() => this.props.updateRequests(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}
+          onDecline={() => this.props.updateRequests(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}
         />
       ));
       

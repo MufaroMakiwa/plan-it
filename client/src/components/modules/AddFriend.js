@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./AddFriend.css"
 import SearchIcon from '@material-ui/icons/Search';
-
+import AddTaskDialog from "../modules/AddTaskDialog.js";
 import "../../utilities.css";
 import {get, post} from '../../utilities.js';
 import SearchSuggestion from "./SearchSuggestion.js";
@@ -18,8 +18,11 @@ class AddFriend extends Component{
       isDisplayingUserDetails: true,
       value: '',
       suggestions: [],
+      isOpenAddTaskDialog: false,
+      isOpenFriendDialog: false,
     };
   }
+
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -27,8 +30,6 @@ class AddFriend extends Component{
 
     if (displaySearchSuggestions) {
       get("/api/friend/suggestions", {name: value}).then(users => {
-        console.log("Users found:")
-        console.log(users)
         this.setState({
           suggestions: users.sort((a, b) => (a.name > b.name) ? 1: -1),
         })
@@ -41,31 +42,6 @@ class AddFriend extends Component{
       displaySearchSuggestions: displaySearchSuggestions
     })
   }
-
-
-  handleSubmit = (event) => {
-    // todo: add validation later
-    event.preventDefault();
-    console.log("friend added");
-    this.addNewFriend();
-    this.setState({
-      value: '',
-    });
-  }
-
-  addNewFriend = () => {
-    get("/api/friend/id", {friendName: this.state.value}).then((user) => {
-      post('/api/friend/make', {
-        // userId_1: this.props.userId,
-        // userName_1: this.props.userName,
-        // userEmail_1: this.props.userEmail,
-        userId_2: user._id,
-        userName_2: user.name,
-        userEmail_2: user.email,
-        // is_friend: false
-      }).then((friendObj) => {console.log("AddFriend.js post req")})
-    })
-  };
 
   setFocus = (isFocused) => {
     this.setState({
@@ -81,8 +57,11 @@ class AddFriend extends Component{
       value: '',
       isSearchBarFocused: false,
       selectedUser: null,
+      isOpenFriendDialog: false,
+      isOpenAddTaskDialog: false,
     })
   }
+
 
   suggestionSelected = (userObj) => {
     this.setState({
@@ -90,11 +69,82 @@ class AddFriend extends Component{
       value: userObj.name,
       displaySearchSuggestions: false,
       isSearchBarFocused: true,
-      selectedUser: userObj
+      selectedUser: userObj,
+      isOpenFriendDialog: true,
     })
     this.props.setDisplaySearchSuggestions(false);
   }
 
+
+  acceptRequest = () => {
+    //todo: socket to emit to self (filter requests) and to userId_1 (add to friends)
+    post("/api/friend/accept", {friendId: this.state.selectedUser._id}).then(friend => {
+      this.props.updateRequests(friend.userId_1);
+    })
+    this.closeSearch()
+  }
+
+
+  unFriend = (friendId) => {
+    //todo: socket to emit to friendId and self (filter both sides)
+    post("/api/friend/delete", {friendId: this.state.selectedUser._id}).then((friend) => {
+      this.props.filterFriends(friendId);
+    })
+    this.closeSearch()
+  }
+
+
+  declineRequest = (friendId) => {
+    //todo: socket to emit to self (filter requests) and to userId_1 (filter sent)
+    post("/api/friend/request/decline", {friendId: friendId}).then((friend) => {
+      console.log("Declining request");
+      this.props.updateRequests(friendId);
+    })
+    this.closeSearch()
+  }
+
+
+  cancelRequest = () => {
+    //todo: socket to emit to userId_2 (filter requests) and to self (filter sent)
+    post("/api/friend/request/cancel", {friendId: this.state.selectedUser._id}).then((friend) => {
+      console.log("Cancelling request");
+    })
+    this.closeSearch()
+  }
+
+
+  sendRequest = () => {
+    //todo: socket to emit to userId_2 (add to requests) and to self (update sent)
+    const query = {
+      userId_2: this.state.selectedUser._id,
+      userName_2: this.state.selectedUser.name,
+      userEmail_2: this.state.selectedUser.email
+    }
+    post("/api/friend/add", query).then(friendObj => {
+      console.log(friendObj);
+    })
+    this.closeSearch()
+  }
+
+
+  challenge = () => {
+    this.setState({
+      isOpenAddTaskDialog: true,
+      isOpenFriendDialog: false
+    })
+  }
+
+  closeDialogOnOutsideClick = () => {
+    this.setState({
+      suggestions: [],
+      displaySearchSuggestions: false,
+      value: '',
+      isSearchBarFocused: false,
+      selectedUser: null,
+      isOpenFriendDialog: false,
+      isOpenAddTaskDialog: false,
+    })
+  }
 
 
   render(){
@@ -108,7 +158,6 @@ class AddFriend extends Component{
 
     return (
       <div className="AddFriend-container"> 
-
         <div className="AddFriend-search_layout">
           <div 
             id="AddFriend-searchBar" 
@@ -139,11 +188,36 @@ class AddFriend extends Component{
           </div>  
         )}  
 
-        {this.state.selectedUser !== null && (
+        {this.state.isOpenFriendDialog && (
           <FriendDetailsDialog 
             closeDialog={this.closeSearch}
+            closeDialogOnOutsideClick={this.closeDialogOnOutsideClick}
+            sendRequest={this.sendRequest}
+            acceptRequest={this.acceptRequest}
+            declineRequest={() => this.declineRequest(this.state.selectedUser._id)}
+            challenge={this.challenge}
+            cancelRequest={this.cancelRequest}
+            unFriend={() => this.unFriend(this.state.selectedUser._id)}
             name={this.state.selectedUser.name}
-            email={this.state.selectedUser.email}/>
+            email={this.state.selectedUser.email}
+            userEmail={this.props.userEmail}
+            currentFriends={this.props.currentFriends}
+            friendRequests={this.props.friendRequests}
+            friendRequestsSent={this.props.friendRequestsSent}/>
+        )}
+
+        {this.state.isOpenAddTaskDialog  && (
+          <AddTaskDialog 
+            isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+            friendId={this.state.selectedUser._id}
+            friendName={this.state.selectedUser.name}
+            userName={this.props.userName}
+            userId={this.props.userId}
+            closeAddTaskDialog = {this.closeSearch} 
+            onSubmit={this.challengeFriendNotification}
+            isChallenge={true}
+            buttonText="Challenge friend">
+          </AddTaskDialog>
         )}
 
       </div>
