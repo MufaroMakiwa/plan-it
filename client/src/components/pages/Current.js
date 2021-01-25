@@ -13,6 +13,7 @@ import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
+import AlertDialog from "../modules/AlertDialog.js";
 import Toast from "../modules/Toast.js";
 import { DateMethods } from "../modules/DateMethods.js";
 import CustomBackground from '../modules/CustomBackground.js';
@@ -132,10 +133,6 @@ class Current extends Component {
     })
   }
 
-  getToastLabel = () => {
-    let label;
-
-  }
 
   completeTask = (_id, duration) => {
     const tasks = this.state.tasks.filter(task => task._id !== _id);
@@ -180,6 +177,8 @@ class Current extends Component {
     return ( 
       <div className="page-container">
 
+        {/* <AlertDialog /> */}
+
         <NavBar 
           link="/current"
           userName={this.props.userName}
@@ -216,13 +215,18 @@ class Current extends Component {
           onSubmit={this.addTask} >
         </AddTaskDialog>
 
-        <div className={this.state.displayToastCompleted ? "toast toastVisible" : "toast"}>
-          <Toast label="Task completed"/>
-        </div>
+        {this.state.displayToastCompleted && (
+          <div className="toast toastVisible">
+            <Toast label="Task completed"/>
+          </div>
+        )}
+        
 
-        <div className={this.state.displayToastDeleted ? "toast toastVisible" : "toast"}>
-          <Toast label="Task deleted"/>
-        </div>
+        {this.state.displayToastDeleted && (
+          <div className="toast toastVisible">
+            <Toast label="Task deleted"/>
+          </div>
+        )}
 
       </div>
     );

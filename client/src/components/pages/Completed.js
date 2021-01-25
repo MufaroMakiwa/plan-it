@@ -124,16 +124,16 @@ class Completed extends Component {
                 Completed
               </span>
               {completedList} 
-            </div>
-
-              
+            </div>              
           </div>
         )}
 
-        <div className={this.state.displayToast ? "toast toastVisible" : "toast"}>
-          <Toast label="Deleted"/>
-        </div>
-
+        {this.state.displayToast && (
+          <div className="toast toastVisible">
+            <Toast label="Deleted"/>
+          </div>
+        )}
+        
         <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
 
         <AddTaskDialog 
@@ -143,6 +143,7 @@ class Completed extends Component {
           closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
           onSubmit={this.addTask}>
         </AddTaskDialog>
+
 
       </div>
     );

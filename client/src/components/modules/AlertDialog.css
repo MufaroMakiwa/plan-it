@@ -1,0 +1,75 @@
+.AlertDialog-container {
+  background-color: var(--color_on_secondary);
+  padding: 24px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AlertDialog-container * {
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.AlertDialog-iconBigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AlertDialog-iconSmaller {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.AlertDialog-buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 16px;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.AlertDialog-button {
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 50%;
+  outline: none;
+}
+
+.AlertDialog-buttonCancel {
+  margin-right: 8px;
+  border: 1px solid var(--background_color_secondary);
+  background-color: transparent;
+  color: var(--background_color_secondary);
+}
+
+.AlertDialog-buttonCancel:hover {
+  mix-blend-mode: multiply;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.AlertDialog-buttonAction:hover {
+  mix-blend-mode: hard-light;
+}
+
+.AlertDialog-buttonAction {
+  border: none;
+  background-color: var(--background_color_secondary);
+  color: white;
+  margin-left: 8px;
+}
+
+.AlertDialog-title {
+  display: flex;
+  padding: 8px;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}

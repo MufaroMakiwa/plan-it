@@ -300,13 +300,18 @@ class Challenges extends Component {
           onSubmit={this.addTask}>
         </AddTaskDialog>
       
-        <div className={this.state.displayToastAccepted ? "toast toastVisible" : "toast"}>
-          <Toast label="Challenge accepted"/>
-        </div>
+        {this.state.displayToastAccepted && (
+          <div className="toast toastVisible">
+            <Toast label="Challenge accepted"/>
+          </div>
+        )}
+        
+        {this.state.displayToastDeclined && (
+          <div className="toast toastVisible">
+            <Toast label="Challenge declined"/>
+          </div>
+        )}
 
-        <div className={this.state.displayToastDeclined ? "toast toastVisible" : "toast"}>
-          <Toast label="Challenge declined"/>
-        </div>
       </div>
     );
   }

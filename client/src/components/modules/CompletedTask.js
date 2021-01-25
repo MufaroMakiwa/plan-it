@@ -3,11 +3,16 @@ import "./CompletedTask.css";
 import { DateMethods } from "./DateMethods.js";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {get , post} from "../../utilities.js";
+import AlertDialog from "../modules/AlertDialog.js";
+
 
 
 class CompletedTask extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      displayAlertDialog: false
+    } 
   }
 
 
@@ -52,7 +57,15 @@ class CompletedTask extends Component {
     }
   }
 
+  toggleAlertDialog = (bool) => {
+    this.setState({
+      displayAlertDialog: bool
+    })
+  }
+
   deleteTask = () => {
+    this.toggleAlertDialog(false);
+
     const query = {
       _id: this.props._id, 
       is_challenge: this.props.is_challenge,
@@ -123,7 +136,7 @@ class CompletedTask extends Component {
           <div className="CompletedTask-buttonContainer">
             <button 
               className="CompletedTask-sendTaskButton CompletedTask-button"
-              onClick={this.deleteTask}>
+              onClick={() => {this.toggleAlertDialog(true)}}>
               DELETE
             </button>
 
@@ -147,6 +160,14 @@ class CompletedTask extends Component {
             {gridCells}
           </div>
         </div>
+
+        {this.state.displayAlertDialog && (
+          <AlertDialog 
+            title="Are you sure you want to delete this task?"
+            onNegative={() => this.toggleAlertDialog(false)}
+            onPositive={this.deleteTask}/>
+        )}
+
       </div>
     );
   }

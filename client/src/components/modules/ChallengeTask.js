@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import "./ChallengeTask.css";
 import {get , post} from "../../utilities.js";
+import AlertDialog from "../modules/AlertDialog.js";
 import { DateMethods } from "./DateMethods.js";
 
 class ChallengeTask extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      displayAlertDialog: false
+    } 
   }
 
 
@@ -36,7 +40,15 @@ class ChallengeTask extends Component {
     })
   }
 
+  toggleAlertDialog = (bool) => {
+    this.setState({
+      displayAlertDialog: bool
+    })
+  }
+
   declineChallenge = () => {
+    this.toggleAlertDialog(false);
+
     const query = {
       _id: this.props._id,
       challengerId: this.props.challengerId,
@@ -79,11 +91,19 @@ class ChallengeTask extends Component {
 
             <button 
               className="ChallengeTask-declineButton ChallengeTask-button"
-              onClick={this.declineChallenge}>
+              onClick={() => {this.toggleAlertDialog(true)}}>
               DECLINE
             </button>
           </div>
         </div>
+
+        {this.state.displayAlertDialog && (
+          <AlertDialog 
+            title="Are you sure you don't want this challenge?"
+            onNegative={() => this.toggleAlertDialog(false)}
+            onPositive={this.declineChallenge}/>
+        )}
+
       </div>
     );
   }

@@ -3,15 +3,6 @@
   padding: 24px;
 }
 
-div.MuiDialogContent-root {
-  padding: 0;
-  margin: 0;
-}
-
-div.MuiDialogContent-root:first-child {
-  padding: 0;
-}
-
 .AddTaskDialog-container * {
   box-sizing: border-box;
   line-height: 1.5;

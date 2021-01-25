@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import "./CurrentTask.css";
+import AlertDialog from "../modules/AlertDialog.js";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { post } from '../../utilities';
 import { DateMethods } from "./DateMethods.js";
 
 class CurrentTask extends Component {
   constructor(props) {
-    super(props);  
+    super(props); 
+    this.state = {
+      displayAlertDialog: false
+    } 
   }
 
   getProgress = (completed, duration) => {
@@ -28,17 +32,6 @@ class CurrentTask extends Component {
       return labels[this.props.frequency] + "s";
     }
   }
-
-
-  deleteTask = () => {
-    const query = {
-      _id: this.props._id, 
-      is_challenge: this.props.is_challenge,
-      challengerId: this.props.challengerId,
-    }
-    post("/api/tasks/delete", query).then(this.props.onDelete)
-  }
-
 
   incrementProgress = () => {
     const newLog = DateMethods.resetToStart(this.props.frequency, new Date());
@@ -146,6 +139,24 @@ class CurrentTask extends Component {
     return count;
   }
 
+  toggleAlertDialog = (bool) => {
+    this.setState({
+      displayAlertDialog: bool
+    })
+  }
+
+  deleteTask = () => {
+    this.toggleAlertDialog(false);
+
+    const query = {
+      _id: this.props._id, 
+      is_challenge: this.props.is_challenge,
+      challengerId: this.props.challengerId,
+    }
+    post("/api/tasks/delete", query).then(this.props.onDelete)
+  }
+
+
   render() { 
     let gridCells = [];
 
@@ -214,7 +225,7 @@ class CurrentTask extends Component {
             </div>            
           </div>
 
-          <div className="CurrentTask-delete" onClick={this.deleteTask}> 
+          <div className="CurrentTask-delete" onClick={() => {this.toggleAlertDialog(true)}}> 
             <DeleteIcon fontSize="default" />
           </div>
         </div>
@@ -235,6 +246,13 @@ class CurrentTask extends Component {
         <div className={this.props.isPeriodTaskCompleted ? "CurrentTask-progressSummaryDone" : "CurrentTask-progressSummaryNotDone"}>
           <span>{this.getProgressSummary(this.props.frequency, this.props.isPeriodTaskCompleted)}</span>
         </div>
+
+        {this.state.displayAlertDialog && (
+          <AlertDialog 
+            title="Are you sure you want to delete this task?"
+            onNegative={() => this.toggleAlertDialog(false)}
+            onPositive={this.deleteTask}/>
+        )}
       </div>
      );
   }
