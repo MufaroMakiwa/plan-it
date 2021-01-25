@@ -16,7 +16,11 @@ class GameBoard extends Component {
       player_y: 10,
       cpu_x: 100,
       cpu_y: 100,
-      num_turns: 400,
+      num_turns: 100,
+      up: false,
+      down: false,
+      left: false,
+      right: false,
     }
   }
 
@@ -39,52 +43,88 @@ class GameBoard extends Component {
       document.getElementById("CPU").style.top = this.state.cpu_y + "px";
     })
 
+    window.addEventListener('keydown', (event) => {
+      if (event.key === "ArrowUp") {
+        this.setState({up: true});
+      } else if (event.key === "ArrowDown") {
+        this.setState({down: true});
+      } else if (event.key === "ArrowRight") {
+        this.setState({right: true});
+      } else if (event.key === "ArrowLeft") {
+        this.setState({left: true});
+      }
+    })
+
+    window.addEventListener('keyup', (event) => {
+      if (event.key === "ArrowUp") {
+        this.setState({up: false});
+      } else if (event.key === "ArrowDown") {
+        this.setState({down: false});
+      } else if (event.key === "ArrowRight") {
+        this.setState({right: false});
+      } else if (event.key === "ArrowLeft") {
+        this.setState({left: false});
+      }
+    })
+
     this.playGame();
   }
 
   playGame = () => {
-    setInterval(this.moveOpponent, 200);
+    setInterval(this.moveOpponent, 30);
+    setInterval(this.movePlayer, 30);
+  }
 
-    let inputDirection = { x: 0, y: 0};
+  movePlayer = () => {
+    this.checkFinished();
 
-    window.addEventListener('keydown', (event) => {
-      this.checkFinished()
+    let next_player_x = 0;
+    let next_player_y = 0;
 
-      if (event.key === "ArrowUp") {
-          inputDirection = { x: 0, y: -10 };
-      } else if (event.key === "ArrowDown") {
-          inputDirection = { x: 0, y: 10 };
-      } else if (event.key === "ArrowRight") {
-          inputDirection = { x: 10, y: 0 };
-      } else if (event.key === "ArrowLeft") {
-          inputDirection = { x: -10, y: 0 };
-      }
+    if (this.state.up) { next_player_y -= 10 };
+    if (this.state.down) { next_player_y += 10 };
+    if (this.state.right) { next_player_x += 10 };
+    if (this.state.left) { next_player_x -= 10 };
 
-      this.setState({
-        player_x: this.state.player_x + inputDirection.x,
-        player_y: this.state.player_y + inputDirection.y,
-      }, () => {
-        document.getElementById("Player").style.left = this.state.player_x + "px";
-        document.getElementById("Player").style.top = this.state.player_y + "px";
-      })
+    next_player_x += this.state.player_x;
+    next_player_y += this.state.player_y;
+
+    next_player_x = Math.min(next_player_x, this.state.board_width - 20);
+    next_player_y = Math.min(next_player_y, this.state.board_height - 20);
+
+    next_player_x = Math.max(next_player_x, 0);
+    next_player_y = Math.max(next_player_y, 0);
+
+    this.setState({
+      player_x: next_player_x,
+      player_y: next_player_y,
+    }, () => {
+      document.getElementById("Player").style.left = this.state.player_x + "px";
+      document.getElementById("Player").style.top = this.state.player_y + "px";
     })
   }
 
   moveOpponent = () => {
     this.checkFinished()
 
-    let cpuDirection = { x: 0, y: 0}
+    let cpuDirection = { x: 0, y: 0};
 
     let cpu_x_dist = this.state.player_x - this.state.cpu_x;
     let cpu_y_dist = this.state.player_y - this.state.cpu_y;
     let cpu_total_dist = Math.sqrt(Math.pow(cpu_x_dist, 2) + Math.pow(cpu_y_dist, 2));
 
-    cpuDirection.x = this.state.num_turns / 20 * cpu_x_dist / cpu_total_dist;
-    cpuDirection.y = this.state.num_turns / 20 * cpu_y_dist / cpu_total_dist;
+    cpuDirection.x = this.state.num_turns / 200 * cpu_x_dist / cpu_total_dist;
+    cpuDirection.y = this.state.num_turns / 200 * cpu_y_dist / cpu_total_dist;
+
+    let next_cpu_x = Math.min(this.state.cpu_x + cpuDirection.x, this.state.board_width - 20);
+    let next_cpu_y = Math.min(this.state.cpu_y + cpuDirection.y, this.state.board_height - 20);
+
+    next_cpu_x = Math.max(0, next_cpu_x);
+    next_cpu_y = Math.max(0, next_cpu_y);
 
     this.setState({
-      cpu_x: this.state.cpu_x + cpuDirection.x,
-      cpu_y: this.state.cpu_y + cpuDirection.y,
+      cpu_x: next_cpu_x,
+      cpu_y: next_cpu_y,
       num_turns: this.state.num_turns + 1,
     }, () => {
       document.getElementById("CPU").style.left = this.state.cpu_x + "px";
