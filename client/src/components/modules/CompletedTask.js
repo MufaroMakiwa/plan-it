@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import "./CompletedTask.css";
 import { DateMethods } from "./DateMethods.js";
 import DeleteIcon from '@material-ui/icons/Delete';
+import {get , post} from "../../utilities.js";
+
 
 class CompletedTask extends Component {
   constructor(props){
@@ -23,10 +25,6 @@ class CompletedTask extends Component {
   }
 
 
-  sendChallenge = () => {
-    this.props.sendChallengeNotification();
-  }
-
   getCompletedDays = () => {
     let count = 0;
     for (let log of this.props.progress) {
@@ -35,7 +33,33 @@ class CompletedTask extends Component {
     return count;
   }
 
+  getTaskDetails = () => {
+    if (this.props.challenger !== null) {
+      //challenger summary
+      return (
+        <p className="CompletedTask-challengedBy">
+          {`(Challenged by ${this.props.challenger} on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
+        )
 
+    } else {
+      // default summary
+      return (
+        <p className="CompletedTask-challengedBy">
+          {`(Created on ${DateMethods.getPrettyDateFormat(this.props.created)})`}
+        </p>
+        )
+    }
+  }
+
+  deleteTask = () => {
+    const query = {
+      _id: this.props._id, 
+      is_challenge: this.props.is_challenge,
+    }
+    post("/api/tasks/completed/delete", query).then(this.props.deleteTask)
+  }
+  
   render() { 
     let gridCells = [];
 
@@ -62,16 +86,17 @@ class CompletedTask extends Component {
     return (
       <div className="CompletedTask-container">
         <p className="CompletedTask-taskTitle">{this.props.task_name}</p>
-        {(this.props.challenger !== null) && (
-        <p className="CurrentTask-challengedBy">{`(Challenged by ${this.props.challenger})`}</p>)}
+        
+        {this.getTaskDetails()}
 
         <hr className="CompletedTask-divider"></hr>
 
         <div className="CompletedTask-subContainer">
           <div className="CompletedTask-details">
+
             <div>
-              <p className="CompletedTask-description">Created</p>
-              <p>{DateMethods.getDateFormat(this.props.created)}</p>
+              <p className="CompletedTask-description">Completed</p>
+              <p>{DateMethods.getDateFormat(this.props.date_completed)}</p>
             </div>
 
             <div>
@@ -82,14 +107,15 @@ class CompletedTask extends Component {
           </div>
 
           <div className="CompletedTask-details">
-            <div>
-              <p className="CompletedTask-description">Completed</p>
-              <p>{DateMethods.getDateFormat(this.props.date_completed)}</p>
-            </div>
 
             <div>
               <p className="CompletedTask-description">Frequency</p>
               <p>{this.props.frequency}</p>
+            </div>
+
+            <div>
+              <p className="CompletedTask-description">Points</p>
+              <p>TODO</p>
             </div>
             
           </div>
@@ -97,7 +123,7 @@ class CompletedTask extends Component {
           <div className="CompletedTask-buttonContainer">
             <button 
               className="CompletedTask-sendTaskButton CompletedTask-button"
-              onClick={this.sendChallenge}>
+              onClick={this.deleteTask}>
               DELETE
             </button>
 

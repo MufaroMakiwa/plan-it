@@ -56,8 +56,14 @@ class Completed extends Component {
     navigate("/current");
   }
 
+  deleteTask = (_id) => {
+    const completed = this.state.completed.filter(task => task._id !== _id);
+    this.setState({ completed })
+    this.deleteNotification();
+  }
 
-  sendChallengeNotification = () => {
+
+  deleteNotification = () => {
     this.setState({displayToast: true})
     const timer = setTimeout(() => {
       console.log(this.state)
@@ -83,8 +89,11 @@ class Completed extends Component {
           duration={completedObj.duration}
           frequency={completedObj.frequency}
           progress={completedObj.progress}
+          is_challenge={completedObj.is_challenge}
+          challengerId={completedObj.challengerId}
           created={completedObj.created}
           date_completed={completedObj.date_completed}
+          deleteTask={() => this.deleteTask(completedObj._id)}
           sendChallengeNotification={this.sendChallengeNotification}/>
       ));
     } else {

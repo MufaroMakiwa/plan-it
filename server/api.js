@@ -185,6 +185,20 @@ router.get("/tasks/completed", (req, res) => {
   })
 })
 
+router.post("/tasks/completed/delete", (req, res) => {
+  if (req.body.is_challenge) {
+    Task.findOne({_id: req.body._id}).then((task) => {
+      task.userId = undefined;
+      task.save().then((task) => {
+        res.send(task);
+      });
+    })
+  } else {
+    Task.deleteOne({ _id:  req.body._id }).then((task) => res.send(task))
+  }
+})
+
+
 router.post("/profile/points", (req, res) => {
   User.findById(req.body.userId).then((profile) => {
     profile.points = req.body.pts + profile.points;
