@@ -208,24 +208,6 @@ router.get("/friend/", (req, res) => {
 })
 
 
-router.post("/friend/add", (req,res) => {
-  const newFriend = new Friend({
-    userId_1: req.user._id,
-    userName_1: req.user.name,
-    userEmail_1: req.user.email,
-    userId_2: req.body.userId_2,
-    userName_2: req.body.userName_2,
-    userEmail_2: req.body.userEmail_2,
-    is_friend: false
-  });
-
-  newFriend.save().then((friend) => {
-    res.send(friend)
-    console.log(friend)
-  });
-});
-
-
 router.get("/friend/suggestions", (req, res) => {
   const query = {
     name: new RegExp(`^${req.query.name}`, "i"),
@@ -235,35 +217,6 @@ router.get("/friend/suggestions", (req, res) => {
     res.send(users)
   })
 })
-
-router.post("/friend/accept", (req, res) => {
-  const query = {
-    $or: [
-      { userId_1: req.body.friendId, userId_2: req.user._id},
-      { userId_1: req.user._id, userId_2: req.body.friendId},
-    ],
-  };
-  Friend.findOne(query).then((friend) => {
-    friend.is_friend = true;
-    friend.save().then(friend => {
-      socketManager.getSocketFromUserID(req.user._id).emit("friend_request_accepted", friend);
-      socketManager.getSocketFromUserID(friend.userId_2).emit("friend_request_accepted", friend);
-      res.send(friend)
-    })
-  });
-});
-
-
-router.post("/friend/delete", (req, res) => {
-  const query = {
-    $or: [
-      { userId_1: req.body.friendId, userId_2: req.user._id},
-      { userId_1: req.user._id, userId_2: req.body.friendId},
-    ],
-  };
-  Friend.deleteOne(query).then((friend) => res.send(friend));
-});
-
 
 router.get("/friend/current", (req,res) => {
   const query = {
@@ -288,12 +241,65 @@ router.get("/friend/requests/sent", (req,res) => {
 });
 
 
+router.post("/friend/add", (req,res) => {
+  const newFriend = new Friend({
+    userId_1: req.user._id,
+    userName_1: req.user.name,
+    userEmail_1: req.user.email,
+    userId_2: req.body.userId_2,
+    userName_2: req.body.userName_2,
+    userEmail_2: req.body.userEmail_2,
+    is_friend: false
+  });
+
+  newFriend.save().then((friend) => {
+    res.send(friend);
+    socketManager.getSocketFromUserID(req.user._id).emit("friend_request_sent", friend);
+    socketManager.getSocketFromUserID(req.body.userId_2).emit("friend_request_received", friend);
+  });
+});
+
+
+router.post("/friend/accept", (req, res) => {
+  const query = {
+    $or: [
+      { userId_1: req.body.friendId, userId_2: req.user._id},
+      { userId_1: req.user._id, userId_2: req.body.friendId},
+    ],
+  };
+  Friend.findOne(query).then((friend) => {
+    friend.is_friend = true;
+    friend.save().then(friend => {
+      res.send(friend);
+      socketManager.getSocketFromUserID(req.user._id).emit("friend_request_accepted", friend);
+      socketManager.getSocketFromUserID(friend.userId_1).emit("friend_request_accepted", friend);
+    })
+  });
+});
+
+
+router.post("/friend/delete", (req, res) => {
+  const query = {
+    $or: [
+      { userId_1: req.body.friendId, userId_2: req.user._id},
+      { userId_1: req.user._id, userId_2: req.body.friendId},
+    ],
+  };
+  Friend.deleteOne(query).then((friend) => {
+    res.send(friend);
+    socketManager.getSocketFromUserID(req.user._id).emit("friend_deleted", req.body.friendId);
+    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_deleted", req.user._id);
+  });
+});
+
+
 router.post("/friend/request/decline", (req, res) => {
   const query = {
     userId_1: req.body.friendId, 
     userId_2: req.user._id 
   };
   Friend.deleteOne(query).then((friend) => res.send(friend));
+  socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_declined", req.user._id);
 });
 
 router.post("/friend/request/cancel", (req, res) => {
@@ -302,6 +308,7 @@ router.post("/friend/request/cancel", (req, res) => {
     userId_2: req.body.friendId, 
   };
   Friend.deleteOne(query).then((friend) => res.send(friend));
+  socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_cancelled", req.user._id);
 });
 
 cron.schedule('0 0 * * *', () => {

@@ -107,7 +107,6 @@ class Challenges extends Component {
 
       // update to previous selection
       const prevState = JSON.parse(localStorage.getItem('challengesState'))
-
       if (!prevState) {
         return;
       }

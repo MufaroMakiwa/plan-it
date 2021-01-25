@@ -77,7 +77,6 @@ class AddFriend extends Component{
 
 
   acceptRequest = () => {
-    //todo: socket to emit to self (filter requests) and to userId_1 (add to friends)
     post("/api/friend/accept", {friendId: this.state.selectedUser._id}).then(friend => {
       this.props.updateRequests(friend.userId_1);
     })
@@ -86,7 +85,6 @@ class AddFriend extends Component{
 
 
   unFriend = (friendId) => {
-    //todo: socket to emit to friendId and self (filter both sides)
     post("/api/friend/delete", {friendId: this.state.selectedUser._id}).then((friend) => {
       this.props.filterFriends(friendId);
     })
@@ -104,17 +102,17 @@ class AddFriend extends Component{
   }
 
 
-  cancelRequest = () => {
+  cancelRequest = (friendId) => {
     //todo: socket to emit to userId_2 (filter requests) and to self (filter sent)
-    post("/api/friend/request/cancel", {friendId: this.state.selectedUser._id}).then((friend) => {
+    post("/api/friend/request/cancel", {friendId: friendId}).then((friend) => {
       console.log("Cancelling request");
+      this.props.updateRequestsSent(friendId);
     })
     this.closeSearch()
   }
 
 
   sendRequest = () => {
-    //todo: socket to emit to userId_2 (add to requests) and to self (update sent)
     const query = {
       userId_2: this.state.selectedUser._id,
       userName_2: this.state.selectedUser.name,
@@ -196,7 +194,7 @@ class AddFriend extends Component{
             acceptRequest={this.acceptRequest}
             declineRequest={() => this.declineRequest(this.state.selectedUser._id)}
             challenge={this.challenge}
-            cancelRequest={this.cancelRequest}
+            cancelRequest={() => this.cancelRequest(this.state.selectedUser._id)}
             unFriend={() => this.unFriend(this.state.selectedUser._id)}
             name={this.state.selectedUser.name}
             email={this.state.selectedUser.email}

@@ -11,9 +11,12 @@ import AddTaskDialog from "../modules/AddTaskDialog.js";
 import { navigate } from "@reach/router";
 import CustomBackground from '../modules/CustomBackground.js';
 import NavBar from "../modules/NavBar.js";
+import { socket } from "../../client-socket.js";
 
 
 class Friends extends Component {
+  isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,10 +53,59 @@ class Friends extends Component {
 
 
   componentDidMount() {
+    this.isMounted = true;
     this.getFriends();
     this.getRequests();
     this.getSentRequests();
+
+    // listen for events when the user gets a new friend
+    socket.on("friend_request_accepted", (friend) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        currentFriends: [friend].concat(prevState.currentFriends),
+      }))
+    })
+
+    // listen for events when a friend is removed
+    socket.on("friend_deleted", (friendId) => {
+      if (!this.isMounted) return;
+        this.filterFriends(friendId);
+    })
+
+    // listen for events when a friend request is sent
+    socket.on("friend_request_sent", (friend) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        friendRequestsSent: [friend].concat(prevState.friendRequestsSent),
+      }))
+    })
+
+    // listen for events when a friend request is received
+    socket.on("friend_request_received", (friend) => {
+      if (!this.isMounted) return;
+      this.setState((prevState) => ({
+        friendRequests: [friend].concat(prevState.friendRequests),
+      }))
+    })
+
+    // listen for events when a friend request is declined
+    socket.on("friend_request_declined", (friendId) => {
+      if (!this.isMounted) return;
+        this.updateRequestsSent(friendId)
+    })
+
+    // listen for events when a friend request is cancels
+    socket.on("friend_request_cancelled", (friendId) => {
+      if (!this.isMounted) return;
+        this.updateRequests(friendId)
+    })
   }
+
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
+
 
   componentDidUpdate(prevProps) {
     if (!prevProps.userName && this.props.userName ) {
@@ -64,9 +116,11 @@ class Friends extends Component {
     }
   }
 
+
   addTask = (taskObj) => {
     navigate("/current");
   }
+
 
   setDisplaySearchSuggestions = (isDisplaying) => {
     this.setState({ 
@@ -74,34 +128,34 @@ class Friends extends Component {
     })
   }
 
-  unFriend = (friendId) => {
-    const currentFriends = this.state.currentFriends.filter((friend) => {
-      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
-              friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
-    });
-    this.setState({ currentFriends });
-  }
 
   updateRequests = (friendId) => {
-    console.log("DECLINE OR ACCEPT");
     const friendRequests = this.state.friendRequests.filter((friend) => {
-      console.log(`FriendID: ${friendId}`);
-      console.log(`UserId_1: ${friend.userId_1}`);
-      console.log(`UserId_2: ${friend.userId_2}`);
       return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
                friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
     });
     this.setState({ friendRequests });
   }
 
+  
+
+  updateRequestsSent = (friendId) => {
+    const friendRequestsSent = this.state.friendRequestsSent.filter((friend) => {
+      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
+               friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+    });
+    this.setState({ friendRequestsSent });
+  }
+
+
   filterFriends = (friendId) => {
     const currentFriends = this.state.currentFriends.filter((friend) => {
-
       return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
                friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
     });
     this.setState({ currentFriends });
   }
+
 
 
   render() {
@@ -132,8 +186,8 @@ class Friends extends Component {
               friendRequests={this.state.friendRequests}
               friendRequestsSent={this.state.friendRequestsSent}
               setDisplaySearchSuggestions={this.setDisplaySearchSuggestions}
-              unFriend={this.unfriend}
               updateRequests={this.updateRequests}
+              updateRequestsSent={this.updateRequestsSent}
               filterFriends={this.filterFriends}> 
             </AddFriend>
 
