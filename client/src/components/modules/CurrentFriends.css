@@ -1,3 +1,4 @@
 .CurrentFriends-container {
-  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }

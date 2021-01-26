@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import "./Card.css";
+import "./CFCard.css";
 import Toast from "../modules/Toast.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import "./CurrentFriends.css";
 import {get, post} from '../../utilities.js';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 
 
@@ -39,11 +42,14 @@ class CFCard extends Component {
   render() { 
     return ( 
       <>
-        <div className="card-container">
+        <div className="CFCard-container" onClick = {}>
+          <AccountCircleIcon style={{fontSize: 100}} />
           <p className="card-title">{this.props.friendName}</p>
+
           <button onClick={() => this.setOpenAddTaskDialog(true)} className ="challenge-button" type="button"> Challenge </button>
-          <button onClick={this.unFriend} className ="unfriend-button" type="button"> Unfriend </button>     
+          <button onClick={this.unFriend} className ="unfriend-button" type="button"> Unfriend </button>    
         </div>
+        
 
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}

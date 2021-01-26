@@ -199,6 +199,14 @@ class Friends extends Component {
 
             {!this.state.displaySearchSuggestions && (
               <>
+                <FriendRequests
+                  userId={this.props.userId}
+                  userName={this.props.userName}
+                  userEmail={this.props.userEmail}
+                  friendRequests={this.state.friendRequests}
+                  updateRequests={this.updateRequests}> 
+                </FriendRequests>
+
                 <CurrentFriends 
                   onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
                   userId={this.props.userId}
@@ -206,15 +214,7 @@ class Friends extends Component {
                   userEmail={this.props.userEmail}
                   currentFriends={this.state.currentFriends}
                   filterFriends={this.filterFriends}> 
-                </CurrentFriends>
-
-                <FriendRequests
-                  userId={this.props.userId}
-                  userName={this.props.userName}
-                  userEmail={this.props.userEmail}
-                  friendRequests={this.state.friendRequests}
-                  updateRequests={this.updateRequests}> 
-                </FriendRequests> 
+                </CurrentFriends>  
               </>
             )}
           </div>   
