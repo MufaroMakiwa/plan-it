@@ -25,32 +25,6 @@ class GameBoard extends Component {
   }
 
   componentDidMount() {
-    // remember -- api calls go here!
-    let height = document.getElementById("Board").clientHeight;
-    let width = document.getElementById("Board").clientWidth;
-
-    this.setState({
-      board_height: height,
-      board_width: width,
-      player_x: width / 3,
-      player_y: height / 3,
-      cpu_x: 2 * width / 3,
-      cpu_y: 2 * height / 3,
-    }, () => {
-      document.getElementById("Player").style.left = this.state.player_x + "px";
-      document.getElementById("CPU").style.left = this.state.cpu_x + "px";
-      document.getElementById("Player").style.top = this.state.player_y + "px";
-      document.getElementById("CPU").style.top = this.state.cpu_y + "px";
-    })
-
-    this.playGame();
-  }
-
-  playGame = () => {
-    setInterval(this.moveOpponent, 200);
-
-    let inputDirection = { x: 0, y: 0};
-
     window.addEventListener('keydown', (event) => {
       if (event.key === "ArrowUp") {
         this.setState({up: true});
@@ -75,17 +49,40 @@ class GameBoard extends Component {
       }
     })
 
-    // this.playGame();
+    this.setupGame();
+    this.playGame();
+  }
+
+  setupGame = () => {
+    let height = document.getElementById("Board").clientHeight;
+    let width = document.getElementById("Board").clientWidth;
+
+    this.setState({
+      board_height: height,
+      board_width: width,
+      player_x: width / 3,
+      player_y: height / 3,
+      cpu_x: 2 * width / 3,
+      cpu_y: 2 * height / 3,
+      num_turns: 100,
+      left: false,
+      right: false,
+      up: false,
+      down: false,
+    }, () => {
+      document.getElementById("Player").style.left = this.state.player_x + "px";
+      document.getElementById("CPU").style.left = this.state.cpu_x + "px";
+      document.getElementById("Player").style.top = this.state.player_y + "px";
+      document.getElementById("CPU").style.top = this.state.cpu_y + "px";
+    })
   }
 
   playGame = () => {
-    setInterval(this.moveOpponent, 30);
-    setInterval(this.movePlayer, 30);
+    let player_move = setInterval(this.moveOpponent, 30);
+    let opponent_move = setInterval(this.movePlayer, 30);
   }
 
   movePlayer = () => {
-    this.checkFinished();
-
     let next_player_x = 0;
     let next_player_y = 0;
 
@@ -110,11 +107,11 @@ class GameBoard extends Component {
       document.getElementById("Player").style.left = this.state.player_x + "px";
       document.getElementById("Player").style.top = this.state.player_y + "px";
     })
+
+    this.checkFinished();
   }
 
   moveOpponent = () => {
-    this.checkFinished()
-
     let cpuDirection = { x: 0, y: 0};
 
     let cpu_x_dist = this.state.player_x - this.state.cpu_x;
@@ -138,10 +135,13 @@ class GameBoard extends Component {
       document.getElementById("CPU").style.left = this.state.cpu_x + "px";
       document.getElementById("CPU").style.top = this.state.cpu_y + "px";
     })
+
+    this.checkFinished()
   };
 
   checkFinished = () => {
     if (Math.abs(this.state.player_x - this.state.cpu_x) <= 12 && Math.abs(this.state.player_y - this.state.cpu_y) <= 12) {
+      this.setupGame();
       window.alert("Game Over");
     }
   }
