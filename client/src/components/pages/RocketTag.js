@@ -34,11 +34,11 @@ class RocketTag extends Component {
 
         <CustomBackground />
 
-        <div className="page_main">
+        <div className="page_main u-textCenter">
           <div className="tile_box_centered">
             <h3 className="RocketTag-Header"> Rocket Tag! </h3>
             <GameBoard />
-          </div>      
+          </div>
         </div>
       </div>
     );

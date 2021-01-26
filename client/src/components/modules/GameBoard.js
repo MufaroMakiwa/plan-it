@@ -21,36 +21,11 @@ class GameBoard extends Component {
       down: false,
       left: false,
       right: false,
+      playing: false,
     }
   }
 
   componentDidMount() {
-    // remember -- api calls go here!
-    let height = document.getElementById("Board").clientHeight;
-    let width = document.getElementById("Board").clientWidth;
-
-    this.setState({
-      board_height: height,
-      board_width: width,
-      player_x: width / 3,
-      player_y: height / 3,
-      cpu_x: 2 * width / 3,
-      cpu_y: 2 * height / 3,
-    }, () => {
-      document.getElementById("Player").style.left = this.state.player_x + "px";
-      document.getElementById("CPU").style.left = this.state.cpu_x + "px";
-      document.getElementById("Player").style.top = this.state.player_y + "px";
-      document.getElementById("CPU").style.top = this.state.cpu_y + "px";
-    })
-
-    this.playGame();
-  }
-
-  playGame = () => {
-    setInterval(this.moveOpponent, 200);
-
-    let inputDirection = { x: 0, y: 0};
-
     window.addEventListener('keydown', (event) => {
       if (event.key === "ArrowUp") {
         this.setState({up: true});
@@ -75,12 +50,56 @@ class GameBoard extends Component {
       }
     })
 
-    // this.playGame();
+    this.setupGame();
+  }
+
+  setupGame = () => {
+    let height = document.getElementById("Board").clientHeight;
+    let width = document.getElementById("Board").clientWidth;
+
+    this.setState({
+      board_height: height,
+      board_width: width,
+      player_x: width / 3,
+      player_y: height / 3,
+      cpu_x: 2 * width / 3,
+      cpu_y: 2 * height / 3,
+      num_turns: 100,
+      left: false,
+      right: false,
+      up: false,
+      down: false,
+      player_interval: null,
+      opponent_interval: null,
+    }, () => {
+      document.getElementById("Player").style.left = this.state.player_x + "px";
+      document.getElementById("CPU").style.left = this.state.cpu_x + "px";
+      document.getElementById("Player").style.top = this.state.player_y + "px";
+      document.getElementById("CPU").style.top = this.state.cpu_y + "px";
+    })
   }
 
   playGame = () => {
-    setInterval(this.moveOpponent, 30);
-    setInterval(this.movePlayer, 30);
+    if (this.state.playing) {
+      clearInterval(this.state.player_interval);
+      clearInterval(this.state.opponent_interval);
+      this.setupGame();
+
+      this.setState({ 
+        playing: false,
+        player_interval: null,
+        opponent_interval: null,
+      });
+    } else {
+      let player_moving = setInterval(this.moveOpponent, 30);
+      let opponent_moving = setInterval(this.movePlayer, 30);
+
+      this.setState({ 
+        playing: true,
+        player_interval: player_moving,
+        opponent_interval: opponent_moving,
+      });
+    }
   }
 
   movePlayer = () => {
@@ -113,7 +132,7 @@ class GameBoard extends Component {
   }
 
   moveOpponent = () => {
-    this.checkFinished()
+    this.checkFinished();
 
     let cpuDirection = { x: 0, y: 0};
 
@@ -141,16 +160,23 @@ class GameBoard extends Component {
   };
 
   checkFinished = () => {
-    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 12 && Math.abs(this.state.player_y - this.state.cpu_y) <= 12) {
-      window.alert("Game Over");
+    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 14 && Math.abs(this.state.player_y - this.state.cpu_y) <= 14) {
+      this.playGame();
     }
   }
 
   render() {
     return (
-      <div id="Board" className="GameBoard-Container">
-        <Player/>
-        <Opponent/>
+      <div className="GameBoard-Container">
+        <div id="Board" className="GameBoard-Main">
+          <Player/>
+          <Opponent/>
+        </div>
+        <div id="Start" className="GameBoard-Button" onClick={this.playGame}>
+          <h3 className="GameBoard-Text">
+            {(this.state.playing === false) ? "Start New Game" : "End Game"}
+          </h3>
+        </div>
       </div>
     );
   }
