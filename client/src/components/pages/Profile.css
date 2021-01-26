@@ -3,35 +3,72 @@
   text-align: center;
   justify-content: space-between;
   align-items: center;
-  padding: 24px;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.Profile-Header-Part-1 {
+  display: flex;
+  text-align: left;
+  align-items: center;
 }
 
 .Profile-Header-Name {
+  margin: 0;
+  padding-left: 8px;
   font-size: 4em;
   color: #fa5460;
 }
 
 .Profile-Header-Stats {
+  margin: 0;
   font-size: 3em;
+  margin-left: 3%;
   color: #f8f8f8;
 }
 
 .Profile-Bottom-Container {
-  width: 50%;
   text-align: center;
 }
 
-.Profile-Bottom-Stats {
-  font-size: 3em;
+.Profile-Bottom-Text {
+  margin-top: 4vh;
+  margin-bottom: 2vh;
+  font-size: 2em;
   color: #f8f8f8;
 }
 
-.Profile-PictureContainer {
+.Profile-Constellation-Container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.Profile-Picture {
-  width: 80%;
+.Profile-Constellation {
+  width: 90%;
+}
+
+.Profile-Icon-Container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Profile-Icon {
+  height: 100px;
+  width: 100px;
+}
+
+.Profile-Header-Image {
+  height: 120px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 4px;
+}
+
+.Profile-Bottom-Image {
+  height: 100px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
 }

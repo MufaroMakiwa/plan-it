@@ -6,6 +6,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { navigate } from "@reach/router";
 import SideBar from "./SideBar.js";
+import Profile_Icon_1 from "../../public/Profile_Icon_1.png";
+import Profile_Icon_2 from "../../public/Profile_Icon_2.png";
 
 class NavBar extends Component {
 
