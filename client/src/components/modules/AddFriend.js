@@ -84,18 +84,17 @@ class AddFriend extends Component{
   }
 
 
-  unFriend = (friendId) => {
-    post("/api/friend/delete", {friendId: this.state.selectedUser._id}).then((friend) => {
-      this.props.filterFriends(friendId);
+  declineRequest = (friendId) => {
+    post("/api/friend/request/decline", {friendId: friendId}).then((friend) => {
+      this.props.updateRequests(friendId);
     })
     this.closeSearch()
   }
 
 
-  declineRequest = (friendId) => {
-    post("/api/friend/request/decline", {friendId: friendId}).then((friend) => {
-      console.log("Declining request");
-      this.props.updateRequests(friendId);
+  unFriend = (friendId) => {
+    post("/api/friend/delete", {friendId: this.state.selectedUser._id}).then((friend) => {
+      this.props.filterFriends(friendId);
     })
     this.closeSearch()
   }

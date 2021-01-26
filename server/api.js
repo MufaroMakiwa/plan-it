@@ -301,7 +301,6 @@ router.post("/friend/delete", (req, res) => {
   };
   Friend.deleteOne(query).then((friend) => {
     res.send(friend);
-    socketManager.getSocketFromUserID(req.user._id).emit("friend_deleted", req.body.friendId);
     socketManager.getSocketFromUserID(req.body.friendId).emit("friend_deleted", req.user._id);
   });
 });

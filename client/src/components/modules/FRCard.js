@@ -9,12 +9,13 @@ class FRCard extends Component {
   }
 
   accept = () => {
-    console.log("accept")
+    post("/api/friend/accept", {friendId: this.props.friendId}).then(friend => {
+      this.props.onAccept();
+    })
   }
 
   decline = () => {
-    console.log("decline")
-    post("/api/friend/delete", {friendId: this.props.friendId}).then((friend) => {
+    post("/api/friend/request/decline", {friendId: this.props.friendId}).then((friend) => {
       this.props.onDecline();
     })
   }

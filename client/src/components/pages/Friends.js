@@ -64,6 +64,12 @@ class Friends extends Component {
       this.setState((prevState) => ({
         currentFriends: [friend].concat(prevState.currentFriends),
       }))
+
+      // if the current user sent the request, filter their sent request array
+      if (friend.userId_1 === this.props.userId) {
+        console.log("I sent the request");
+        this.updateRequestsSent(friend.userId_2);
+      }
     })
 
     // listen for events when a friend is removed
@@ -141,14 +147,14 @@ class Friends extends Component {
 
   updateRequestsSent = (friendId) => {
     const friendRequestsSent = this.state.friendRequestsSent.filter((friend) => {
-      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
-               friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
+      return !(friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
     });
     this.setState({ friendRequestsSent });
   }
 
 
   filterFriends = (friendId) => {
+    console.log("FIlter friends called");
     const currentFriends = this.state.currentFriends.filter((friend) => {
       return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
                friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
@@ -198,7 +204,8 @@ class Friends extends Component {
                   userId={this.props.userId}
                   userName={this.props.userName}
                   userEmail={this.props.userEmail}
-                  currentFriends={this.state.currentFriends}> 
+                  currentFriends={this.state.currentFriends}
+                  filterFriends={this.filterFriends}> 
                 </CurrentFriends>
 
                 <FriendRequests

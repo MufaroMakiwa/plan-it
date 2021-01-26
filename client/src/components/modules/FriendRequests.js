@@ -7,26 +7,10 @@ import {get, post} from '../../utilities.js';
 class FriendRequests extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      friends: []
-    }
   }
 
-  acceptRequest = () => {
-    console.log("ACCEPT");
-  }
-
-  declineRequest = (friendId) => {
-    console.log("DECLINE");
-    const friends = this.state.friends.filter((friend) => {
-      return !(friend.userId_1 === friendId && friend.userId_2 === this.props.userId ||
-              friend.userId_1 === this.props.userId && friend.userId_2 === friendId)
-    });
-    this.setState({friends});
-  }
-
+  
   render() { 
-
     let friendsList = null;
     const hasFriends = this.props.friendRequests.length !== 0;
 
