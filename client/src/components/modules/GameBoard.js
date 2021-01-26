@@ -83,6 +83,8 @@ class GameBoard extends Component {
   }
 
   movePlayer = () => {
+    this.checkFinished();
+
     let next_player_x = 0;
     let next_player_y = 0;
 
@@ -107,11 +109,11 @@ class GameBoard extends Component {
       document.getElementById("Player").style.left = this.state.player_x + "px";
       document.getElementById("Player").style.top = this.state.player_y + "px";
     })
-
-    this.checkFinished();
   }
 
   moveOpponent = () => {
+    this.checkFinished();
+
     let cpuDirection = { x: 0, y: 0};
 
     let cpu_x_dist = this.state.player_x - this.state.cpu_x;
@@ -135,8 +137,6 @@ class GameBoard extends Component {
       document.getElementById("CPU").style.left = this.state.cpu_x + "px";
       document.getElementById("CPU").style.top = this.state.cpu_y + "px";
     })
-
-    this.checkFinished()
   };
 
   checkFinished = () => {
