@@ -165,6 +165,7 @@ class AddFriend extends Component{
               value={this.state.value} 
               onChange={this.handleChange}
               onFocus={() => this.setFocus(true)}
+              placeholder="Search a friend"
               className="AddFriend-searchInput"/>
           </div>
 

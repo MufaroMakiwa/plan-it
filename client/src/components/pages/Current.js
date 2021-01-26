@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import EmptyState from "../modules/EmptyState.js";
 import CurrentTask from "../modules/CurrentTask.js";
 import SideBar from "../modules/SideBar.js";
 
@@ -172,7 +172,7 @@ class Current extends Component {
         />
       ));
     } else {
-      tasksList = <div>No Tasks!</div>;
+      tasksList = <EmptyState />;
     }
 
     return ( 
