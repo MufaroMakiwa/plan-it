@@ -42,12 +42,13 @@ class CFCard extends Component {
   render() { 
     return ( 
       <>
-        <div className="CFCard-container" onClick = {}>
+        <div className="CFCard-container">
           <AccountCircleIcon style={{fontSize: 100}} />
-          <p className="card-title">{this.props.friendName}</p>
-
-          <button onClick={() => this.setOpenAddTaskDialog(true)} className ="challenge-button" type="button"> Challenge </button>
-          <button onClick={this.unFriend} className ="unfriend-button" type="button"> Unfriend </button>    
+          <div className="CFCard-content">
+            <span className="CFCard-title">{this.props.friendName}</span>
+            <span className="CFCard-message">{this.props.friendEmail}</span>
+          </div>
+          
         </div>
         
 

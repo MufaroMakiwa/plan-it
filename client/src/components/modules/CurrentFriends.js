@@ -24,6 +24,7 @@ class CurrentFriends extends Component {
           userId={this.props.userId}
           friendName={friendObj.userName_1 === this.props.userName ? friendObj.userName_2: friendObj.userName_1}
           friendId={friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1}
+          friendEmail={friendObj.userName_1 === this.props.userName ? friendObj.userEmail_2: friendObj.userEmail_1}
           onUnfriend={() => this.props.filterFriends(friendObj.userName_1 === this.props.userName ? friendObj.userId_2: friendObj.userId_1)}/>
       ));
     } else {
@@ -33,7 +34,10 @@ class CurrentFriends extends Component {
     return ( 
         <div className="CurrentFriends-container">
           <h1> Current Friends </h1>
-          {friendsList}
+          <div className="CurrentFriends-grid">
+            {friendsList}
+          </div>
+          
         </div>
     );
   }

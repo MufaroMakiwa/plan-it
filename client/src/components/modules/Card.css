@@ -3,16 +3,14 @@
   border-radius: 8px;
   padding: 16px;
   margin: 24px;
-
   display: flex;
   height: auto;
   flex-direction: row;
   align-items: center;
 }
 
-
 .card-title {
-  font-size: 24px;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
@@ -28,13 +26,13 @@
   background-color: pink;
 }
 
-.accept-button{
+.accept-button {
   height: auto;
   width: auto;
   background-color: aqua;
 }
 
-.decline-button{
+.decline-button {
   height: auto;
   width: auto;
   background-color: pink;
