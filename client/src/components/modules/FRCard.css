@@ -1,0 +1,11 @@
+.FRCard-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px;
+
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+}

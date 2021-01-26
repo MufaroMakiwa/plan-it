@@ -1,0 +1,38 @@
+.CFCard-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+
+  /* max-width: 100%; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.CFCard-container:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.CFCard-title {
+  font-size: 1.2em;
+}
+
+.CFCard-message {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.CFCard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
