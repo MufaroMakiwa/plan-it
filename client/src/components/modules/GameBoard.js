@@ -21,6 +21,7 @@ class GameBoard extends Component {
       down: false,
       left: false,
       right: false,
+      playing: false,
     }
   }
 
@@ -50,7 +51,6 @@ class GameBoard extends Component {
     })
 
     this.setupGame();
-    this.playGame();
   }
 
   setupGame = () => {
@@ -69,6 +69,8 @@ class GameBoard extends Component {
       right: false,
       up: false,
       down: false,
+      player_interval: null,
+      opponent_interval: null,
     }, () => {
       document.getElementById("Player").style.left = this.state.player_x + "px";
       document.getElementById("CPU").style.left = this.state.cpu_x + "px";
@@ -78,8 +80,26 @@ class GameBoard extends Component {
   }
 
   playGame = () => {
-    let player_move = setInterval(this.moveOpponent, 30);
-    let opponent_move = setInterval(this.movePlayer, 30);
+    if (this.state.playing) {
+      clearInterval(this.state.player_interval);
+      clearInterval(this.state.opponent_interval);
+      this.setupGame();
+
+      this.setState({ 
+        playing: false,
+        player_interval: null,
+        opponent_interval: null,
+      });
+    } else {
+      let player_moving = setInterval(this.moveOpponent, 30);
+      let opponent_moving = setInterval(this.movePlayer, 30);
+
+      this.setState({ 
+        playing: true,
+        player_interval: player_moving,
+        opponent_interval: opponent_moving,
+      });
+    }
   }
 
   movePlayer = () => {
@@ -140,17 +160,23 @@ class GameBoard extends Component {
   };
 
   checkFinished = () => {
-    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 12 && Math.abs(this.state.player_y - this.state.cpu_y) <= 12) {
-      this.setupGame();
-      window.alert("Game Over");
+    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 14 && Math.abs(this.state.player_y - this.state.cpu_y) <= 14) {
+      this.playGame();
     }
   }
 
   render() {
     return (
-      <div id="Board" className="GameBoard-Container">
-        <Player/>
-        <Opponent/>
+      <div className="GameBoard-Container">
+        <div id="Board" className="GameBoard-Main">
+          <Player/>
+          <Opponent/>
+        </div>
+        <div id="Start" className="GameBoard-Button" onClick={this.playGame}>
+          <h3 className="GameBoard-Text">
+            {(this.state.playing === false) ? "Start New Game" : "End Game"}
+          </h3>
+        </div>
       </div>
     );
   }
