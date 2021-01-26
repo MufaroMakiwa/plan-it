@@ -119,7 +119,7 @@
   }
 }
 
-@media only all and (max-width: 400px) {
+@media all and (max-width: 400px) {
   .FriendDetailsDialog-details {
     margin-left: 8px;
   }

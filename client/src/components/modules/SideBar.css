@@ -176,7 +176,7 @@
   right: 8px;
   width: 1.5em;
   height: 1.5em;
-  background-color: #fa5460;
+  background-color: var(--red);
   color: white;
   display: flex;
   align-items: center;
@@ -246,7 +246,7 @@
   padding: 32px 0;
 }
 
-@media only all and (max-width: 800px) {
+@media all and (max-width: 800px) {
   .SideBar-containerResponsive {
     display: none;
   }

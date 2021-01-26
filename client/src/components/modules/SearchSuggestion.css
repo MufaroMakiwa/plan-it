@@ -7,7 +7,7 @@
 }
 
 .SearchSuggestion-container:hover {
-  background-color: rgb(79, 70, 85, 0.5);
+  background-color: var(--search_hover);
 }
 
 .SearchSuggestion-details {
@@ -39,7 +39,7 @@
   justify-content: center;
 }
 
-@media only all and (max-width: 400px) {
+@media all and (max-width: 400px) {
   .SearchSuggestion-email {
     font-size: 0.8em;
   }

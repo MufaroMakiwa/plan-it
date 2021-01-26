@@ -70,14 +70,14 @@
 }
 
 .AddTaskDialog-inputError {
-  color: #d50000;
+  color: var(--red_error);
   background-color: #fff8f8;
-  border-color: #d50000;
+  border-color: var(--red_error);
 }
 
 .AddTaskDialog-errorMessage {
   padding: 2px 0;
-  color: #d50000;
+  color: var(--red_error);
   font-size: 0.9em;
   visibility: hidden;
 }
@@ -109,7 +109,7 @@
 .AddTaskDialog-radioButton {
   width: 1.5em;
   height: 1.5em;
-  border: 2px solid #c4c4c4;
+  border: 2px solid var(--grey);
   border-radius: 50%;
   margin-right: 10px;
   box-sizing: border-box;
@@ -172,7 +172,7 @@
   color: var(--background_color_secondary);
 }
 
-@media only all and (max-width: 400px) {
+@media all and (max-width: 400px) {
   .AddTaskDialog-radioContainer {
     flex-direction: column;
   }

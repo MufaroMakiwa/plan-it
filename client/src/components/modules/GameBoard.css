@@ -2,7 +2,7 @@
   height: 60vh;
   border-width: 10px;
   border-style: solid;
-  border-color: #fa5460;
+  border-color: var(--red);
   background-color: #000318;
   position: relative;
   margin: 24px 48px;

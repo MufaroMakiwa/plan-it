@@ -36,7 +36,7 @@
 
 .ChallengeTask-description {
   font-weight: bold;
-  color: #fa5460;
+  color: var(--red);
 }
 
 .ChallengeTask-challengedBy {
@@ -66,14 +66,14 @@
 
 .ChallengeTask-acceptButton {
   border: none;
-  background-color: #fa5460;
+  background-color: var(--red);
   color: white;
 }
 
 .ChallengeTask-declineButton {
-  border: 1px solid #fa5460;
+  border: 1px solid var(--red);
   background-color: transparent;
-  color: #fa5460;
+  color: var(--red);
 }
 
 .ChallengeTask-acceptButton:hover {
@@ -81,12 +81,9 @@
 }
 
 .ChallengeTask-declineButton:hover {
-  /* border: 1px solid var(--background_color_secondary);
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--background_color_secondary); */
-
-  border: 1px solid #c4c4c4;
-  color: #c4c4c4;
+  border: 1px solid var(--grey);
+  color: var(--grey);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .ChallengeTask-details > * {
