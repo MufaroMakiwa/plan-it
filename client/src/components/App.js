@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router, navigate } from "@reach/router";
+import { Router, navigate, redirectTo } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import LandingPage from "./pages/LandingPage.js";
 import Friends from "./pages/Friends.js";
@@ -26,6 +26,7 @@ class App extends Component {
       userId: undefined,
       userName: undefined,
       userEmail: undefined,
+      loading: true,
     };
   }
 
@@ -36,9 +37,26 @@ class App extends Component {
         this.setState({ 
           userId: user._id,
           userName: user.name,
-          userEmail: user.email});
+          userEmail: user.email,
+          loading: false
+        });
+
+      } else { 
+        this.setState({
+          loading: false
+        })
+        navigate("/");     
       }
     });
+  }
+
+  componentDidUpdate() {
+    window.onpopstate = e => {
+      if (!this.state.userId) {
+        console.log(`Still navigating back: url is ${window.location.pathname}`)
+        navigate("/");
+      }
+    }
   }
 
   handleLogin = (res) => {
@@ -49,7 +67,7 @@ class App extends Component {
       this.setState({
          userId: user._id,
          userName: user.name,
-         userEmail: user.email 
+         userEmail: user.email
         });
       post("/api/initsocket", { socketid: socket.id });
       navigate('/current');
@@ -67,6 +85,12 @@ class App extends Component {
   };
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div></div>
+      )   
+    }
+
     return (
       <>
         <MetaTags>

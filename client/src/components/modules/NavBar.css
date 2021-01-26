@@ -21,7 +21,7 @@
   background-color: var(--background_color_secondary);
   display: flex;
   align-items: center;
-  margin-left: 24px;
+  padding-left: 24px;
 }
 
 .NavBar-nameContainer {
@@ -47,14 +47,6 @@
 
 .NavBar-icon:hover {
   color: rgb(255, 255, 255, 0.5);
-}
-
-.NavBar-sideBar_hidden {
-  visibility: hidden;
-}
-
-.NavBar-sideBar {
-  visibility: visible;
 }
 
 .NavBar-dim_background {

@@ -250,4 +250,18 @@
   .SideBar-containerResponsive {
     display: none;
   }
+
+  .SideBar-containerDrawer {
+    width: var(--sidebar_width);
+    z-index: -2;
+    left: calc(-1 * var(--sidebar_width));
+    animation: slide_in 0.5s forwards;
+    animation-delay: 0.1s;
+  }
+
+  @keyframes slide_in {
+    100% {
+      left: 0;
+    }
+  }
 }

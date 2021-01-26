@@ -19,6 +19,7 @@ import { DateMethods } from "../modules/DateMethods.js";
 import CustomBackground from '../modules/CustomBackground.js';
 import NavBar from "../modules/NavBar.js";
 
+import { navigate } from "@reach/router";
 
 
 class Current extends Component {

@@ -1,5 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM, { render } from "react-dom";
+import { Redirect } from "react-router-dom";
 import App from "./components/App.js";
 
 

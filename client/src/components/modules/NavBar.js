@@ -42,7 +42,6 @@ class NavBar extends Component {
         }
         
         {this.state.isDisplayingSideBar && 
-        // <div className={this.state.isDisplayingSideBar ? "NavBar-sideBar" : "NavBar-sideBar_hidden"}>
           <div>
             <SideBar 
               link={this.props.link}
@@ -51,6 +50,7 @@ class NavBar extends Component {
               handleLogout={this.props.handleLogout}/>
           </div>    
        }
+       
 
         <div className="NavBar-nameContainer" onClick={this.handleLogoClick}></div>
 
