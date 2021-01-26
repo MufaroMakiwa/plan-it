@@ -1,0 +1,53 @@
+.EmptyState-container {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255, 0.05);
+  border: 1px solid var(--gray);
+  border-radius: 16px;
+  margin: 24px;
+  padding: 16px;
+}
+
+.EmptyState-heading {
+  font-size: 2em;
+  font-weight: bolder;
+  color: var(--gray);
+  padding: 8px;
+}
+
+.EmptyState-message {
+  font-weight: normal;
+  color: rgb(255, 255, 255, 0.6);
+  padding: 8px;
+  display: inline;
+  text-align: center;
+  font-style: italic;
+}
+
+.EmptyState-addButton {
+  height: 2em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+  background-color: var(--background_color_secondary);
+  border-radius: 50%;
+}
+
+.EmptyState-addButton:hover {
+  background-color: var(--color_on_secondary);
+  color: black;
+  cursor: pointer;
+}
+
+.EmptyState-content {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

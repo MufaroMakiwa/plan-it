@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SideBar from "../modules/SideBar.js";
-
+import EmptyState from "../modules/EmptyState.js";
 import "../../utilities.css";
 import "./Challenges.css";
 
@@ -236,10 +236,28 @@ class Challenges extends Component {
       }
     }
     if (this.state.displayChallengesReceived) {
-      return challengesReceived;
+      if (challengesReceived.length > 0) {
+        return challengesReceived;
+
+      } else {
+        return (
+          <EmptyState 
+            heading="No challenges!"
+            message="You have not received any challenges from your friends."/>
+        )
+      }
 
     } else {
-      return challengesSent;
+      if (challengesReceived.length > 0) {
+        return challengesSent;
+ 
+      } else {
+        return (
+          <EmptyState
+            heading="No challenges!"
+            message="You have not sent any challenges to your friends. Go to the friends page and challenge your friends so they can earn points." />
+        )
+      }
     }
   }
 

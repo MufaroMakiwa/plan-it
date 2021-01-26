@@ -5,7 +5,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { GoogleLogout } from 'react-google-login';
 import {get, post} from '../../utilities.js';
 import { socket } from "../../client-socket.js";
-
  
 
 
@@ -157,14 +156,14 @@ class SideBar extends Component {
           </div>
         }     
 
-          <div to="/profile" 
-            onClick={() =>this.handleSubmit("/profile")}  
-            className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
-            <AccountCircleIcon style={{fontSize: 100}} />
-            <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
-              {this.props.userName ? this.props.userName: "Placeholder"}
-            </p>   
-          </div>
+        <div to="/profile" 
+          onClick={() =>this.handleSubmit("/profile")}  
+          className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
+          <AccountCircleIcon style={{fontSize: 100}} />
+          <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
+            {this.props.userName ? this.props.userName: "Placeholder"}
+          </p>   
+        </div>
         
         <hr className="SideBar-divider"></hr>
 

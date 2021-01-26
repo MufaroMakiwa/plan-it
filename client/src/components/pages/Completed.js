@@ -4,6 +4,7 @@ import "../../utilities.css";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import CompletedTask from "../modules/CompletedTask.js";
+import EmptyState from "../modules/EmptyState.js";
 import Toast from "../modules/Toast.js";
 import { navigate } from "@reach/router";
 import {get , post} from "../../utilities.js";
@@ -97,7 +98,7 @@ class Completed extends Component {
           sendChallengeNotification={this.sendChallengeNotification}/>
       ));
     } else {
-      {completedList = <div></div>;}
+      completedList = <EmptyState />;
     }
 
     return ( 
