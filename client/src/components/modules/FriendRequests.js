@@ -12,22 +12,6 @@ class FriendRequests extends Component {
     }
   }
 
-  getRequests = () => {
-    get("/api/friend/requests", {}).then((friends) => {
-      this.setState({friends})
-    })
-  }
-
-  componentDidMount() {
-    // this.getRequests();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!prevProps.userName && this.props.userName ) {
-      // this.getRequests();
-    }
-  }
-
   acceptRequest = () => {
     console.log("ACCEPT");
   }
