@@ -148,8 +148,8 @@ class GameBoard extends Component {
     next_player_x += this.state.player_x;
     next_player_y += this.state.player_y;
 
-    next_player_x = Math.min(next_player_x, this.state.board_width - 20);
-    next_player_y = Math.min(next_player_y, this.state.board_height - 20);
+    next_player_x = Math.min(next_player_x, this.state.board_width - 40);
+    next_player_y = Math.min(next_player_y, this.state.board_height - 40);
 
     next_player_x = Math.max(next_player_x, 0);
     next_player_y = Math.max(next_player_y, 0);
@@ -175,8 +175,8 @@ class GameBoard extends Component {
     cpuDirection.x = this.state.num_turns / 200 * cpu_x_dist / cpu_total_dist;
     cpuDirection.y = this.state.num_turns / 200 * cpu_y_dist / cpu_total_dist;
 
-    let next_cpu_x = Math.min(this.state.cpu_x + cpuDirection.x, this.state.board_width - 20);
-    let next_cpu_y = Math.min(this.state.cpu_y + cpuDirection.y, this.state.board_height - 20);
+    let next_cpu_x = Math.min(this.state.cpu_x + cpuDirection.x, this.state.board_width - 40);
+    let next_cpu_y = Math.min(this.state.cpu_y + cpuDirection.y, this.state.board_height - 40);
 
     next_cpu_x = Math.max(0, next_cpu_x);
     next_cpu_y = Math.max(0, next_cpu_y);
