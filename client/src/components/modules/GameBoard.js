@@ -206,7 +206,7 @@ class GameBoard extends Component {
   }
 
   checkFinished = () => {
-    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 14 && Math.abs(this.state.player_y - this.state.cpu_y) <= 14) {
+    if (Math.abs(this.state.player_x - this.state.cpu_x) <= 20 && Math.abs(this.state.player_y - this.state.cpu_y) <= 20) {
       this.playGame();
     }
   }
@@ -215,7 +215,8 @@ class GameBoard extends Component {
     return (
       <div className="GameBoard-Container">
         <div id="Board" className="GameBoard-Main">
-          <Player/>
+          <Player
+            skin={this.state.skin}/>
           <Opponent/>
         </div>
         <div className="GameBoard-Bottom">

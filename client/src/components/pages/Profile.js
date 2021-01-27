@@ -19,6 +19,13 @@ import Icon_4 from "../../public/Profile_Icon_4.png";
 import Icon_5 from "../../public/Profile_Icon_5.png";
 import Icon_6 from "../../public/Profile_Icon_6.png";
 
+import Rocket_1 from "../../public/Player_Rocket_1.png";
+import Rocket_2 from "../../public/Player_Rocket_2.png";
+import Rocket_3 from "../../public/Player_Rocket_3.png";
+import Rocket_4 from "../../public/Player_Rocket_4.png";
+import Rocket_5 from "../../public/Player_Rocket_5.png";
+import Rocket_6 from "../../public/Player_Rocket_6.png";
+
 import { navigate } from "@reach/router";
 import CustomBackground from '../modules/CustomBackground.js';
 import NavBar from "../modules/NavBar.js";
@@ -34,6 +41,7 @@ class Profile extends Component {
       currPoints: 0,
       currNumFriends: 0,
       currCoins: 0,
+      currSkin: 1,
       currIcon: this.props.userIcon,
       available_skins: [true, false, false, false, false, false],
       loading: true
@@ -83,6 +91,7 @@ class Profile extends Component {
         currNumFriends: profile.num_friends,
         currCoins: profile.coins,
         currIcon: profile.icon,
+        currSkin: profile.skin,
         available_skins: profile.available_skins,
         loading: false
       });
@@ -116,21 +125,29 @@ class Profile extends Component {
     if (this.state.currCoins > 20) {
       let available_now = this.state.available_skins;
       available_now[num - 1] = true;
-      console.log(available_now);
-      post("/api/profile/skin", {
+
+      post("/api/profile/buyskin", {
         userId: this.props.userId,
         coins: 20,
+        skin: num,
         available_skins: available_now,
       })
       this.setState({
         available_skins: available_now,
-        coins: this.state.coins - 20,
+        currCoins: this.state.currCoins - 20,
       })
     }
   }
 
-  changeSkin = () => {
-    console.log("Changing Skin");
+  changeSkin = (skinNum) => {
+    post("/api/profile/skin", {
+      userId: this.props.userId,
+      skin: skinNum,
+    }).then(() => {
+      this.setState({
+        currSkin: skinNum,
+      });
+    });
   }
 
   render() { 
@@ -185,26 +202,57 @@ class Profile extends Component {
                 <div className="Profile-Icon-Container">
                   {this.state.available_skins[0] ?
                     (<div>
-                      <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.changeSkin(1)}/> 
+                      <img src={Rocket_1} className="Profile-Bottom-Image" alt="Rocket Option 1" onClick={() => this.changeSkin(1)}/> 
                     </div>):
                     (<div>
-                      <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.buySkin(1)}/>
+                      <img src={Rocket_1} className="Profile-Bottom-Image" alt="Rocket Option 1" onClick={() => this.buySkin(1)}/>
                       <figcaption className="Profile-Caption"> 20 Coins </figcaption>
                     </div>)}
 
                   {this.state.available_skins[1] ?
                     (<div>
-                      <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.changeSkin(2)}/> 
+                      <img src={Rocket_2} className="Profile-Bottom-Image" alt="Rocket Option 2" onClick={() => this.changeSkin(2)}/> 
                     </div>):
                     (<div>
-                      <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.buySkin(2)}/>
+                      <img src={Rocket_2} className="Profile-Bottom-Image" alt="Rocket Option 2" onClick={() => this.buySkin(2)}/>
                       <figcaption className="Profile-Caption"> 20 Coins </figcaption>
                     </div>)}
 
-                  <img src={Icon_3} className="Profile-Bottom-Image" alt="Icon Option 3" onClick={() => this.changeIcon(3)}/>
-                  <img src={Icon_4} className="Profile-Bottom-Image" alt="Icon Option 4" onClick={() => this.changeIcon(4)}/>
-                  <img src={Icon_5} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(5)}/>
-                  <img src={Icon_6} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(6)}/>
+                    {this.state.available_skins[2] ?
+                    (<div>
+                      <img src={Rocket_3} className="Profile-Bottom-Image" alt="Rocket Option 3" onClick={() => this.changeSkin(3)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Rocket_3} className="Profile-Bottom-Image" alt="Rocket Option 3" onClick={() => this.buySkin(3)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
+
+                    {this.state.available_skins[3] ?
+                    (<div>
+                      <img src={Rocket_4} className="Profile-Bottom-Image" alt="Rocket Option 4" onClick={() => this.changeSkin(4)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Rocket_4} className="Profile-Bottom-Image" alt="Rocket Option 4" onClick={() => this.buySkin(4)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
+
+                    {this.state.available_skins[4] ?
+                    (<div>
+                      <img src={Rocket_5} className="Profile-Bottom-Image" alt="Rocket Option 5" onClick={() => this.changeSkin(5)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Rocket_5} className="Profile-Bottom-Image" alt="Rocket Option 5" onClick={() => this.buySkin(5)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
+
+                    {this.state.available_skins[5] ?
+                    (<div>
+                      <img src={Rocket_6} className="Profile-Bottom-Image" alt="Rocket Option 6" onClick={() => this.changeSkin(6)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Rocket_6} className="Profile-Bottom-Image" alt="Rocket Option 6" onClick={() => this.buySkin(6)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
                 </div>
               </div>
             </div> 

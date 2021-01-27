@@ -1,7 +1,6 @@
 .Opponent-player {
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  background-color: #F8F8F8;
+  height: 40px;
+  width: 40px;
   position: absolute;
 }

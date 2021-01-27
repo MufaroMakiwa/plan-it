@@ -218,10 +218,11 @@ router.post("/profile/score", (req, res) => {
   });
 })
 
-router.post("/profile/skin", (req, res) => {
+router.post("/profile/buyskin", (req, res) => {
   User.findById(req.body.userId).then((profile) => {
     profile.available_skins = req.body.available_skins;
     profile.coins = profile.coins - req.body.coins;
+    profile.skin = req.body.skin;
     profile.save().then((profile) => {
       res.send(profile);
     })
@@ -231,6 +232,15 @@ router.post("/profile/skin", (req, res) => {
 router.post("/profile/icon", (req, res) => {
   User.findById(req.body.userId).then((profile) => {
     profile.icon = req.body.icon;
+    profile.save().then((profile) => {
+      res.send(profile);
+    })
+  });
+})
+
+router.post("/profile/skin", (req, res) => {
+  User.findById(req.body.userId).then((profile) => {
+    profile.skin = req.body.skin;
     profile.save().then((profile) => {
       res.send(profile);
     })
