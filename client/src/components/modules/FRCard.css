@@ -35,12 +35,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50px;
 }
 
 .FRCard-iconSmaller {
   display: none;
   align-items: center;
   justify-content: center;
+  width: 40px;
+}
+
+.FRCard-bigIcon {
+  height: 50px;
+  width: 50px;
+}
+
+.FRCard-bigIcon {
+  height: 40px;
+  width: 40px;
 }
 
 .FRCard-buttonsContainer {

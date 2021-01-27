@@ -4,11 +4,14 @@ import Toast from "../modules/Toast.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import "./CurrentFriends.css";
 import {get, post} from '../../utilities.js';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FriendDetailsDialog from "./FriendDetailsDialog.js";
 
-
-
+import Icon_1 from "../../public/Profile_Icon_1.png";
+import Icon_2 from "../../public/Profile_Icon_2.png";
+import Icon_3 from "../../public/Profile_Icon_3.png";
+import Icon_4 from "../../public/Profile_Icon_4.png";
+import Icon_5 from "../../public/Profile_Icon_5.png";
+import Icon_6 from "../../public/Profile_Icon_6.png";
 
 class CFCard extends Component {
   constructor(props) {
@@ -17,7 +20,12 @@ class CFCard extends Component {
       isOpenAddTaskDialog: false,
       displayToast: false,
       isOpenFriendDialog: false,
+      icon: null,
     }
+  }
+
+  componentDidMount() {
+    this.getInfo();
   }
 
   setOpenAddTaskDialog = (bool) => {
@@ -63,12 +71,31 @@ class CFCard extends Component {
     })
   }
 
+  getInfo = () => {
+    get("/api/friend/fill", {
+      _id: this.props.friendId,
+    }).then((profile) => {
+      this.setIcon(profile.icon);
+    })
+  }
+
+  setIcon = (num) => {
+    if ( num === 1 ) { this.setState({ icon: Icon_1 }); }
+    else if ( num === 2 ) { this.setState({ icon: Icon_2 }); }
+    else if ( num === 3 ) { this.setState({ icon: Icon_3 }); }
+    else if ( num === 4 ) { this.setState({ icon: Icon_4 }); }
+    else if ( num === 5 ) { this.setState({ icon: Icon_5 }); }
+    else if ( num === 6 ) { this.setState({ icon: Icon_6 }); }
+    else { this.setState({ icon: Icon_1 }); }
+  }
 
   render() { 
     return ( 
       <>
         <div className="CFCard-container" onClick={this.openFriendDialog}>
-          <AccountCircleIcon style={{fontSize: 100}} />
+          {!this.state.icon ? (<div className="CFCard-icon"></div>) : (
+            <img src={this.state.icon} className="CFCard-icon" alt="Search Result Icon"/>
+          )}
           <div className="CFCard-content">
             <span className="CFCard-title">{this.props.friendName}</span>
             <span className="CFCard-message">{this.props.friendEmail}</span>

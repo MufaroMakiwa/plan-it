@@ -146,6 +146,7 @@ class AddFriend extends Component{
         key={`SearchSuggestion_${userObj._id}`}
         name={userObj.name}
         email={userObj.email}
+        icon={userObj.icon}
         onClick={() => this.suggestionSelected(userObj)}/>
     ))
 
@@ -194,6 +195,7 @@ class AddFriend extends Component{
             unFriend={() => this.unFriend(this.state.selectedUser._id)}
             name={this.state.selectedUser.name}
             email={this.state.selectedUser.email}
+            icon={this.state.selectedUser.icon}
             userEmail={this.props.userEmail}
             currentFriends={this.props.currentFriends}
             friendRequests={this.props.friendRequests}
