@@ -34,7 +34,6 @@
   position: relative;
   width: auto;
   height: 40px;
-  background-color: var(--color_on_secondary);
   border-radius: 16px;
   margin: 24px;
   display: flex;
