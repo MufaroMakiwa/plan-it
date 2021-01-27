@@ -171,14 +171,22 @@ class Profile extends Component {
         
         {this.state.loading ? (<div></div>) : (
           <div className="page_main">
-            <div className="tile_box_centered">
+            <div className="tile_box_centered Profile-container">
+
               <div className="Profile-Header">
                 <div className="Profile-Header-Part-1">
                   <img src={this.getIcon()} className="Profile-Header-Image" alt="User Icon"/>
-                  <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
+                  <div className="Profile-details">
+                    <span className="Profile-Header-Name"> {this.props.userName} </span>
+                    <span className="Profile-Header-Email">{this.props.userEmail}</span>
+                  </div>
                 </div>
-                <h1 className="Profile-Header-Stats"> {this.state.currCoins} Coins </h1>
-                <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
+
+                <div className="Profile-statsContainer">
+                  <span className="Profile-Header-Stats"> {this.state.currCoins} Coins </span>
+                  <span className="Profile-Header-Stats"> {this.state.currPoints} Points </span>
+                </div>
+                
               </div>
 
               <div className="Profile-Constellation-Container" onClick={this.playRocketTag}>
@@ -186,7 +194,7 @@ class Profile extends Component {
               </div>
 
               <div className="Profile-Bottom-Container">
-                <h1 className="Profile-Bottom-Text"> Select your profile icon below: </h1>
+                <span className="Profile-Bottom-Text"> Select your profile icon below: </span>
                 <div className="Profile-Icon-Container">
                   <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.changeIcon(1)}/>
                   <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.changeIcon(2)}/>
@@ -198,7 +206,7 @@ class Profile extends Component {
               </div>
 
               <div className="Profile-Bottom-Container">
-                <h1 className="Profile-Bottom-Text"> Select your rocket tag skin below: </h1>
+                <span className="Profile-Bottom-Text"> Select your rocket tag skin below: </span>
                 <div className="Profile-Icon-Container">
                   {this.state.available_skins[0] ?
                     (<div>

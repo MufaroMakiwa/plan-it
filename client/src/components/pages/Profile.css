@@ -1,30 +1,53 @@
+.Profile-container {
+  margin: 0 24px;
+}
+
 .Profile-Header {
+  margin: 24px;
   display: flex;
-  text-align: center;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
 }
 
 .Profile-Header-Part-1 {
   display: flex;
+  flex-grow: 1;
+  flex-direction: row;
   text-align: left;
   align-items: center;
+}
+
+.Profile-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .Profile-Header-Name {
   margin: 0;
   padding-left: 8px;
-  font-size: 4em;
+  font-size: 2em;
   color: #fa5460;
 }
 
-.Profile-Header-Stats {
+.Profile-Header-Email {
   margin: 0;
-  font-size: 3em;
-  margin-left: 3%;
+  padding-left: 8px;
+  color: var(--color_on_secondary);
+  font-style: italic;
+}
+
+.Profile-Header-Stats {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  font-size: 1.5em;
+  padding: 16px;
   color: #f8f8f8;
+}
+
+.Profile-statsContainer {
+  display: flex;
+  flex-direction: row;
 }
 
 .Profile-Bottom-Container {
@@ -32,14 +55,17 @@
 }
 
 .Profile-Bottom-Text {
-  margin-top: 4vh;
-  margin-bottom: 2vh;
-  font-size: 2em;
+  text-align: center;
+  padding: 24px;
+  font-size: 1.3em;
   color: #f8f8f8;
 }
 
 .Profile-Constellation-Container {
+  margin-top: 24px;
+  margin-bottom: 24px;
   display: flex;
+  transform: scale(0.95);
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255, 0.05);
@@ -51,9 +77,12 @@
 }
 
 .Profile-Icon-Container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 24px;
+  row-gap: 24px;
+  column-gap: 0;
+  margin-bottom: 48px;
 }
 
 .Profile-Icon {
@@ -62,19 +91,100 @@
 }
 
 .Profile-Header-Image {
-  height: 120px;
+  height: 60px;
   border-radius: 50%;
   border-style: solid;
-  border-width: 4px;
+  border-width: 1px;
 }
 
 .Profile-Bottom-Image {
-  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
   border-radius: 50%;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
+  margin: auto;
 }
 
-.Profile-Caption{
+.Profile-Bottom-Image:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.Profile-Caption {
   font-size: 12px;
+}
+
+@media all and (max-width: 1360px) {
+  .Profile-Constellation-Container {
+    transform: scale(0.9);
+  }
+
+  .Profile-Icon-Container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media all and (max-width: 1100px) {
+  .Profile-Constellation-Container {
+    transform: scale(0.8);
+  }
+
+  .Profile-Icon-Container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .Profile-Header-Name {
+    font-size: 1.8em;
+  }
+}
+
+@media all and (max-width: 1000px) {
+  .Profile-Constellation-Container {
+    transform: scale(0.8);
+  }
+
+  .Profile-Icon-Container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .Profile-Header-Name {
+    font-size: 1.6em;
+  }
+
+  .Profile-Header-Stats {
+    font-size: 1.4em;
+  }
+}
+
+@media all and (max-width: 572px) {
+  .Profile-Header-Image {
+    height: 50px;
+  }
+
+  .Profile-Header-Name {
+    font-size: 1.4em;
+  }
+
+  .Profile-Header-Stats {
+    font-size: 1.2em;
+  }
+
+  .Profile-Bottom-Image {
+    height: 75px;
+  }
+
+  .Profile-Icon-Container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Profile-Header-Email {
+    font-size: 0.9em;
+  }
+
+  .Profile-Bottom-Text {
+    font-size: 1.1em;
+  }
 }
