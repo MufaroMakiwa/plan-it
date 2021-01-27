@@ -7,7 +7,7 @@
 }
 
 .SearchSuggestion-container:hover {
-  background-color: var(--search_hover);
+  background-color: rgb(59, 64, 75, 0.3);
 }
 
 .SearchSuggestion-details {
