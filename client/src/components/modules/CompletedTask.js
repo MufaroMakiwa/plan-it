@@ -109,12 +109,12 @@ class CompletedTask extends Component {
 
             <div>
               <p className="CompletedTask-description">Completed</p>
-              <p>{DateMethods.getDateFormat(this.props.date_completed)}</p>
+              <p className="task_summary">{DateMethods.getDateFormat(this.props.date_completed)}</p>
             </div>
 
             <div>
               <p className="CompletedTask-description">Duration</p>
-              <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
+              <p className="task_summary">{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
             </div>
 
           </div>
@@ -123,12 +123,12 @@ class CompletedTask extends Component {
 
             <div>
               <p className="CompletedTask-description">Frequency</p>
-              <p>{this.props.frequency}</p>
+              <p className="task_summary">{this.props.frequency}</p>
             </div>
 
             <div>
               <p className="CompletedTask-description">Points</p>
-              <p>TODO</p>
+              <p className="task_summary">TODO</p>
             </div>
             
           </div>
@@ -148,15 +148,15 @@ class CompletedTask extends Component {
           </div>
         </div>
 
-        <hr className="CurrentTask-divider"></hr>
+        <hr className="CompletedTask-divider"></hr>
 
-        <div className="CurrentTask-progressDetails">
-          <div className="CurrentTask-progressLabels">
+        <div className="CompletedTask-progressDetails">
+          <div className="CompletedTask-progressLabels">
             <span>Progress summary</span>
             <span>{`${this.getCompletedDays()}/${this.props.duration}`}</span>
           </div>
 
-          <div className="CurrentTask-progress">
+          <div className="CompletedTask-progress">
             {gridCells}
           </div>
         </div>

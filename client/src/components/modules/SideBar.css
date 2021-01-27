@@ -32,7 +32,7 @@
   margin: 24px;
   display: flex;
   flex-direction: row;
-  color: black;
+  color: white;
   justify-content: center;
   align-items: center;
   text-decoration: none;
@@ -76,21 +76,22 @@
   color: black !important;
   justify-content: center;
   padding: 10px 16px;
-  mix-blend-mode: hard-light;
+  mix-blend-mode: overlay;
   background-color: #c4c4c4;
   flex-shrink: 0;
   outline: none;
 }
 
 .SideBar-button:hover {
-  mix-blend-mode: normal;
-  background-color: white;
+  mix-blend-mode: difference;
+  background-color: aqua;
 }
 
 .SideBar-horizontalLine {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  mix-blend-mode: overlay;
   width: 100%;
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .SideBar-signOutContainer {
@@ -102,7 +103,6 @@
   margin-top: auto;
   flex-direction: column;
   flex-shrink: 0;
-  mix-blend-mode: overlay;
 }
 
 .SideBar-nameContainer {
@@ -113,7 +113,7 @@
   display: block;
   background-size: cover;
   background-position: center;
-  background-image: url("../../public/logo.png");
+  background-image: url("../../public/main.png");
   cursor: pointer;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .SideBar-nameContainer:hover {
-  background-image: url("../../public/logo_darker.png");
+  background-image: url("../../public/hover.png");
 }
 
 .SideBar-username {
@@ -154,19 +154,17 @@
 }
 
 .SideBar-profileSelected {
-  background: rgba(0, 0, 0, 0.1);
-  mix-blend-mode: normal;
+  background: rgba(255, 255, 255, 0.05);
   color: inherit;
 }
 
 .SideBar-profile:hover {
-  background: rgba(0, 0, 0, 0.1);
-  mix-blend-mode: normal;
+  background: rgba(255, 255, 255, 0.05);
   cursor: pointer;
 }
 
 .SideBar-divider {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   margin: 0 24px;
   mix-blend-mode: overlay;
 }
@@ -211,10 +209,10 @@
 }
 
 .SideBar-tagBall {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   display: block;
-  background-image: url("../../public/rocket_tag_sideBar.png");
+  background-image: url("../../public/rocket.png");
   background-size: cover;
   transition: ease-in;
   border-radius: 50%;

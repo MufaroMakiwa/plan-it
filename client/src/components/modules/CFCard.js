@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import "./Card.css";
 import "./CFCard.css";
 import Toast from "../modules/Toast.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import "./CurrentFriends.css";
 import {get, post} from '../../utilities.js';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FriendDetailsDialog from "./FriendDetailsDialog.js";
 
 
 
@@ -16,6 +16,7 @@ class CFCard extends Component {
     this.state = {
       isOpenAddTaskDialog: false,
       displayToast: false,
+      isOpenFriendDialog: false,
     }
   }
 
@@ -39,30 +40,67 @@ class CFCard extends Component {
     return () => clearTimeout(timer);
   }
 
+
+  openFriendDialog = () => {
+    this.setState( {
+      isOpenFriendDialog: true
+    })
+  }
+
+
+
+  closeDialogOnOutsideClick = () => {
+    this.setState({
+      isOpenFriendDialog: false,
+    })
+  }
+
+
+  challenge = () => {
+    this.setState({
+      isOpenAddTaskDialog: true,
+      isOpenFriendDialog: false
+    })
+  }
+
+
   render() { 
     return ( 
       <>
-        <div className="CFCard-container">
+        <div className="CFCard-container" onClick={this.openFriendDialog}>
           <AccountCircleIcon style={{fontSize: 100}} />
           <div className="CFCard-content">
             <span className="CFCard-title">{this.props.friendName}</span>
             <span className="CFCard-message">{this.props.friendEmail}</span>
-          </div>
-          
+          </div>         
         </div>
         
+        {this.state.isOpenAddTaskDialog  && (
+          <AddTaskDialog 
+            isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
+            friendId={this.props.friendId}
+            friendName={this.props.friendName}
+            userName={this.props.userName}
+            userId={this.props.userId}
+            closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
+            onSubmit={this.challengeFriendNotification}
+            isChallenge={true}
+            buttonText="Challenge friend">
+          </AddTaskDialog>
+        )}
 
-        <AddTaskDialog 
-          isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
-          friendId={this.props.friendId}
-          friendName={this.props.friendName}
-          userName={this.props.userName}
-          userId={this.props.userId}
-          closeAddTaskDialog = {() => this.setOpenAddTaskDialog(false)} 
-          onSubmit={this.challengeFriendNotification}
-          isChallenge={true}
-          buttonText="Challenge friend">
-        </AddTaskDialog>
+        {this.state.isOpenFriendDialog && (
+          <FriendDetailsDialog 
+            closeDialogOnOutsideClick={this.closeDialogOnOutsideClick}
+            challenge={this.challenge}
+            unFriend={this.unFriend}
+            name={this.props.friendName}
+            email={this.props.friendEmail}
+            userEmail={this.props.userEmail}          
+            currentFriends={this.props.currentFriends}
+            friendRequests={[]}
+            friendRequestsSent={[]}/>
+        )}
 
         <div className={this.state.displayToast ? "toast toastVisible" : "toast"}>
           <Toast label="Challenge sent"/>

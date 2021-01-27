@@ -65,7 +65,7 @@
 
 .CurrentTask-description {
   font-weight: bold;
-  color: var(--red);
+  color: white;
 }
 
 .CurrentTask-details > * {
@@ -115,7 +115,7 @@
   width: 100%;
   height: 16px;
   border-radius: 15px;
-  border: 1px solid var(--red);
+  border: 1px solid var(--color_on_secondary);
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -125,11 +125,11 @@
   height: 100%;
   flex-grow: 1;
   width: auto;
-  border-right: 1px solid var(--background_color_secondary);
+  border-right: 1px solid black;
 }
 
 .CurrentTask-progressCellDone {
-  background-color: var(--red);
+  background-color: var(--cell_done);
 }
 
 .CurrentTask-progressCellSkipped {
@@ -139,14 +139,14 @@
 .CurrentTask-progressCellNotDone {
   background-color: transparent;
   border-right: none;
-  border-left: 1px solid var(--background_color_secondary);
+  border-left: 1px solid black;
 }
 
 .CurrentTask-progressLabels {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  color: var(--grey);
+  color: var(--color_on_secondary);
   font-style: italic;
   font-size: 0.8em;
   margin-bottom: 8px;

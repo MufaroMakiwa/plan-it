@@ -15,7 +15,6 @@ class AddFriend extends Component{
       selectedUser: null,
       isSearchBarFocused: false,
       displaySearchSuggestions: false,
-      isDisplayingUserDetails: true,
       value: '',
       suggestions: [],
       isOpenAddTaskDialog: false,

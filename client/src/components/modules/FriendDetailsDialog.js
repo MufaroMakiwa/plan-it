@@ -168,8 +168,7 @@ class FriendDetailsDialog extends Component {
                 </div>
               </div>   
 
-              <div 
-                className="FriendDetailsDialog-buttonsContainer">
+              <div className="FriendDetailsDialog-buttonsContainer">
 
                 <button 
                   className="FriendDetailsDialog-button FriendDetailsDialog-buttonCancel"

@@ -30,7 +30,7 @@
   outline: none;
   border: 1px solid var(--background_color_secondary);
   border-radius: 8px;
-  background: #ececec;
+  background: #b5b7bb;
   transition: background 0.25s, border-color 0.25s, color 0.25s;
   min-height: calc(0.9em + (0.8em * 2) + 0.6em);
 }
@@ -66,7 +66,7 @@
 }
 
 .AddTaskDialog-input::placeholder {
-  color: #bbbbbb;
+  color: rgb(0, 0, 0, 0.6);
 }
 
 .AddTaskDialog-inputError {
@@ -109,7 +109,7 @@
 .AddTaskDialog-radioButton {
   width: 1.5em;
   height: 1.5em;
-  border: 2px solid var(--grey);
+  border: 2px solid #9d9fa5;
   border-radius: 50%;
   margin-right: 10px;
   box-sizing: border-box;
@@ -157,12 +157,12 @@
 }
 
 .AddTaskDialog-createTaskButton:hover {
-  mix-blend-mode: hard-light;
+  background-color: var(--button_hover);
 }
 
 .AddTaskDialog-cancelButton:hover {
   mix-blend-mode: multiply;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .AddTaskDialog-cancelButton {

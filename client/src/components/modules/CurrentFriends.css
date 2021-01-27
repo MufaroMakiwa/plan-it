@@ -2,10 +2,20 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 36px;
+  margin: 24px;
 }
 
 .CurrentFriends-container {
-  margin: 0 24px;
+  margin: 24px;
+}
+
+.CurrentFriends-title {
+  display: flex;
+  margin-left: 24px;
+  padding-bottom: 0 24px;
+  font-size: 2em;
+  font-style: italic;
+  font-weight: bold;
 }
 
 @media all and (max-width: 1300px) {
@@ -14,7 +24,7 @@
   }
 }
 
-@media all and (max-width: 1000px) {
+@media all and (max-width: 1200px) {
   .CurrentFriends-grid {
     grid-template-columns: repeat(2, 1fr);
   }

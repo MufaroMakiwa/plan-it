@@ -7,7 +7,7 @@
   right: 0;
   overflow: hidden;
   z-index: -100;
-  background: radial-gradient(ellipse at bottom, #0e1330 0%, #000000 100%);
+  background: radial-gradient(circle at left, #001e45 0%, #0a111f 60%, #0a111f 100%);
 }
 
 .stars_main {
@@ -474,5 +474,11 @@
   }
   to {
     transform: translateY(-2000px);
+  }
+}
+
+@media all and (max-width: 800px) {
+  .Background_main {
+    background: radial-gradient(circle at top, #001e45 0%, #0a111f 60%, #0a111f 100%);
   }
 }
