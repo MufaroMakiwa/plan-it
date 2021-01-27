@@ -112,6 +112,7 @@ class Completed extends Component {
         <SideBar 
           link="/completed"
           userName={this.props.userName}
+          userIcon={this.props.userIcon}
           handleLogout={this.props.handleLogout}/>
 
         <div className="dummy_div_left"></div>

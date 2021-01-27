@@ -4,7 +4,6 @@ import SideBar from "../modules/SideBar.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
 import {post, get} from "../../utilities.js";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Constellation_0_Image from "../../public/Constellation_0_Points.png";
 import Constellation_1000_Image from "../../public/Constellation_1000_Points.png";
@@ -28,8 +27,10 @@ class Profile extends Component {
     super(props);
     this.state = {
       isOpenAddTaskDialog: false,
-      currPoints: "",
-      currNumFriends: "",
+      currPoints: 0,
+      currNumFriends: 0,
+      currCoins: 0,
+      currIcon: this.props.userIcon,
       loading: true
     }
   }
@@ -75,14 +76,28 @@ class Profile extends Component {
       this.setState({
         currPoints: profile.points,
         currNumFriends: profile.num_friends,
+        currCoins: profile.coins,
+        currIcon: profile.icon,
         loading: false
       });
       this.selectImage(profile.points);
     });
   }
 
+  getIcon = () => {
+    if (this.state.currIcon === 1) { return Icon_1 }
+    else { return Icon_2 }
+  }
+
   changeIcon = (iconNum) => {
-    console.log(iconNum);
+    post("/api/profile/icon", {
+      userId: this.props.userId,
+      icon: iconNum,
+    }).then(() => {
+      this.setState({
+        currIcon: iconNum,
+      });
+    });
   }
 
   render() { 
@@ -97,6 +112,7 @@ class Profile extends Component {
         <SideBar 
           link="/profile"
           userName={this.props.userName}
+          userIcon={this.state.currIcon}
           handleLogout={this.props.handleLogout}/>
 
         <div className="dummy_div_left"></div>
@@ -108,10 +124,10 @@ class Profile extends Component {
             <div className="tile_box_centered">
               <div className="Profile-Header">
                 <div className="Profile-Header-Part-1">
-                  <img src={Icon_1} className="Profile-Header-Image" alt="User Icon"/>
+                  <img src={this.getIcon()} className="Profile-Header-Image" alt="User Icon"/>
                   <h1 className="Profile-Header-Name"> {this.props.userName} </h1>
                 </div>
-                <h1 className="Profile-Header-Stats"> {this.state.currPoints} Coins </h1>
+                <h1 className="Profile-Header-Stats"> {this.state.currCoins} Coins </h1>
                 <h1 className="Profile-Header-Stats"> {this.state.currPoints} Points </h1>
               </div>
 

@@ -142,7 +142,8 @@ class Current extends Component {
 
     post("/api/profile/points", {
       userId: this.props.userId,
-      pts: duration * 10,
+      pts: duration * 100,
+      coins: duration * 10,
     })
   }
 
@@ -188,6 +189,7 @@ class Current extends Component {
         <SideBar 
           link="/current"
           userName={this.props.userName}
+          userIcon={this.props.userIcon}
           handleLogout={this.props.handleLogout}/>
           
         <div className="dummy_div_left"></div>

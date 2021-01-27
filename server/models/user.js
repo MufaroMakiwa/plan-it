@@ -5,7 +5,11 @@ const UserSchema = new mongoose.Schema({
   email: String,
   googleid: String,
   points: Number,
-  num_friends: Number
+  num_friends: Number,
+  coins: Number,
+  speed: Number,
+  high_score: Number,
+  icon: Number,
 });
 
 // compile model from schema

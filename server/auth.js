@@ -29,6 +29,10 @@ function getOrCreateUser(user) {
       googleid: user.sub,
       points: 0,
       num_friends: 0,
+      coins: 0,
+      speed: 1,
+      high_score: 0,
+      icon: 1,
     });
 
     return newUser.save();

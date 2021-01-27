@@ -28,6 +28,7 @@ class RocketTag extends Component {
         <SideBar
           link="/rocketTag"
           userName={this.props.userName}
+          userIcon={this.props.userIcon}
           handleLogout={this.props.handleLogout}/>
 
         <div className="dummy_div_left"></div>
