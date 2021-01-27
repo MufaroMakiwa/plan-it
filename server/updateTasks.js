@@ -124,7 +124,11 @@ class UpdateTasks {
           task.save();
         }
       }
-      socketManager.getIo().emit("update_current_tasks", true);
+      try {
+        socketManager.getIo().emit("update_current_tasks", true);
+      } catch (e) {
+        console.log(e);
+      }
     })
   }
 }

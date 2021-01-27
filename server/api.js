@@ -71,7 +71,11 @@ router.post("/tasks/create", (req,res) => {
   newTask.save().then((task) => {
     res.send(task);
     if (req.body.is_challenge) {
-      socketManager.getSocketFromUserID(task.userId).emit("new_challenge", task);
+      try {
+        socketManager.getSocketFromUserID(task.userId).emit("new_challenge", task);
+      } catch (e) {
+        console.error(e);
+      }
     }
   });
 });
@@ -95,7 +99,11 @@ router.post("/tasks/delete", (req, res) => {
       task.is_accepted = undefined; 
       task.save().then((task) => {
         res.send(task);
-        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
+        try {
+          socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
+        } catch (e) {
+          console.error(e);
+        }
       });
     })
   } else {
@@ -112,10 +120,18 @@ router.post("/tasks/update", (req, res) => {
     task.previous_progress_log = req.body.previous_progress_log;
     task.save().then((task) => {
       res.send(task);
-      socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
+      try {
+        socketManager.getSocketFromUserID(req.user._id).emit("task_updated", task);
+      } catch (e) {
+        console.error(e);
+      }
       
       if (req.body.challengerId) {
-        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_updated", task);
+        try {
+          socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_updated", task);
+        } catch (e) {
+          console.error(e);
+        }
       }
     });
   })
@@ -155,8 +171,12 @@ router.post("/tasks/challenges/accept", (req, res) => {
 
     task.save().then((task) => {
       res.send(task);
-      socketManager.getSocketFromUserID(req.user._id).emit("challenge_accepted", task);
-      socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_accepted", task);
+      try {
+        socketManager.getSocketFromUserID(req.user._id).emit("challenge_accepted", task);
+        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_accepted", task);
+      } catch (e) {
+        console.error(e);
+      }
     });
   })
 })
@@ -168,8 +188,13 @@ router.post("/tasks/challenges/decline", (req, res) => {
     task.is_accepted = undefined; 
     task.save().then((task) => {
       res.send(task);
-      socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
-      socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
+      try {
+        socketManager.getSocketFromUserID(req.user._id).emit("challenge_declined", task);
+        socketManager.getSocketFromUserID(req.body.challengerId).emit("challenge_declined", task);
+      } catch (e) {
+        console.error(e);
+      }
+      
     });
   })
 })
@@ -312,8 +337,13 @@ router.post("/friend/add", (req,res) => {
 
   newFriend.save().then((friend) => {
     res.send(friend);
-    socketManager.getSocketFromUserID(req.user._id).emit("friend_request_sent", friend);
-    socketManager.getSocketFromUserID(req.body.userId_2).emit("friend_request_received", friend);
+    try {
+      socketManager.getSocketFromUserID(req.user._id).emit("friend_request_sent", friend);
+      socketManager.getSocketFromUserID(req.body.userId_2).emit("friend_request_received", friend);
+    } catch (e) {
+      console.error(e);
+    }
+    
   });
 });
 
@@ -329,8 +359,13 @@ router.post("/friend/accept", (req, res) => {
     friend.is_friend = true;
     friend.save().then(friend => {
       res.send(friend);
-      socketManager.getSocketFromUserID(req.user._id).emit("friend_request_accepted", friend);
-      socketManager.getSocketFromUserID(friend.userId_1).emit("friend_request_accepted", friend);
+      try {
+        socketManager.getSocketFromUserID(req.user._id).emit("friend_request_accepted", friend);
+        socketManager.getSocketFromUserID(friend.userId_1).emit("friend_request_accepted", friend);
+      } catch (e) {
+        console.error(e);
+      }
+      
     })
   });
 });
@@ -345,7 +380,11 @@ router.post("/friend/delete", (req, res) => {
   };
   Friend.deleteOne(query).then((friend) => {
     res.send(friend);
-    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_deleted", req.user._id);
+    try {
+      socketManager.getSocketFromUserID(req.body.friendId).emit("friend_deleted", req.user._id);
+    } catch (e) {
+      console.error(e);
+    }
   });
 });
 
@@ -357,10 +396,15 @@ router.post("/friend/request/decline", (req, res) => {
   };
   Friend.deleteOne(query).then((friend) => {
     res.send(friend);
-    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_declined", req.user._id);
+    try {
+      socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_declined", req.user._id);
 
-    // when user declines a friend request, this updates the notification badge
-    socketManager.getSocketFromUserID(req.user._id).emit("request_declined", req.user._id);
+      // when user declines a friend request, this updates the notification badge
+      socketManager.getSocketFromUserID(req.user._id).emit("request_declined", req.user._id);
+    } catch (e) {
+      console.error(e);
+    }
+    
   });
 });
 
@@ -371,7 +415,11 @@ router.post("/friend/request/cancel", (req, res) => {
   };
   Friend.deleteOne(query).then((friend) => {
     res.send(friend)
-    socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_cancelled", req.user._id);
+    try {
+      socketManager.getSocketFromUserID(req.body.friendId).emit("friend_request_cancelled", req.user._id);
+    } catch (e) {
+      console.error(e);
+    }
   });
 });
 
