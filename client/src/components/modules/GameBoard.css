@@ -25,12 +25,11 @@
 
 .GameBoard-Button {
   height: 10vh;
-  width: 20vw;
   border-radius: 20px;
   border-style: solid;
   border-color: white;
   background-color: white;
-
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +43,28 @@
 }
 
 .GameBoard-Score {
+  flex-grow: 1;
   font-size: 1.5em;
   color: #f8f8f8;
   text-transform: uppercase;
+}
+
+@media all and (max-width: 1000px) {
+  .GameBoard-Text {
+    font-size: 1.5em;
+  }
+
+  .GameBoard-Score {
+    font-size: 1.2em;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .GameBoard-Text {
+    font-size: 1.2em;
+  }
+
+  .GameBoard-Score {
+    font-size: 1em;
+  }
 }
