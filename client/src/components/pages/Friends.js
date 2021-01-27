@@ -229,8 +229,6 @@ class Friends extends Component {
           </div>   
         </div>
 
-        <AddTaskButton onClick={() => this.setOpenAddTaskDialog(true)}/>
-
         <AddTaskDialog 
           isOpenAddTaskDialog = {this.state.isOpenAddTaskDialog}
           userId={this.props.userId}

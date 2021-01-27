@@ -1,8 +1,8 @@
 /* Fill me in :) */
 .LandingPage-background {
-  background-image: url("../../public/LandingPageBackground.png");
+  background-image: url("../../public/landing_page.png");
   background-size: 100vw;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   height: 100vh;
   text-align: center;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@
   width: 192px;
   outline: none;
   justify-content: center;
-  border-color: #fe6d73 !important;
+  border-color: #001e45 !important;
   border-width: 3px !important;
   border-radius: 50px !important;
 }
@@ -23,5 +23,5 @@
   padding-top: 36%;
   margin-bottom: 1%;
   font-size: 4vw;
-  color: #000318;
+  color: #001e45;
 }

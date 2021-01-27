@@ -32,6 +32,8 @@
 .CurrentTask-completedLabel {
   margin-left: 8px;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .CurrentTask-subContainer {
@@ -46,6 +48,7 @@
 
 .CurrentTask-description {
   font-weight: bold;
+  text-transform: uppercase;
   color: white;
 }
 
@@ -55,7 +58,8 @@
 
 .CurrentTask-challengedBy {
   font-style: italic;
-  font-size: 0.9em;
+  font-weight: 600;
+  font-size: 1em;
   color: var(--color_on_secondary);
 }
 
@@ -107,7 +111,7 @@
   height: 100%;
   flex-grow: 1;
   width: auto;
-  border-right: 1px solid black;
+  border-right: 1px solid var(--color_on_secondary);
 }
 
 .CurrentTask-progressCellDone {
@@ -121,7 +125,7 @@
 .CurrentTask-progressCellNotDone {
   background-color: transparent;
   border-right: none;
-  border-left: 1px solid black;
+  border-left: 1px solid var(--color_on_secondary);
 }
 
 .CurrentTask-progressLabels {
@@ -130,7 +134,7 @@
   width: 100%;
   color: var(--color_on_secondary);
   font-style: italic;
-  font-size: 0.8em;
+  font-size: 1em;
   margin-bottom: 8px;
 }
 
@@ -142,7 +146,7 @@
 }
 
 .CurrentTask-progressButton {
-  width: 72px;
+  width: 140px;
   height: 16px;
   background-color: var(--color_on_secondary);
   display: flex;
