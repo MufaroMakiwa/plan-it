@@ -30,6 +30,7 @@
   border-color: white;
   background-color: white;
   flex-grow: 1;
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +48,7 @@
   font-size: 1.5em;
   color: #f8f8f8;
   text-transform: uppercase;
+  width: 30%;
 }
 
 @media all and (max-width: 1000px) {
