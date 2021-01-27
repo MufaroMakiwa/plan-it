@@ -14,6 +14,10 @@ import Constellation_5000_Image from "../../public/Constellation_5000_Points.png
 
 import Icon_1 from "../../public/Profile_Icon_1.png";
 import Icon_2 from "../../public/Profile_Icon_2.png";
+import Icon_3 from "../../public/Profile_Icon_3.png";
+import Icon_4 from "../../public/Profile_Icon_4.png";
+import Icon_5 from "../../public/Profile_Icon_5.png";
+import Icon_6 from "../../public/Profile_Icon_6.png";
 
 import { navigate } from "@reach/router";
 import CustomBackground from '../modules/CustomBackground.js';
@@ -31,6 +35,7 @@ class Profile extends Component {
       currNumFriends: 0,
       currCoins: 0,
       currIcon: this.props.userIcon,
+      available_skins: [true, false, false, false, false, false],
       loading: true
     }
   }
@@ -78,6 +83,7 @@ class Profile extends Component {
         currNumFriends: profile.num_friends,
         currCoins: profile.coins,
         currIcon: profile.icon,
+        available_skins: profile.available_skins,
         loading: false
       });
       this.selectImage(profile.points);
@@ -86,7 +92,12 @@ class Profile extends Component {
 
   getIcon = () => {
     if (this.state.currIcon === 1) { return Icon_1 }
-    else { return Icon_2 }
+    else if (this.state.currIcon === 2) { return Icon_2 }
+    else if (this.state.currIcon === 3) { return Icon_3 }
+    else if (this.state.currIcon === 4) { return Icon_4 }
+    else if (this.state.currIcon === 5) { return Icon_5 }
+    else if (this.state.currIcon === 6) { return Icon_6 }
+    else { return Icon_1 }
   }
 
   changeIcon = (iconNum) => {
@@ -98,6 +109,28 @@ class Profile extends Component {
         currIcon: iconNum,
       });
     });
+  }
+
+  buySkin = (num) => {
+    console.log(this.state.available_skins);
+    if (this.state.currCoins > 20) {
+      let available_now = this.state.available_skins;
+      available_now[num - 1] = true;
+      console.log(available_now);
+      post("/api/profile/skin", {
+        userId: this.props.userId,
+        coins: 20,
+        available_skins: available_now,
+      })
+      this.setState({
+        available_skins: available_now,
+        coins: this.state.coins - 20,
+      })
+    }
+  }
+
+  changeSkin = () => {
+    console.log("Changing Skin");
   }
 
   render() { 
@@ -140,9 +173,38 @@ class Profile extends Component {
                 <div className="Profile-Icon-Container">
                   <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.changeIcon(1)}/>
                   <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.changeIcon(2)}/>
-                  <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 3" onClick={() => this.changeIcon(3)}/>
-                  <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 4" onClick={() => this.changeIcon(4)}/>
-                  <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(5)}/>
+                  <img src={Icon_3} className="Profile-Bottom-Image" alt="Icon Option 3" onClick={() => this.changeIcon(3)}/>
+                  <img src={Icon_4} className="Profile-Bottom-Image" alt="Icon Option 4" onClick={() => this.changeIcon(4)}/>
+                  <img src={Icon_5} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(5)}/>
+                  <img src={Icon_6} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(6)}/>
+                </div>
+              </div>
+
+              <div className="Profile-Bottom-Container">
+                <h1 className="Profile-Bottom-Text"> Select your rocket tag skin below: </h1>
+                <div className="Profile-Icon-Container">
+                  {this.state.available_skins[0] ?
+                    (<div>
+                      <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.changeSkin(1)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Icon_1} className="Profile-Bottom-Image" alt="Icon Option 1" onClick={() => this.buySkin(1)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
+
+                  {this.state.available_skins[1] ?
+                    (<div>
+                      <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.changeSkin(2)}/> 
+                    </div>):
+                    (<div>
+                      <img src={Icon_2} className="Profile-Bottom-Image" alt="Icon Option 2" onClick={() => this.buySkin(2)}/>
+                      <figcaption className="Profile-Caption"> 20 Coins </figcaption>
+                    </div>)}
+
+                  <img src={Icon_3} className="Profile-Bottom-Image" alt="Icon Option 3" onClick={() => this.changeIcon(3)}/>
+                  <img src={Icon_4} className="Profile-Bottom-Image" alt="Icon Option 4" onClick={() => this.changeIcon(4)}/>
+                  <img src={Icon_5} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(5)}/>
+                  <img src={Icon_6} className="Profile-Bottom-Image" alt="Icon Option 5" onClick={() => this.changeIcon(6)}/>
                 </div>
               </div>
             </div> 

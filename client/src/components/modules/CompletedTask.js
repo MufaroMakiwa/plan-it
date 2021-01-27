@@ -72,6 +72,16 @@ class CompletedTask extends Component {
     }
     post("/api/tasks/completed/delete", query).then(this.props.deleteTask)
   }
+
+  calculatePoints = () => {
+    let total = 0;
+    for (let i = 0; i < this.props.duration; i += 1){
+      total += this.props.progress[i];
+    }
+    let ratio = total / this.props.duration;
+    let factor = Math.pow(ratio, 2);
+    return factor * this.props.duration * 100;
+  }
   
   render() { 
     let gridCells = [];
@@ -128,7 +138,7 @@ class CompletedTask extends Component {
 
             <div>
               <p className="CompletedTask-description">Points</p>
-              <p className="task_summary">TODO</p>
+              <p className="task_summary">{this.calculatePoints()}</p>
             </div>
             
           </div>

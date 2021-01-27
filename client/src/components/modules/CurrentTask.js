@@ -55,7 +55,7 @@ class CurrentTask extends Component {
         challengerId: this.props.challengerId
       }
       post("/api/tasks/update", query).then((taskOj) => {
-        this.props.onCompleted()
+        this.props.onCompleted(taskOj.progress);
       })
 
     } else {
