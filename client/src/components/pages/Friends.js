@@ -44,7 +44,7 @@ class Friends extends Component {
   }
 
   getFriends = () => {
-    get("/api/friend/current", {userName: this.props.userName}).then((currentFriends) => {
+    get("/api/friend/current", { userId: this.props.userId }).then((currentFriends) => {
       this.setState({
         currentFriends: currentFriends,
         isLoadingFriends: false

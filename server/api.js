@@ -301,11 +301,11 @@ router.get("/friend/suggestions", (req, res) => {
   })
 })
 
-router.get("/friend/current", (req,res) => {
+router.get("/friend/current", (req, res) => {
   const query = {
     $or: [
-      { userName_1: req.query.userName, is_friend: true},
-      { userName_2: req.query.userName, is_friend: true},
+      { userId_1: req.query.userId, is_friend: true },
+      { userId_2: req.query.userId, is_friend: true },
     ],
   };
   Friend.find(query).then((friends) => res.send(friends));
