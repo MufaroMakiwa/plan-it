@@ -107,12 +107,12 @@ class ChallengeTaskSent extends Component {
           <div className="ChallengeTaskSent-details">
             <div>
               <p className="ChallengeTaskSent-description">Duration</p>
-              <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
+              <p className="task_summary">{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
             </div>
 
             <div>
               <p className="ChallengeTaskSent-description">Frequency</p>
-              <p>{this.props.frequency}</p>
+              <p className="task_summary">{this.props.frequency}</p>
             </div>
 
           </div>

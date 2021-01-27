@@ -199,12 +199,12 @@ class CurrentTask extends Component {
           <div className="CurrentTask-details">
             <div>
               <p className="CurrentTask-description">Duration</p>
-              <p>{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
+              <p className="task_summary">{`${this.props.duration} ${this.getFrequencyLabel(this.props.duration)}` }</p>
             </div>
 
             <div>
               <p className="CurrentTask-description">Frequency</p>
-              <p>{this.props.frequency}</p>
+              <p className="task_summary">{this.props.frequency}</p>
             </div>
           </div>
 

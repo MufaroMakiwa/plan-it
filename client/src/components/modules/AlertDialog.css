@@ -55,7 +55,7 @@
 }
 
 .AlertDialog-buttonAction:hover {
-  mix-blend-mode: hard-light;
+  background-color: var(--button_hover);
 }
 
 .AlertDialog-buttonAction {

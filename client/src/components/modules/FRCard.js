@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import "./Card.css";
 import {get, post} from '../../utilities.js';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import "./FRCard.css";
+
 
 
 class FRCard extends Component {
@@ -22,12 +24,36 @@ class FRCard extends Component {
 
   render() { 
     return ( 
-      <div className="card-container">
+      <div className="FRCard-container">
+        <div className="FRCard-detailsContainer">
+          <div className="FRCard-iconBigger"> 
+            <AccountCircleIcon style={{fontSize: 50}}/>
+          </div>
 
-        <p className="card-title">{this.props.friendName}</p>
-        <button onClick={this.accept} className ="accept-button" type="button"> Accept </button>
-        <button onClick={this.decline} className ="decline-button" type="button"> Decline </button>
-         
+          <div className="FRCard-iconSmaller"> 
+            <AccountCircleIcon style={{fontSize: 40}}/>
+          </div>
+
+          <div className="FRCard-details">
+            <span className="FRCard-name">{this.props.friendName}</span>
+            <span className="FRCard-email">{this.props.friendEmail}</span>
+          </div>
+        </div>   
+
+        <div className="FRCard-buttonsContainer">
+
+          <button 
+            className="FRCard-button FRCard-buttonCancel"
+            onClick={this.decline}>
+            Decline
+          </button>
+        
+          <button 
+            className="FRCard-button FRCard-buttonAction"
+            onClick={this.accept}>
+            Accept
+          </button>
+        </div>   
       </div>
      );
   }

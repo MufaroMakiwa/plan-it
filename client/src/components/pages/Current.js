@@ -5,7 +5,6 @@ import SideBar from "../modules/SideBar.js";
 
 
 import "./Current.css"
-import "../modules/CustomBackground"
 import "../../utilities.css";
 
 
@@ -13,7 +12,6 @@ import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
-import AlertDialog from "../modules/AlertDialog.js";
 import Toast from "../modules/Toast.js";
 import { DateMethods } from "../modules/DateMethods.js";
 import CustomBackground from '../modules/CustomBackground.js';

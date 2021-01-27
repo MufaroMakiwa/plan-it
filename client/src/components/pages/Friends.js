@@ -25,6 +25,8 @@ class Friends extends Component {
       friendRequests: [],
       currentFriends: [],
       friendRequestsSent: [],
+      isLoadingFriends: true,
+      isLoadingRequests: true,
     };
   }
 
@@ -34,13 +36,19 @@ class Friends extends Component {
 
   getRequests = () => {
     get("/api/friend/requests", {}).then((friendRequests) => {
-      this.setState({ friendRequests })
+      this.setState({ 
+        friendRequests: friendRequests,
+        isLoadingRequests: false,
+       })
     })
   }
 
   getFriends = () => {
     get("/api/friend/current", {userName: this.props.userName}).then((currentFriends) => {
-      this.setState({ currentFriends })
+      this.setState({
+        currentFriends: currentFriends,
+        isLoadingFriends: false
+       })
     })
   }
 
@@ -198,25 +206,25 @@ class Friends extends Component {
               filterFriends={this.filterFriends}> 
             </AddFriend>
 
-            {!this.state.displaySearchSuggestions && (
-              <>
-                <FriendRequests
-                  userId={this.props.userId}
-                  userName={this.props.userName}
-                  userEmail={this.props.userEmail}
-                  friendRequests={this.state.friendRequests}
-                  updateRequests={this.updateRequests}> 
-                </FriendRequests>
+            {!this.state.displaySearchSuggestions && !this.state.isLoadingRequests && (
+              <FriendRequests
+                userId={this.props.userId}
+                userName={this.props.userName}
+                userEmail={this.props.userEmail}
+                friendRequests={this.state.friendRequests}
+                updateRequests={this.updateRequests}> 
+              </FriendRequests>
+              )}
 
-                <CurrentFriends 
-                  onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
-                  userId={this.props.userId}
-                  userName={this.props.userName}
-                  userEmail={this.props.userEmail}
-                  currentFriends={this.state.currentFriends}
-                  filterFriends={this.filterFriends}> 
-                </CurrentFriends>  
-              </>
+            {!this.state.displaySearchSuggestions && !this.state.isLoadingFriends && (
+              <CurrentFriends 
+                onChallengeButtonClicked={() => this.setOpenAddTaskDialog(true)}
+                userId={this.props.userId}
+                userName={this.props.userName}
+                userEmail={this.props.userEmail}
+                currentFriends={this.state.currentFriends}
+                filterFriends={this.filterFriends}> 
+              </CurrentFriends>  
             )}
           </div>   
         </div>

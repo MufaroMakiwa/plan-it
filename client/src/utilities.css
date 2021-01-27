@@ -26,13 +26,14 @@
   --sidebar_width: 272px;
   --navbar_height: 75px;
 
-  --background_color_primary: #121212;
-  --background_color_secondary: rgb(29, 32, 49);
-  --color_on_secondary: #8a8a9c;
+  --background_color_secondary: #0a111f;
+  --color_on_secondary: #6c7078;
   --red: #fa5460;
   --red_error: #d50000;
   --grey: #c4c4c4;
   --search_hover: rgb(79, 70, 85, 0.5);
+  --button_hover: #3b404b;
+  --cell_done: #cecfd2;
 
   --xs: 4px;
   --s: 8px;
@@ -205,4 +206,12 @@ p {
   .page_main {
     overflow-x: inherit;
   }
+
+  body {
+    -webkit-text-size-adjust: none;
+  }
+}
+
+.task_summary {
+  color: var(--color_on_secondary);
 }

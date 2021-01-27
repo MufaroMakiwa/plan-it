@@ -1,11 +1,145 @@
 .FRCard-container {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  padding: 16px;
-  margin: 24px;
-
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 24px;
   display: flex;
-  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
   flex-direction: row;
+  justify-content: space-between;
+  margin: 24px;
+}
+
+.FRCard-container * {
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.FRCard-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 16px;
+}
+
+.FRCard-email {
+  font-size: 0.9em;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.FRCard-name {
+  font-size: 1.2em;
+}
+
+.FRCard-iconBigger {
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.FRCard-iconSmaller {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.FRCard-buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.FRCard-button {
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 50%;
+  outline: none;
+}
+
+.FRCard-buttonCancel {
+  margin-right: 8px;
+  border: 1px solid var(--background_color_secondary);
+  background-color: transparent;
+  color: var(--background_color_secondary);
+}
+
+.FRCard-buttonCancel:hover {
+  mix-blend-mode: multiply;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.FRCard-buttonAction:hover {
+  mix-blend-mode: hard-light;
+}
+
+.FRCard-buttonAction {
+  border: none;
+  background-color: var(--background_color_secondary);
+  color: white;
+  margin-left: 8px;
+}
+
+.FRCard-buttonPending {
+  border: none;
+  background-color: rgb(79, 70, 85, 0.3);
+  color: rgb(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  margin-left: 8px;
+}
+
+.FRCard-buttonAction {
+  border: none;
+  background-color: var(--background_color_secondary);
+  color: white;
+  margin-left: 8px;
+}
+
+.FRCard-detailsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-right: 32px;
+}
+
+@media only all and (max-width: 800px) {
+  .FRCard-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .FRCard-buttonsContainer {
+    margin-top: 24px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .FRCard-details {
+    margin-left: 8px;
+  }
+
+  .FRCard-email {
+    font-size: 0.8em;
+  }
+
+  .FRCard-name {
+    font-size: 1em;
+  }
+
+  .FRCard-iconSmaller {
+    display: flex;
+  }
+
+  .FRCard-iconBigger {
+    display: none;
+  }
+
+  .FRCard-container {
+    padding: 16px 16px;
+  }
 }
