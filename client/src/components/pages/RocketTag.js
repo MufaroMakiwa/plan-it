@@ -3,6 +3,7 @@ import SideBar from "../modules/SideBar.js";
 import GameBoard from "../modules/GameBoard.js";
 import NavBar from "../modules/NavBar.js";
 import CustomBackground from '../modules/CustomBackground.js';
+import {get, post} from "../../utilities.js";
 
 import "../../utilities.css";
 import "./RocketTag.css";
@@ -13,7 +14,7 @@ class RocketTag extends Component {
   }
 
   componentDidMount() {
-    // remember -- api calls go here!
+
   }
 
   render() {
@@ -38,7 +39,8 @@ class RocketTag extends Component {
         <div className="page_main u-textCenter">
           <div className="tile_box_centered">
             <h3 className="RocketTag-Header"> Rocket Tag! </h3>
-            <GameBoard />
+            <GameBoard 
+              userId={this.props.userId} />
           </div>
         </div>
       </div>

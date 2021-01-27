@@ -11,14 +11,21 @@
   border-width: 10px;
   border-style: solid;
   border-color: var(--red);
-  background-color: #000318;
+  /*background-color: #000318;*/
   position: relative;
   margin: 24px 48px;
 }
 
+.GameBoard-Bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .GameBoard-Button {
   height: 10vh;
-  width: 30vw;
+  width: 20vw;
   border-radius: 20px;
   border-style: solid;
   border-color: var(--red);
@@ -29,4 +36,10 @@
 
 .GameBoard-Text {
   font-size: 30pt;
+  color: #F8F8F8;
+}
+
+.GameBoard-Score {
+  font-size: 25pt;
+  color: #F8F8F8;
 }
