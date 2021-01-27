@@ -7,6 +7,10 @@ import {get, post} from '../../utilities.js';
 import { socket } from "../../client-socket.js";
 import Profile_Icon_1 from "../../public/Profile_Icon_1.png";
 import Profile_Icon_2 from "../../public/Profile_Icon_2.png";
+import Profile_Icon_3 from "../../public/Profile_Icon_3.png";
+import Profile_Icon_4 from "../../public/Profile_Icon_4.png";
+import Profile_Icon_5 from "../../public/Profile_Icon_5.png";
+import Profile_Icon_6 from "../../public/Profile_Icon_6.png";
 
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
@@ -22,6 +26,7 @@ class SideBar extends Component {
         animateChallengesNotificationIcon: false,
         animateFriendsNotificationIcon: false,
         iconNum: this.props.userIcon,
+        loading: true,
       }
   }
 
@@ -153,27 +158,37 @@ class SideBar extends Component {
     get('/api/profile/fill', {
       userId: this.props.userId,
     }).then((profile) => {
-      this.setState({ iconNum: profile.icon})
+      this.setState({ 
+        iconNum: profile.icon, 
+        loading: false,
+      })
     });
   }
 
   getIcon = (num) => {
-    if( num === 1 ) { return Profile_Icon_1 }
-    else { return Profile_Icon_2 }
+    if ( num === 1 ) { return Profile_Icon_1 }
+    else if ( num == 2 ) { return Profile_Icon_2 }
+    else if ( num == 3 ) { return Profile_Icon_3 }
+    else if ( num == 4 ) { return Profile_Icon_4 }
+    else if ( num == 5 ) { return Profile_Icon_5 }
+    else if ( num == 6 ) { return Profile_Icon_6 }
+    else { return Profile_Icon_1 }
   }
 
   render() {
-    return ( 
+    return (
       <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : "SideBar-containerDrawer"}`}>
         {!this.props.displayAsDrawer && 
           <div className="SideBar-nameContainer" onClick={() => this.handleSubmit("/current")}>
           </div>
-        }     
+        } 
 
         <div to="/profile" 
           onClick={() =>this.handleSubmit("/profile")}  
-          className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
-          <img src={"/profile" === this.props.link ? this.getIcon(this.props.userIcon) : this.getIcon(this.state.iconNum)} className="SideBar-usericon" alt="User Icon"/>
+          className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}> 
+          {this.state.loading ? <div className="SideBar-usericon"></div> : (      
+            <img src={"/profile" === this.props.link ? this.getIcon(this.props.userIcon) : this.getIcon(this.state.iconNum)} className="SideBar-usericon" alt="User Icon"/>
+          )}
           <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
             {this.props.userName ? this.props.userName: "Placeholder"}
           </p>   
