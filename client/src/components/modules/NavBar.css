@@ -33,12 +33,12 @@
   justify-content: center;
   background-size: cover;
   background-position: center;
-  background-image: url("../../public/main.png");
+  background-image: url("../../public/planit_logo_off.png");
   cursor: pointer;
 }
 
 .NavBar-nameContainer:hover {
-  background-image: url("../../public/hover.png");
+  background-image: url("../../public/planit_logo_on.png");
 }
 
 .NavBar-icon {
