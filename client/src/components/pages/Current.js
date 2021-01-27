@@ -140,10 +140,24 @@ class Current extends Component {
     this.setState({ tasks })
     this.taskStatusNotification(true);
 
+    // let total = 0;
+    // for (let i = 0; i < progress.length; i += 1){
+    //   total += progress[i]
+    // }
+    // let completion_percentage = total/duration;
+    // let completion_factor = Math.pow(completion_percentage, 2);
+
+    // console.log(completion_percentage)
+    // console.log(duration)
+    // console.log(total)
+    // console.log(progress)
+
     post("/api/profile/points", {
       userId: this.props.userId,
       pts: duration * 100,
       coins: duration * 10,
+      // pts: Math.floor(completion_factor * duration * 100),
+      // coins: Math.floor(completion_factor * duration * 20),
     })
   }
 
