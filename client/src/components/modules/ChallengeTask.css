@@ -37,12 +37,14 @@
 
 .ChallengeTask-description {
   font-weight: bold;
+  text-transform: uppercase;
   color: white;
 }
 
 .ChallengeTask-challengedBy {
   font-style: italic;
-  font-size: 0.9em;
+  font-weight: 600;
+  font-size: 1em;
   color: var(--color_on_secondary);
 }
 
@@ -93,4 +95,5 @@
 
 .ChallengeTask-summary {
   color: var(--color_on_secondary);
+  font-weight: 600;
 }

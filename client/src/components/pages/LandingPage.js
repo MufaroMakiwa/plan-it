@@ -20,7 +20,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="LandingPage-background">
-        <h1 className="LandingPage-title-text">Plan-It!</h1>
+        <h1 className="LandingPage-title-text">PLAN-IT</h1>
         {this.props.userId ? (
           <GoogleLogout
             className="LandingPage-login-logout"
