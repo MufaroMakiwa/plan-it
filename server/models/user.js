@@ -10,6 +10,8 @@ const UserSchema = new mongoose.Schema({
   speed: Number,
   high_score: Number,
   icon: Number,
+  skin: Number,
+  available_skins: Array,
 });
 
 // compile model from schema

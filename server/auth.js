@@ -33,6 +33,8 @@ function getOrCreateUser(user) {
       speed: 1,
       high_score: 0,
       icon: 1,
+      skin: 1,
+      available_skins: [true, false, false, false, false],
     });
 
     return newUser.save();

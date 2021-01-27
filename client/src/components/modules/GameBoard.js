@@ -13,6 +13,7 @@ class GameBoard extends Component {
     this.state = {
       high_score: 0,
       curr_coins: 0,
+      skin: 1,
       board_height: 0,
       board_width: 0,
       player_x: 10,
@@ -66,6 +67,7 @@ class GameBoard extends Component {
       this.setState({
         curr_coins: profile.coins,
         high_score: profile.high_score,
+        skin: profile.skin,
       });
     });
   }
