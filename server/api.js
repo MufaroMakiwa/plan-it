@@ -202,6 +202,16 @@ router.post("/tasks/completed/delete", (req, res) => {
 router.post("/profile/points", (req, res) => {
   User.findById(req.body.userId).then((profile) => {
     profile.points = req.body.pts + profile.points;
+    profile.coins = req.body.coins + profile.coins;
+    profile.save().then((profile) => {
+      res.send(profile);
+    })
+  });
+})
+
+router.post("/profile/icon", (req, res) => {
+  User.findById(req.body.userId).then((profile) => {
+    profile.icon = req.body.icon;
     profile.save().then((profile) => {
       res.send(profile);
     })

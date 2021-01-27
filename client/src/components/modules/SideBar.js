@@ -5,8 +5,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { GoogleLogout } from 'react-google-login';
 import {get, post} from '../../utilities.js';
 import { socket } from "../../client-socket.js";
- 
-
+import Profile_Icon_1 from "../../public/Profile_Icon_1.png";
+import Profile_Icon_2 from "../../public/Profile_Icon_2.png";
 
 const GOOGLE_CLIENT_ID = "428252784086-go863k9aj8g435320oq90m85ma6odcul.apps.googleusercontent.com";
 
@@ -20,7 +20,8 @@ class SideBar extends Component {
         challengesCount: 0,
         friendRequestsCount: 0,
         animateChallengesNotificationIcon: false,
-        animateFriendsNotificationIcon: false
+        animateFriendsNotificationIcon: false,
+        iconNum: this.props.userIcon,
       }
   }
 
@@ -136,6 +137,7 @@ class SideBar extends Component {
     this.isMounted = true;
     this.getChallengesCount();
     this.getFriendRequestsCount();
+    this.getIconNum();
   }
 
 
@@ -147,8 +149,20 @@ class SideBar extends Component {
     navigate(link);
   }
 
+  getIconNum = () => {
+    get('/api/profile/fill', {
+      userId: this.props.userId,
+    }).then((profile) => {
+      this.setState({ iconNum: profile.icon})
+    });
+  }
 
-  render() { 
+  getIcon = (num) => {
+    if( num === 1 ) { return Profile_Icon_1 }
+    else { return Profile_Icon_2 }
+  }
+
+  render() {
     return ( 
       <div className={`SideBar-container ${!this.props.displayAsDrawer ? "SideBar-containerResponsive" : "SideBar-containerDrawer"}`}>
         {!this.props.displayAsDrawer && 
@@ -159,7 +173,7 @@ class SideBar extends Component {
         <div to="/profile" 
           onClick={() =>this.handleSubmit("/profile")}  
           className={`SideBar-profile ${"/profile" === this.props.link ? "SideBar-profileSelected" : ""}`}>       
-          <AccountCircleIcon style={{fontSize: 100}} />
+          <img src={"/profile" === this.props.link ? this.getIcon(this.props.userIcon) : this.getIcon(this.state.iconNum)} className="SideBar-usericon" alt="User Icon"/>
           <p className={this.props.userName ? "SideBar-username" : "SideBar-username SideBar-usernameHidden"}>
             {this.props.userName ? this.props.userName: "Placeholder"}
           </p>   

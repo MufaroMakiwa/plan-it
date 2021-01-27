@@ -176,6 +176,7 @@ class Friends extends Component {
         <SideBar 
           link="/friends"
           handleLogout={this.props.handleLogout}
+          userIcon={this.props.userIcon}
           userName={this.props.userName}/>
 
         <div className="dummy_div_left"></div>

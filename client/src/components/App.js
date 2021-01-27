@@ -26,6 +26,7 @@ class App extends Component {
       userId: undefined,
       userName: undefined,
       userEmail: undefined,
+      userIcon: undefined,
       loading: true,
     };
   }
@@ -38,6 +39,7 @@ class App extends Component {
           userId: user._id,
           userName: user.name,
           userEmail: user.email,
+          userIcon: user.icon,
           loading: false
         });
 
@@ -67,7 +69,8 @@ class App extends Component {
       this.setState({
          userId: user._id,
          userName: user.name,
-         userEmail: user.email
+         userEmail: user.email,
+         userIcon: user.icon,
         });
       post("/api/initsocket", { socketid: socket.id });
       navigate('/current');
@@ -78,7 +81,8 @@ class App extends Component {
     this.setState({ 
       userId: undefined,
       userName: undefined,
-      userEmail: undefined
+      userEmail: undefined,
+      userIcon: undefined,
     });
     post("/api/logout");
     navigate('/');
@@ -103,6 +107,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -111,6 +116,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -119,6 +125,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -127,6 +134,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -135,6 +143,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -143,6 +152,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
@@ -151,6 +161,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userName={this.state.userName}
+            userIcon={this.state.userIcon}
             userId={this.state.userId}
             userEmail={this.state.userEmail}/>
 
