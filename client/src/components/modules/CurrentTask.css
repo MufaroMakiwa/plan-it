@@ -142,7 +142,7 @@
 }
 
 .CurrentTask-progressButton {
-  width: 32px;
+  width: 72px;
   height: 16px;
   background-color: var(--color_on_secondary);
   display: flex;

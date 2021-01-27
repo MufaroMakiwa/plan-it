@@ -55,6 +55,7 @@ class UpdateTasks {
     newDate.setSeconds(0, 0);
     return newDate;
   }
+  
 
 
   static getPreviousLogMinute = (date) => {
