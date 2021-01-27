@@ -112,12 +112,24 @@
   margin: auto;
 }
 
+.Profile-Bottom-Image-Uncaptioned {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  margin: auto;
+}
+
 .Profile-Bottom-Image:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
 .Profile-Caption {
+  padding-top: 12px;
   font-size: 12px;
 }
 

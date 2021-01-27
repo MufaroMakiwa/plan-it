@@ -122,7 +122,7 @@ class Profile extends Component {
 
   buySkin = (num) => {
     console.log(this.state.available_skins);
-    if (this.state.currCoins > 20) {
+    if (this.state.currCoins >= 20) {
       let available_now = this.state.available_skins;
       available_now[num - 1] = true;
 
@@ -210,7 +210,7 @@ class Profile extends Component {
                 <div className="Profile-Icon-Container">
                   {this.state.available_skins[0] ?
                     (<div>
-                      <img src={Rocket_1} className="Profile-Bottom-Image" alt="Rocket Option 1" onClick={() => this.changeSkin(1)}/> 
+                      <img src={Rocket_1} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 1" onClick={() => this.changeSkin(1)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_1} className="Profile-Bottom-Image" alt="Rocket Option 1" onClick={() => this.buySkin(1)}/>
@@ -219,7 +219,7 @@ class Profile extends Component {
 
                   {this.state.available_skins[1] ?
                     (<div>
-                      <img src={Rocket_2} className="Profile-Bottom-Image" alt="Rocket Option 2" onClick={() => this.changeSkin(2)}/> 
+                      <img src={Rocket_2} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 2" onClick={() => this.changeSkin(2)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_2} className="Profile-Bottom-Image" alt="Rocket Option 2" onClick={() => this.buySkin(2)}/>
@@ -228,7 +228,7 @@ class Profile extends Component {
 
                     {this.state.available_skins[2] ?
                     (<div>
-                      <img src={Rocket_3} className="Profile-Bottom-Image" alt="Rocket Option 3" onClick={() => this.changeSkin(3)}/> 
+                      <img src={Rocket_3} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 3" onClick={() => this.changeSkin(3)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_3} className="Profile-Bottom-Image" alt="Rocket Option 3" onClick={() => this.buySkin(3)}/>
@@ -237,7 +237,7 @@ class Profile extends Component {
 
                     {this.state.available_skins[3] ?
                     (<div>
-                      <img src={Rocket_4} className="Profile-Bottom-Image" alt="Rocket Option 4" onClick={() => this.changeSkin(4)}/> 
+                      <img src={Rocket_4} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 4" onClick={() => this.changeSkin(4)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_4} className="Profile-Bottom-Image" alt="Rocket Option 4" onClick={() => this.buySkin(4)}/>
@@ -246,7 +246,7 @@ class Profile extends Component {
 
                     {this.state.available_skins[4] ?
                     (<div>
-                      <img src={Rocket_5} className="Profile-Bottom-Image" alt="Rocket Option 5" onClick={() => this.changeSkin(5)}/> 
+                      <img src={Rocket_5} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 5" onClick={() => this.changeSkin(5)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_5} className="Profile-Bottom-Image" alt="Rocket Option 5" onClick={() => this.buySkin(5)}/>
@@ -255,7 +255,7 @@ class Profile extends Component {
 
                     {this.state.available_skins[5] ?
                     (<div>
-                      <img src={Rocket_6} className="Profile-Bottom-Image" alt="Rocket Option 6" onClick={() => this.changeSkin(6)}/> 
+                      <img src={Rocket_6} className="Profile-Bottom-Image-Uncaptioned" alt="Rocket Option 6" onClick={() => this.changeSkin(6)}/> 
                     </div>):
                     (<div>
                       <img src={Rocket_6} className="Profile-Bottom-Image" alt="Rocket Option 6" onClick={() => this.buySkin(6)}/>
