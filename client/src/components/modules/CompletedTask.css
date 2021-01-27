@@ -3,6 +3,7 @@
   border-radius: 8px;
   padding: 16px;
   margin: 24px;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .CompletedTask-details {
@@ -78,7 +79,7 @@
 
 .CompletedTask-progressLabels {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   color: var(--color_on_secondary);
   font-style: italic;

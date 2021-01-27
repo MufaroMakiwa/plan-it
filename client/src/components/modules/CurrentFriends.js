@@ -36,7 +36,7 @@ class CurrentFriends extends Component {
     } else {
       friendsList = <EmptyState
                       heading="No friends!"
-                      message="You currently do not have any friend. Search for your friends by name and send requests to connect." />
+                      message="You currently do not have any friends. Search for your friends by name and send requests to connect." />
     }
 
     return ( 

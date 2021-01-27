@@ -51,7 +51,7 @@
 
 .AlertDialog-buttonCancel:hover {
   mix-blend-mode: multiply;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .AlertDialog-buttonAction:hover {

@@ -6,6 +6,8 @@ import AlertDialog from "../modules/AlertDialog.js";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { post } from '../../utilities';
 import { DateMethods } from "./DateMethods.js";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 class CurrentTask extends Component {
   constructor(props) {
@@ -209,20 +211,18 @@ class CurrentTask extends Component {
           </div>
 
 
-          <div className="CurrentTask-updateProgress">
-            <div>
-              <div className="CurrentTask-progressButton" onClick={this.incrementProgress}>
-                <AddIcon/>
-              </div>
-
-              <div className="CurrentTask-progressButton" onClick={this.decrementProgress}>
-                <RemoveIcon />
-              </div>
+          <div className="CurrentTask-updateProgress">          
+            <div className="CurrentTask-progressButton CurrentTask-progressButtonTop" onClick={this.incrementProgress}>
+              <KeyboardArrowUpIcon/>
             </div>
 
             <div className="CurrentTask-completedLabel">
               <p>{`${this.getCompletedDays()} ${this.getFrequencyLabel(this.getCompletedDays())} completed`}</p>
-            </div>            
+            </div>  
+
+            <div className="CurrentTask-progressButton CurrentTask-progressButtonBottom" onClick={this.decrementProgress}>
+              <KeyboardArrowDownIcon />
+            </div>           
           </div>
 
           <div className="CurrentTask-delete" onClick={() => {this.toggleAlertDialog(true)}}> 

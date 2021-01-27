@@ -1,5 +1,5 @@
 .FRCard-container {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--card_background);
   padding: 24px;
   display: flex;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -24,7 +24,7 @@
 .FRCard-email {
   font-size: 0.9em;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color_on_secondary);
 }
 
 .FRCard-name {
@@ -45,8 +45,8 @@
 
 .FRCard-buttonsContainer {
   display: flex;
+  width: 50%;
   flex-direction: row;
-  flex-grow: 1;
   justify-content: flex-end;
   align-items: center;
 }
@@ -62,38 +62,22 @@
 
 .FRCard-buttonCancel {
   margin-right: 8px;
-  border: 1px solid var(--background_color_secondary);
+  border: 1px solid var(--color_on_secondary);
   background-color: transparent;
-  color: var(--background_color_secondary);
+  color: var(--color_on-secondary);
 }
 
 .FRCard-buttonCancel:hover {
-  mix-blend-mode: multiply;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--button_hover);
 }
 
 .FRCard-buttonAction:hover {
-  mix-blend-mode: hard-light;
+  background: var(--button_hover);
 }
 
 .FRCard-buttonAction {
   border: none;
-  background-color: var(--background_color_secondary);
-  color: white;
-  margin-left: 8px;
-}
-
-.FRCard-buttonPending {
-  border: none;
-  background-color: rgb(79, 70, 85, 0.3);
-  color: rgb(255, 255, 255, 0.5);
-  cursor: not-allowed;
-  margin-left: 8px;
-}
-
-.FRCard-buttonAction {
-  border: none;
-  background-color: var(--background_color_secondary);
+  background-color: var(--color_on_secondary);
   color: white;
   margin-left: 8px;
 }
@@ -115,12 +99,17 @@
 
   .FRCard-buttonsContainer {
     margin-top: 24px;
+    width: 100%;
   }
 }
 
 @media all and (max-width: 400px) {
   .FRCard-details {
     margin-left: 8px;
+  }
+
+  .FRCard-buttonsContainer {
+    width: 100%;
   }
 
   .FRCard-email {

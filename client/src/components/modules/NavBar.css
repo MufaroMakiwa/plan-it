@@ -33,12 +33,12 @@
   justify-content: center;
   background-size: cover;
   background-position: center;
-  background-image: url("../../public/logo.png");
+  background-image: url("../../public/main.png");
   cursor: pointer;
 }
 
 .NavBar-nameContainer:hover {
-  background-image: url("../../public/logo_darker.png");
+  background-image: url("../../public/hover.png");
 }
 
 .NavBar-icon {
@@ -46,7 +46,7 @@
 }
 
 .NavBar-icon:hover {
-  color: rgb(255, 255, 255, 0.5);
+  color: var(--color_on_secondary);
 }
 
 .NavBar-dim_background {
@@ -57,6 +57,7 @@
   height: 100%;
   width: 100%;
   z-index: -2;
-  background-color: black;
-  opacity: 0.5;
+  background-color: rgb(255, 255, 255, 0.1);
+  background-color: var(--color_on_secondary);
+  opacity: 0.7;
 }

@@ -35,7 +35,9 @@ class Challenges extends Component {
   }
 
   getChallenges = () => {
+    console.log("Getting challenges");
     get("/api/tasks/challenges").then((challenges) => {
+      console.log(challenges)
       this.setState({ 
         challenges: challenges.reverse(),
         loading: false
@@ -248,7 +250,7 @@ class Challenges extends Component {
       }
 
     } else {
-      if (challengesReceived.length > 0) {
+      if (challengesSent.length > 0) {
         return challengesSent;
  
       } else {

@@ -23,9 +23,9 @@
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --white: #fff;
+
   --sidebar_width: 272px;
   --navbar_height: 75px;
-
   --background_color_secondary: #0a111f;
   --color_on_secondary: #6c7078;
   --red: #fa5460;
@@ -34,6 +34,8 @@
   --search_hover: rgb(79, 70, 85, 0.5);
   --button_hover: #3b404b;
   --cell_done: #cecfd2;
+  --divider: rgb(19, 30, 51);
+  --card_background: rgba(255, 255, 255, 0.04);
 
   --xs: 4px;
   --s: 8px;

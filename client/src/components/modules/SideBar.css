@@ -88,8 +88,7 @@
 }
 
 .SideBar-horizontalLine {
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  mix-blend-mode: overlay;
+  border: 1px solid var(--divider);
   width: 100%;
   margin: 0;
 }
@@ -164,9 +163,8 @@
 }
 
 .SideBar-divider {
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--divider);
   margin: 0 24px;
-  mix-blend-mode: overlay;
 }
 
 .SideBar-usericon {
@@ -224,7 +222,7 @@
   transition: ease-in;
   border-radius: 50%;
   cursor: pointer;
-  animation: rotateBall 8s linear infinite;
+  animation-play-state: paused;
 }
 
 @keyframes rotateBall {
@@ -236,7 +234,7 @@
 
 .SideBar-tagBall:hover {
   opacity: 0.8;
-  animation-play-state: paused;
+  animation: rotateBall 8s linear infinite;
 }
 
 .SideBar-rocketTag {
