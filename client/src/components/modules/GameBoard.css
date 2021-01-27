@@ -8,9 +8,9 @@
 .GameBoard-Main {
   height: 60vh;
   width: 60vw;
-  border-width: 10px;
-  border-style: solid;
-  border-color: var(--red);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: var(--card_background);
   /*background-color: #000318;*/
   position: relative;
   margin: 24px 48px;
@@ -27,7 +27,9 @@
   width: 20vw;
   border-radius: 20px;
   border-style: solid;
-  border-color: var(--red);
+  border-color: white;
+  background-color: white;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,10 +37,13 @@
 
 .GameBoard-Text {
   font-size: 2em;
-  color: #f8f8f8;
+  color: #0a111f;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .GameBoard-Score {
   font-size: 1.5em;
   color: #f8f8f8;
+  text-transform: uppercase;
 }
