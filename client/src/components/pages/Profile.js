@@ -35,7 +35,7 @@ class Profile extends Component {
       currNumFriends: 0,
       currCoins: 0,
       currIcon: this.props.userIcon,
-      available_skins: [true, false, false, false, false],
+      available_skins: [true, false, false, false, false, false],
       loading: true
     }
   }
