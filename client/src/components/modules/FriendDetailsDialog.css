@@ -34,12 +34,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background-color: #0a111f;
 }
 
 .FriendDetailsDialog-iconSmaller {
   display: none;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background-color: #0a111f;
+}
+
+.FriendDetailsDialog-bigIcon {
+  height: 50px;
+  width: 50px;
+}
+
+.FriendDetailsDialog-bigIcon {
+  height: 40px;
+  width: 40px;
 }
 
 .FriendDetailsDialog-buttonsContainer {

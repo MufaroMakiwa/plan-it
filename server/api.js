@@ -260,6 +260,11 @@ router.get("/friend/", (req, res) => {
   }) 
 })
 
+router.get("/friend/fill", (req, res) => {
+  User.findById(req.query._id).then((profile) => {
+    res.send(profile);
+  });
+});
 
 router.get("/friend/suggestions", (req, res) => {
   const query = {

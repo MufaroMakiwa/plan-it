@@ -29,6 +29,11 @@
   font-size: 0.9em;
 }
 
+.CFCard-icon {
+  width: 100px;
+  height: 100px;
+}
+
 .CFCard-content {
   display: flex;
   flex-direction: column;

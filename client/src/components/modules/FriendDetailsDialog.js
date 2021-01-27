@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Dialog, DialogContent } from '@material-ui/core';
 import "./FriendDetailsDialog.css"
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Icon_1 from "../../public/Profile_Icon_1.png";
+import Icon_2 from "../../public/Profile_Icon_2.png";
+import Icon_3 from "../../public/Profile_Icon_3.png";
+import Icon_4 from "../../public/Profile_Icon_4.png";
+import Icon_5 from "../../public/Profile_Icon_5.png";
+import Icon_6 from "../../public/Profile_Icon_6.png";
 
 class FriendDetailsDialog extends Component {
 
@@ -124,7 +129,16 @@ class FriendDetailsDialog extends Component {
         break;
     }
   }
-  
+
+  getIcon = () => {
+    if ( this.props.icon === 1 ) { return Icon_1 }
+    else if ( this.props.icon === 2 ) {return Icon_2 }
+    else if ( this.props.icon === 3 ) {return Icon_3 }
+    else if ( this.props.icon === 4 ) {return Icon_4 }
+    else if ( this.props.icon === 5 ) {return Icon_5 }
+    else if ( this.props.icon === 6 ) {return Icon_6 }
+    else { return Icon_1 }
+  }  
 
   componentDidMount() {
     this.getAction()
@@ -155,11 +169,11 @@ class FriendDetailsDialog extends Component {
 
               <div className="FriendDetailsDialog-detailsContainer">
                 <div className="FriendDetailsDialog-iconBigger"> 
-                  <AccountCircleIcon style={{fontSize: 50}}/>
+                  <img src={this.getIcon()} className="FriendDetailsDialog-bigIcon" alt="Search Result Icon"/>
                 </div>
 
                 <div className="FriendDetailsDialog-iconSmaller"> 
-                  <AccountCircleIcon style={{fontSize: 40}}/>
+                  <img src={this.getIcon()} className="FriendDetailsDialog-smallIcon" alt="Search Result Icon"/>
                 </div>
 
                 <div className="FriendDetailsDialog-details">

@@ -39,6 +39,16 @@
   justify-content: center;
 }
 
+.SearchSuggestion-bigIcon {
+  height: 50px;
+  width: 50px;
+}
+
+.SearchSuggestion-smallIcon {
+  height: 40px;
+  width: 40px;
+}
+
 @media all and (max-width: 400px) {
   .SearchSuggestion-email {
     font-size: 0.8em;
