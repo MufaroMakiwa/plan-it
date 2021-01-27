@@ -220,11 +220,11 @@ class GameBoard extends Component {
           <Opponent/>
         </div>
         <div className="GameBoard-Bottom">
-          <h3 className="GameBoard-Score"> Current Score: {this.state.curr_score} </h3>
+          <span className="GameBoard-Score"> Current Score: {this.state.curr_score} </span>
           <div id="Start" className="GameBoard-Button" onClick={this.playGame}>
-            <h3 className="GameBoard-Text">
+            <span className="GameBoard-Text">
               {(this.state.playing === false) ? "Start New Game" : "End Game"}
-            </h3>
+            </span>
           </div>
           <h3 className="GameBoard-Score"> High Score: {this.state.high_score} </h3>
         </div>
