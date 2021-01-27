@@ -170,6 +170,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin: var(--navbar_height) 24px 24px 24px;
   padding: 16px 8px 8px 8px;
   flex-direction: column;
