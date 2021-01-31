@@ -20,7 +20,7 @@ const addUser = (user, socket) => {
     }
     
     
-    oldSocket.disconnect();
+    // oldSocket.disconnect();
     delete socketToUserMap[oldSocket.id];
   }
 
