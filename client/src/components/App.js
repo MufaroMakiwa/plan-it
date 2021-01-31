@@ -50,12 +50,16 @@ class App extends Component {
         navigate("/");     
       }
     });
+
+    // when another tab is opened, log the user out on this tab
+    socket.on("disconnected", (val) => {
+      this.handleLogout();
+    })
   }
 
   componentDidUpdate() {
     window.onpopstate = e => {
       if (!this.state.userId) {
-        console.log(`Still navigating back: url is ${window.location.pathname}`)
         navigate("/");
       }
     }
@@ -65,7 +69,6 @@ class App extends Component {
     console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
-      console.log("Logged in, updating user credentials")
       this.setState({
          userId: user._id,
          userName: user.name,

@@ -1,0 +1,29 @@
+.UpdateTasksProgress-container {
+  background-color: var(--color_on_secondary);
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.UpdateTasksProgress-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 16px;
+}
+
+.UpdateTasksProgress-heading {
+  padding: 2px;
+  font-weight: bolder;
+  font-size: 1.1em;
+  color: black;
+}
+
+.UpdateTasksProgress-text {
+  padding: 2px;
+  font-style: italic;
+  font-size: 0.9em;
+  color: rgb(0, 0, 0, 0.8);
+}

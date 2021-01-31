@@ -20,12 +20,6 @@ const auth = require("./auth");
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
-// import node-cron to schedule tasks
-const cron = require('node-cron');
-
-// import updateTasks to run a script that updates all the task everr 24 hours
-const updateTasks = require("./updateTasks.js")
-
 //initialize socket
 const socketManager = require("./server-socket");
 
@@ -43,8 +37,10 @@ router.get("/whoami", (req, res) => {
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
-  if (req.user) socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
-  res.send({});
+  if (req.user) {
+    socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
+    res.send({});
+}
 });
 
 // |------------------------------|
@@ -422,10 +418,6 @@ router.post("/friend/request/cancel", (req, res) => {
     }
   });
 });
-
-cron.schedule('0 0 * * *', () => {
-  updateTasks.update();
-})
 
 
 // anything else falls to this "not found" case

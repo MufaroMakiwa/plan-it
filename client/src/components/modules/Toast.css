@@ -16,6 +16,7 @@
 .Toast-label {
   padding: 8px;
   color: black;
+  text-align: center;
 }
 
 @media all and (max-width: 480px) {

@@ -80,7 +80,7 @@ class CompletedTask extends Component {
     }
     let ratio = total / this.props.duration;
     let factor = Math.pow(ratio, 2);
-    return factor * this.props.duration * 100;
+    return Math.floor(factor * this.props.duration * 100);
   }
   
   render() { 

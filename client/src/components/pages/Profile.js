@@ -123,7 +123,6 @@ class Profile extends Component {
   }
 
   buySkin = (num) => {
-    console.log(this.state.available_skins);
     if (this.state.currCoins >= 20) {
       let available_now = this.state.available_skins;
       available_now[num - 1] = true;

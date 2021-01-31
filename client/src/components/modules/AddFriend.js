@@ -114,7 +114,6 @@ class AddFriend extends Component{
       userEmail_2: this.state.selectedUser.email
     }
     post("/api/friend/add", query).then(friendObj => {
-      console.log(friendObj);
     })
     this.closeSearch()
   }

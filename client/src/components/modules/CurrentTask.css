@@ -76,7 +76,10 @@
   margin: 8px;
 }
 
-.CurrentTask-delete:hover {
+.CurrentTask-deleteIcon {
+}
+
+.CurrentTask-deleteIcon:hover {
   color: var(--color_on_secondary);
   cursor: pointer;
 }

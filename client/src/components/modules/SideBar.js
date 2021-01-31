@@ -148,7 +148,6 @@ class SideBar extends Component {
 
   handleSubmit = (link) => {
     if (link === this.props.link) {
-      console.log("Clicked the same tab");
       return;
     }
     navigate(link);

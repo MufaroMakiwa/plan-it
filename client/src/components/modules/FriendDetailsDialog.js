@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Dialog, DialogContent } from '@material-ui/core';
-import "./FriendDetailsDialog.css"
+import "./FriendDetailsDialog.css";
 import Icon_1 from "../../public/Profile_Icon_1.png";
 import Icon_2 from "../../public/Profile_Icon_2.png";
 import Icon_3 from "../../public/Profile_Icon_3.png";
@@ -116,7 +116,6 @@ class FriendDetailsDialog extends Component {
   onAction = () => {
     switch (this.state.action) {
       case "Accept":
-        console.log("Accepted");
         this.props.acceptRequest()
         break;
 
@@ -152,12 +151,8 @@ class FriendDetailsDialog extends Component {
   handleClickOutSide = (event) => {
     const domNode = document.getElementById("FriendDetailsDialog-dialogId");
     if (!domNode || !domNode.contains(event.target)) {
-        console.log("Clicked outside");
         this.props.closeDialogOnOutsideClick()
-
-    } else {
-      console.log("Clicked inside");
-    }
+    } 
   }
 
   render() { 
@@ -165,7 +160,7 @@ class FriendDetailsDialog extends Component {
       <Dialog open>
         {!this.state.isLoading && (
           <DialogContent id="FriendDetailsDialog-dialogId">
-            <div method="dialog" className="FriendDetailsDialog-container" autoComplete="off">
+            <div method="dialog" className="FriendDetailsDialog-container">
 
               <div className="FriendDetailsDialog-detailsContainer">
                 <div className="FriendDetailsDialog-iconBigger"> 

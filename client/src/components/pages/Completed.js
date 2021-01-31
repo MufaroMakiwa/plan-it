@@ -67,7 +67,6 @@ class Completed extends Component {
   deleteNotification = () => {
     this.setState({displayToast: true})
     const timer = setTimeout(() => {
-      console.log(this.state)
       this.setState({
         displayToast: false
       })

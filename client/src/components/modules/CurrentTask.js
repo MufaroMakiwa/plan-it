@@ -28,6 +28,7 @@ class CurrentTask extends Component {
       Weekly : "week",
       Monthly : "month"
     }
+
     if (value === 1) {
       return labels[this.props.frequency]
     } else {
@@ -37,11 +38,15 @@ class CurrentTask extends Component {
 
   incrementProgress = () => {
     const newLog = DateMethods.resetToStart(this.props.frequency, new Date());
-    
     if (newLog.toString() === this.props.previous_progress_log) {
-      console.log("You have logged today's progress already")
       return;
     }
+
+    // if its a new day, run an update on all the tasks
+    if (DateMethods.resetToStartOfDay(new Date()).toString() !== this.props.lastUpdated) {
+      this.props.updateTasksBeforeLog();
+      return;
+    } 
     
 
     const new_progress = this.props.progress.concat([1]);
@@ -75,11 +80,15 @@ class CurrentTask extends Component {
 
   decrementProgress = () => {
     const currentPeriod = DateMethods.resetToStart(this.props.frequency, new Date());
-
     if (currentPeriod.toString() !== this.props.previous_progress_log) {
-      console.log("You cannot decrement progress now")
       return;
     }
+
+    // if its a new day, run an update on all the tasks
+    if (DateMethods.resetToStartOfDay(new Date()).toString() !== this.props.lastUpdated) {
+      this.props.updateTasksBeforeLog();
+      return;
+    } 
 
     const prevLog = DateMethods.getPreviousLog(this.props.frequency, currentPeriod);
     const new_progress = this.props.progress.slice(0, -1);
@@ -148,6 +157,12 @@ class CurrentTask extends Component {
   }
 
   deleteTask = () => {
+    // if its a new day, run an update on all the tasks
+    if (DateMethods.resetToStartOfDay(new Date()).toString() !== this.props.lastUpdated) {
+      this.props.updateTasksBeforeLog();
+      return;
+    } 
+    
     this.toggleAlertDialog(false);
 
     const query = {
@@ -225,8 +240,11 @@ class CurrentTask extends Component {
             </div>           
           </div>
 
-          <div className="CurrentTask-delete" onClick={() => {this.toggleAlertDialog(true)}}> 
-            <DeleteIcon fontSize="default" />
+          <div className="CurrentTask-delete" > 
+            <DeleteIcon 
+              fontSize="default" 
+              onClick={() => {this.toggleAlertDialog(true)}}
+              className="CurrentTask-deleteIcon"/>
           </div>
         </div>
 

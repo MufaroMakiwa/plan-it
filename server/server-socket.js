@@ -12,6 +12,14 @@ const addUser = (user, socket) => {
   if (oldSocket && oldSocket.id !== socket.id) {
     // there was an old tab open for this user, force it to disconnect
     // FIXME: is this the behavior you want?
+
+    try {
+      oldSocket.emit("disconnected", true);
+    } catch (err) {
+      console.log(err.message)
+    }
+    
+    
     oldSocket.disconnect();
     delete socketToUserMap[oldSocket.id];
   }
@@ -40,7 +48,6 @@ module.exports = {
 
   addUser: addUser,
   removeUser: removeUser,
-
   getSocketFromUserID: getSocketFromUserID,
   getUserFromSocketID: getUserFromSocketID,
   getSocketFromSocketID: getSocketFromSocketID,

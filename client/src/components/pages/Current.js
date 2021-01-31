@@ -12,6 +12,7 @@ import {get , post} from "../../utilities.js";
 import { socket } from "../../client-socket.js";
 import AddTaskButton from "../modules/AddTaskButton.js";
 import AddTaskDialog from "../modules/AddTaskDialog.js";
+import UpdateTasksProgress from "../modules/UpdateTasksProgress.js";
 import Toast from "../modules/Toast.js";
 import { DateMethods } from "../modules/DateMethods.js";
 import CustomBackground from '../modules/CustomBackground.js';
@@ -32,18 +33,128 @@ class Current extends Component {
       displayToastCompleted: false,
       loading: true, 
       hasIncompleteTasks: false,
+      lastUpdated: null,
+      updatingTasks: false,
     }
   }
 
   getCurrentTasks = () => {
     get("/api/tasks/current", { userId: this.props.userId }).then((tasks) => {
-      this.setState({ 
-        tasks: tasks.reverse(),
-        loading: false
-       })
+      this.updateTasks(tasks);    
     })
   }
+
+
+  getTaskUpdatePromises = (tasks) => {
+    let promises = []
+
+    for (let task of tasks) {
+      // get the new log date
+      const currentLog = DateMethods.resetToStart(task.frequency, new Date());
+      const newLog = DateMethods.getPreviousLog(task.frequency, new Date(currentLog));
+
+      // determine the missed logs
+      const missedLogs = DateMethods.getMissedLogs(task.frequency, task.previous_progress_log);
+
+      // get the new progress array
+      const to_add = Math.min(missedLogs, task.duration - task.progress.length);
+
+
+      const query = null;
+
+      if (to_add > 0) {
+        
+        // push the missed logs count to the progress array
+        let new_progress = [ ...task.progress ] ;
+
+        for (let i = 0; i < to_add; i++) {
+          new_progress.push(0);
+        }
+
+        // create the promise post request
+        if (new_progress.length < task.duration) {
+
+          // task is not yet complete
+          query = {
+            _id: task._id,
+            is_completed: false,
+            progress: new_progress,
+            previous_progress_log: newLog.toString(),
+            date_completed: null,
+            challengerId: task.challengerId,
+          }
+
+        } else  {
+
+          // task is now completed
+          query = {
+            _id: task._id,
+            is_completed: true,
+            progress: new_progress,
+            previous_progress_log: newLog.toString(),
+            date_completed: new Date().toString(),
+            challengerId: task.challengerId,
+          }
+        }
+
+      } else {
+        // task is up to date
+
+        query = {
+          _id: task._id,
+          is_completed: task.is_completed,
+          progress: task.progress,
+          previous_progress_log: task.previous_progress_log,
+          date_completed: task.date_completed,
+          challengerId: task.challengerId,
+        }
+      }
+      const promise = post("/api/tasks/update", query);
+
+      // add the task to the promises array
+      promises.push(promise);
+    }
+    return promises;
+  }
+
+
+  updateTasks = (tasks) => {
+    Promise.all(this.getTaskUpdatePromises(tasks)).then((tasks) => {
+      const filtered_tasks = tasks.filter(task => {
+        return !task.is_completed;
+      })
+
+      this.setState({ 
+        tasks: filtered_tasks.reverse(),
+        lastUpdated: DateMethods.resetToStartOfDay(new Date()).toString(),
+        loading: false
+      })
+    }).catch ((err) => {
+      // ignore the error
+    })
+  }
+
+
+  updateTasksBeforeLog = () => {
+    this.setState({ updatingTasks: true });
+    
+    const timer = setTimeout(() => {
+      this.setState({ updatingTasks: false });
+    }, 4000);
+
+    Promise.all(this.getTaskUpdatePromises(this.state.tasks)).then((tasks) => {
+      const filtered_tasks = tasks.filter(task => {
+        return !task.is_completed;
+      })
+      this.setState({ 
+        tasks: filtered_tasks,
+        lastUpdated: DateMethods.resetToStartOfDa(new Date()).toString(),
+      })
+    })
+    return () => clearTimeout(timer);
+  }
   
+
   componentDidMount() {
     this.isMounted = true;
     this.getCurrentTasks();
@@ -169,6 +280,8 @@ class Current extends Component {
           challenger={taskObj.challenger}
           is_challenge={taskObj.is_challenge}
           challengerId={taskObj.challengerId}
+          lastUpdated={this.state.lastUpdated}
+          updateTasksBeforeLog={this.updateTasksBeforeLog}
           previous_progress_log={taskObj.previous_progress_log}
           isPeriodTaskCompleted={this.isPeriodTaskCompleted(taskObj.frequency, taskObj.previous_progress_log)}
           onIncrement={() => this.incrementProgress(taskObj._id)}
@@ -236,6 +349,7 @@ class Current extends Component {
           </div>
         )}
 
+        {this.state.updatingTasks && (<UpdateTasksProgress />)}
       </div>
     );
   }

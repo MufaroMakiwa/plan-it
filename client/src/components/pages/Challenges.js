@@ -35,9 +35,7 @@ class Challenges extends Component {
   }
 
   getChallenges = () => {
-    console.log("Getting challenges");
     get("/api/tasks/challenges").then((challenges) => {
-      console.log(challenges)
       this.setState({ 
         challenges: challenges.reverse(),
         loading: false
@@ -60,9 +58,19 @@ class Challenges extends Component {
 
 
   componentDidMount() {
-    console.log("componentDidMount");
     this.isMounted = true;
     this.getChallenges();
+
+    // update to previous selection
+    const prevState = JSON.parse(localStorage.getItem('challengesState'))
+    if (!prevState) {
+      return;
+    }
+
+    this.setState({
+      displayChallengesReceived: prevState.displayChallengesReceived,
+      displayChallengesSent: prevState.displayChallengesSent
+    })
 
     // listen for events when the user gets a new challenge
     socket.on("new_challenge", (newChallenge) => {
@@ -106,16 +114,6 @@ class Challenges extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.userId && this.props.userId) {
       this.getChallenges();
-
-      // update to previous selection
-      const prevState = JSON.parse(localStorage.getItem('challengesState'))
-      if (!prevState) {
-        return;
-      }
-      this.setState({
-        displayChallengesReceived: prevState.displayChallengesReceived,
-        displayChallengesSent: prevState.displayChallengesSent
-      })
     }
   }
 
